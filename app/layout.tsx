@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import { Inter } from 'next/font/google';
 import './globals.css';
-import { Inter, Nabla } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,8 +26,12 @@ function Navbar() {
     <nav>
       <Link href="/">medilink</Link>
       <ul>
-        <li>Home</li>
-        <li>About</li>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/dashboard">Dashboard</Link>
+        </li>
       </ul>
     </nav>
   );
