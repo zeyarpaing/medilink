@@ -1,12 +1,13 @@
-import Link from 'next/link';
 import { Inter } from 'next/font/google';
+import Link from 'next/link';
+
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'medilink',
   description: 'Healthcare with ease for everyone',
+  title: 'medilink',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,8 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta charSet="utf-8" />
         <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta content={metadata.description} name="description" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
       </head>
       <body className={inter.className}>
         <Navbar />

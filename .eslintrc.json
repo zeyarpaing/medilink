@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["perfectionist", "jsx-a11y"],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:jsx-a11y/recommended",
+    "plugin:perfectionist/recommended-line-length"
+  ]
 }
