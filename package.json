@@ -12,9 +12,10 @@
     "@nextui-org/react": "^2.1.12",
     "@prisma/client": "^5.1.1",
     "framer-motion": "^10.15.1",
-    "next": "13.4.13",
+    "next": "13.4.19",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@types/node": "20.1.1",

@@ -1,3 +1,4 @@
+import { ButtonGroup, Button } from '@nextui-org/button';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -9,11 +10,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <main className="bg-red-300">
-        <Navbar />
-        {children}
-        <Footer />
-      </main>
+      <Navbar />
+      <main>{children}</main>
+      <ButtonGroup color="primary">
+        <Button>Button</Button>
+        <Button>Button</Button>
+        <Button>Button</Button>
+      </ButtonGroup>
+      <Footer />
     </>
   );
 }
@@ -37,7 +41,7 @@ function Navbar() {
 function Footer() {
   return (
     <footer>
-      <p>© 2021 medilink</p>
+      <p>© 2023 medilink</p>
     </footer>
   );
 }
