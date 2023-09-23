@@ -36,19 +36,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <NextUIProvider>
-      <ThemeProvider.Provider
-        value={{
-          setColorScheme: (colorScheme: ColorScheme) => {
-            setColorScheme(colorScheme);
-            updateColorScheme(colorScheme);
-            localStorage.setItem('colorScheme', colorScheme as string);
-          },
-          colorScheme,
-        }}
-      >
-        {children}
-      </ThemeProvider.Provider>
-    </NextUIProvider>
+    <ThemeProvider.Provider
+      value={{
+        setColorScheme: (colorScheme: ColorScheme) => {
+          setColorScheme(colorScheme);
+          updateColorScheme(colorScheme);
+          localStorage.setItem('colorScheme', colorScheme as string);
+        },
+        colorScheme,
+      }}
+    >
+      <NextUIProvider>{children}</NextUIProvider>
+    </ThemeProvider.Provider>
   );
 }
