@@ -25,7 +25,12 @@ const navigation = [
   sitemap['sign-up'],
   sitemap.login,
 ];
+
 const menuItems = navigation;
+
+function isActive(href: string) {
+  return href === (typeof window !== 'undefined' ? window.location.pathname : '');
+}
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -64,6 +69,7 @@ export default function Navbar() {
                 setOpenedDropdown('');
               }}
               isOpen={openedDropdown === item.href}
+              triggerScaleOnOpen={false}
               key={item.label}
             >
               <NavbarItem>
@@ -96,7 +102,7 @@ export default function Navbar() {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <NavbarItem isActive={item.href === window.location.pathname} key={item.label}>
+            <NavbarItem key={item.label}>
               {item.type === 'button' ? (
                 <Button variant={item.featured ? 'solid' : 'bordered'} href={item.href} color="primary" as={'a'}>
                   {item.label}
@@ -117,7 +123,7 @@ export default function Navbar() {
       <NavbarMenu className="py-6">
         {menuItems.map((item, index) =>
           item.children ? (
-            <Dropdown key={item.label}>
+            <Dropdown triggerScaleOnOpen={false} placement="bottom-start" className="w-full" key={item.label} size="lg">
               <NavbarItem>
                 <DropdownTrigger>
                   <button className="w-full px-4 py-2 text-left" type="button">
@@ -127,10 +133,10 @@ export default function Navbar() {
               </NavbarItem>
               <DropdownMenu
                 itemClasses={{
-                  base: 'gap-4',
+                  base: 'gap-4 w-full',
                 }}
-                aria-label="ACME features"
-                className="w-[340px]"
+                className="w-[677px]"
+                aria-label=""
               >
                 {
                   Object.values(item.children).map((child) => (
@@ -155,38 +161,5 @@ export default function Navbar() {
         )}
       </NavbarMenu>
     </$Navbar>
-  );
-  return (
-    <header className="border-b">
-      <nav className="mcontainer flex items-center justify-between py-3 ">
-        <Link className="py-3" href="/">
-          <Image src="/logo.svg" height={50} width={150} alt="logo" />
-        </Link>
-        <ul className="flex gap-2 [&_a]:px-4 [&_a]:py-3">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
-          {navigation.map((item) => (
-            <li key={item.label}>
-              <Link className="text-sm" href={item.href}>
-                {item.label}
-              </Link>
-              {/* {item.children && (
-                  <ul className="absolute bg-white shadow-md">
-                    {Object.values(item.children).map((child) => (
-                      <li key={child.label}>
-                        <Link href={child.href}>{child.label}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                )} */}
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </header>
   );
 }
