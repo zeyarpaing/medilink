@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main>
-      <section>Body</section>
-    </main>
+    <>
+      <section className="mcontainer">Basdfasdfasdf ody asdfasdf</section>
+    </>
   );
 }

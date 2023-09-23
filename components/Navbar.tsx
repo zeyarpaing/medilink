@@ -89,8 +89,8 @@ export default function Navbar() {
                 itemClasses={{
                   base: 'gap-4',
                 }}
-                aria-label="ACME features"
-                className="w-[340px]"
+                aria-label={item.label}
+                className="w-[200px]"
               >
                 {
                   Object.values(item.children).map((child) => (
@@ -135,7 +135,7 @@ export default function Navbar() {
                 itemClasses={{
                   base: 'gap-4 w-full',
                 }}
-                className="w-[677px]"
+                className="block w-[88vw]"
                 aria-label=""
               >
                 {
