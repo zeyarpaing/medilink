@@ -1,4 +1,5 @@
 import CoverIllustration from '@/app/(web)/CoverIllustration';
+import { Button } from '@nextui-org/button';
 import Image from 'next/image';
 
 export default function Home() {
@@ -14,10 +15,18 @@ export default function Home() {
             width={3556}
           /> */}
           <div className="absolute top-0 flex h-full w-full flex-col justify-center bg-gradient-to-tr from-white/80 to-transparent">
-            <div className="mcontainer flex flex-col items-center justify-center text-red-400 sm:flex-row sm:justify-between">
-              <div>
-                <h1 className="text-4xl font-black">Medilink</h1>
-                <h2>Best healthcare booking software</h2>
+            <div className="mcontainer flex flex-col items-center justify-center text-primary sm:flex-row sm:justify-between">
+              <div className="max-w-md">
+                <h1 className="mb-2 text-6xl font-black">Medilink</h1>
+                <h2 className="text-2xl"> Redefining how you access healthcare</h2>
+                <p className="mt-4">
+                  Embark on a journey to better health and well-being with Medilink. Take the first step towards
+                  effortless healthcare management, seamless appointments,
+                  <br /> and a healthier tomorrow.
+                </p>
+                <Button className="mt-4" color="primary" size="lg">
+                  Get started
+                </Button>
               </div>
               <div className="sm:pr-32">
                 <CoverIllustration className="cover" width={'100%'} height={480} />

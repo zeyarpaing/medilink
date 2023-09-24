@@ -10,6 +10,7 @@ import {
   NavbarItem,
 } from '@nextui-org/navbar';
 import { DropdownTrigger, DropdownMenu, DropdownItem, Dropdown } from '@nextui-org/dropdown';
+import ChevronDownIcon from '@/assets/icons/ChevronDownIcon';
 import { useRouter } from 'next/navigation';
 import { Button } from '@nextui-org/button';
 import { sitemap } from '@/lib/constants';
@@ -78,10 +79,15 @@ export default function Navbar() {
                     onMouseEnter={() => {
                       setOpenedDropdown(item.href);
                     }}
-                    className="px-4 py-2"
+                    className="flex items-center gap-2 px-4 py-2"
                     type="button"
                   >
-                    {item.label}
+                    {item.label}{' '}
+                    <ChevronDownIcon
+                      className={`mt-0.5 h-4 w-4 transition-transform ${
+                        openedDropdown === item.href ? 'rotate-180' : 'rotate-0'
+                      }`}
+                    />
                   </button>
                 </DropdownTrigger>
               </NavbarItem>
@@ -116,18 +122,42 @@ export default function Navbar() {
           )
         )}
       </NavbarContent>
+      <MobileNav isMenuOpen={isMenuOpen} />
+    </$Navbar>
+  );
+}
 
+function MobileNav({ isMenuOpen }: { isMenuOpen: boolean }) {
+  const [openedDropdown, setOpenedDropdown] = useState('');
+  const router = useRouter();
+
+  return (
+    <>
       <NavbarContent className="sm:hidden" justify="end">
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className="sm:hidden" />
       </NavbarContent>
       <NavbarMenu className="py-6">
         {menuItems.map((item, index) =>
           item.children ? (
-            <Dropdown triggerScaleOnOpen={false} placement="bottom-start" className="w-full" key={item.label} size="lg">
+            <Dropdown
+              onOpenChange={(isOpen) => {
+                setOpenedDropdown(isOpen ? item.href : '');
+              }}
+              triggerScaleOnOpen={false}
+              placement="bottom-start"
+              className="w-full"
+              key={item.label}
+              size="lg"
+            >
               <NavbarItem>
                 <DropdownTrigger>
-                  <button className="w-full px-4 py-2 text-left" type="button">
-                    {item.label}
+                  <button className="flex w-full items-center justify-between gap-2 px-4 py-2 text-left" type="button">
+                    {item.label}{' '}
+                    <ChevronDownIcon
+                      className={`mt-0.5 h-4 w-4 transition-transform ${
+                        openedDropdown === item.href ? 'rotate-180' : 'rotate-0'
+                      }`}
+                    />
                   </button>
                 </DropdownTrigger>
               </NavbarItem>
@@ -160,6 +190,6 @@ export default function Navbar() {
           )
         )}
       </NavbarMenu>
-    </$Navbar>
+    </>
   );
 }
