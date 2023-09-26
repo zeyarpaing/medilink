@@ -5,11 +5,21 @@ module.exports = {
   plugins: [
     nextui({
       themes: {
+        dark: {
+          colors: {
+            primary: { DEFAULT: '#F13456', foreground: '#fff' },
+            secondary: 'rgba(239, 50, 84, 0.25)',
+            background: '#101010',
+            foreground: '#f3f3f3',
+          },
+          extend: 'light',
+        },
         light: {
           colors: {
             primary: { DEFAULT: '#EF3254', foreground: '#fff' },
             secondary: 'rgba(239, 50, 84, 0.25)',
           },
+          foreground: '#101010',
         },
       },
       layout: {
