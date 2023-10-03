@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .header {
+    @apply text-4xl font-extrabold;
+  }
+}
+
 @layer utilities {
   .mcontainer {
     @apply container mx-auto px-4;
