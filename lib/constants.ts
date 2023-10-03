@@ -11,11 +11,11 @@ export const sitemap: Record<
   healthProviders: {
     children: {
       hospitals: {
-        href: '/providers/hospitals',
+        href: '/providers/hospital',
         label: 'Hospitals',
       },
       clinics: {
-        href: '/providers/clinics',
+        href: '/providers/clinic',
         label: 'Clinics',
       },
     },
