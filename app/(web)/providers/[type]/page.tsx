@@ -3,6 +3,7 @@ import { Button } from '@nextui-org/button';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
 
+export const dynamic = 'force-static';
 const providers = {
   hospitals: [
     {
@@ -49,14 +50,16 @@ const providers = {
 export default async function Page({ params }: { params: { type: 'hospitals' | 'clinics' } }) {
   const providerType = params.type;
 
+  console.log('fetching hospitals ');
   const providers = await prisma.healthcareProvider.findMany({
     where: {
       type: providerType,
     },
   });
+  console.log('fetched hospitals ');
 
   return (
-    <section className="mcontainer">
+    <section className="mcontainer min-h-screen py-12">
       <h1 className="header mb-4 mt-12 capitalize">{providerType}</h1>
       <p className="mb-12 text-lg font-medium">
         Medilink is used by the best healthcare providers in Myanmar. Find the best {providerType} in your area and book

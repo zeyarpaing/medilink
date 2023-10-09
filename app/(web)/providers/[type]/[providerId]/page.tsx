@@ -6,7 +6,7 @@ type Props = {};
 
 export default async function Page({ params }: { params: { providerId: string } }) {
   const id = params.providerId;
-
+  if (!+id) return <div>Not found</div>;
   const provider = await prisma.healthcareProvider.findUnique({
     where: {
       id: parseInt(id),
@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { providerId: string } 
   }
 
   return (
-    <div className="rounded-lg bg-white p-4 shadow-lg">
+    <div className="mcontainer min-h-screen py-12">
       <div className="mb-4">
         <h1 className="text-3xl font-semibold">{provider.name}</h1>
         <p className="text-gray-600">{provider.address}</p>

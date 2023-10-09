@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@nextui-org/button';
+import { ButtonProps, Button } from '@nextui-org/button';
 import { twMerge } from 'tailwind-merge';
 
 export default function CTAButton({ className, ...props }: ButtonProps) {

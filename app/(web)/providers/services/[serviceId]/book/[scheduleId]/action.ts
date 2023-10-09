@@ -1,8 +1,14 @@
 'use server';
 
+import { RedirectType } from 'next/dist/client/components/redirect';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
 
-export async function createBooking(scheduleId: string, formData: FormData) {
+export async function createBooking(
+  { scheduleId, serviceId }: { scheduleId: string; serviceId: string },
+  formData: FormData
+) {
   console.log('createBooking', scheduleId, formData.get('paymentMethod'));
 
   const booking = await prisma.booking.create({
@@ -24,7 +30,8 @@ export async function createBooking(scheduleId: string, formData: FormData) {
     },
   });
   if (!booking) {
-    return 'Booking failed';
+    redirect('/');
   }
-  return 'Booking successful';
+  revalidatePath(`/providers/services/${serviceId}`);
+  redirect(`/providers/services/${serviceId}`, RedirectType.replace);
 }

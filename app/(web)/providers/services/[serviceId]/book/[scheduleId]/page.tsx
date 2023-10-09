@@ -1,15 +1,27 @@
 'use client';
+
 import { createBooking } from '@/app/(web)/providers/services/[serviceId]/book/[scheduleId]/action';
+import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import { SelectItem, Select } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
 
-export default function Page({ params }: { params: { scheduleId: string; serviceId: string } }) {
-  const scheduleId = params.scheduleId;
-
-  const createBookingWithSerciceId = createBooking.bind(null, scheduleId);
+function SubmitButton() {
+  const { pending } = useFormStatus();
 
   return (
-    <div>
+    <Button isLoading={pending} color="primary" type="submit">
+      Book Now
+    </Button>
+  );
+}
+export default function Page({ params }: { params: { scheduleId: string; serviceId: string } }) {
+  const scheduleId = params.scheduleId;
+  const serviceId = params.serviceId;
+
+  const createBookingWithSerciceId = createBooking.bind(null, { scheduleId, serviceId });
+
+  return (
+    <div className="mcontainer min-h-screen py-12">
       <form
         className="mx-auto flex max-w-lg flex-col gap-4 py-12 [&_input]:block [&_label]:block [&_label]:w-full"
         action={createBookingWithSerciceId}
@@ -31,15 +43,13 @@ export default function Page({ params }: { params: { scheduleId: string; service
 
         <Select placeholder="Card or e-wallet" labelPlacement="outside" label="Payment method" name="paymentMethod">
           <SelectItem value="card" key="card">
-            Card
+            Pay at the counter
           </SelectItem>
-          <SelectItem value="e-wallet" key="e-wallet">
-            E Wallet
-          </SelectItem>
+          {/* <SelectItem value="e-wallet" key="e-wallet"> */}
+          {/* E Wallet */}
+          {/* </SelectItem> */}
         </Select>
-        <Button color="primary" type="submit">
-          Book Now
-        </Button>
+        <SubmitButton />
       </form>
     </div>
   );

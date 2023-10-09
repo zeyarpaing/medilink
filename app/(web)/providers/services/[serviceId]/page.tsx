@@ -17,8 +17,19 @@ export default async function Page({ params }: { params: { serviceId: string } }
   if (!service) {
     return <div>Not found</div>;
   }
+
+  const bookings: Record<string, number> = {};
+  for (const schedule of service?.schedule) {
+    const count = await prisma.booking.count({
+      where: {
+        scheduleId: schedule.id,
+      },
+    });
+    bookings[schedule.id] = count;
+  }
+
   return (
-    <div className="rounded-lg bg-white p-4 shadow-lg">
+    <div className="mcontainer min-h-screen py-12">
       <div className="mb-4">
         <h1 className="text-3xl font-semibold">{service.name}</h1>
         <p className="text-gray-600">{service.description}</p>
@@ -32,6 +43,8 @@ export default async function Page({ params }: { params: { serviceId: string } }
             <p className="mt-2 text-gray-700">
               Time: {schedule.time.toLocaleTimeString()} | Duration: {schedule.duration} minutes
             </p>
+            <p className="text-bold">Booked : {bookings[schedule.id]}</p>
+            <p> Max booking : {schedule.maxBooking}</p>
             <CTAButton href={`${service.id}/book/${schedule.id}`} as={'a'}>
               Book this schedule
             </CTAButton>
