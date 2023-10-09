@@ -111,7 +111,7 @@ export default function Home() {
           </li>
         </ul>
       </section>
-      <section className="mt-12 bg-primary/30 py-12">
+      {/* <section className="mt-12 bg-primary/30 py-12">
         <div className="mcontainer flex flex-wrap items-center justify-evenly gap-x-4 gap-y-8 ">
           {[
             {
@@ -141,7 +141,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
       <Testimonial />
       <FAQSection />
     </>

@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useEffect, useState } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
+import { SessionProvider } from 'next-auth/react';
 
 const ThemeProvider = createContext({
   setColorScheme: (colorScheme: ColorScheme) => {},
@@ -46,7 +47,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         colorScheme,
       }}
     >
-      <NextUIProvider>{children}</NextUIProvider>
+      <SessionProvider>
+        <NextUIProvider>{children}</NextUIProvider>
+      </SessionProvider>
     </ThemeProvider.Provider>
   );
 }

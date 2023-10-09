@@ -39,12 +39,17 @@ export const sitemap: Record<
   login: {
     featured: true,
     type: 'button',
-    label: 'Login',
-    href: '/login',
+    label: 'Sign in',
+    href: '/signin',
   },
   'sign-up': {
-    href: '/sign-up',
+    href: '/signup',
     label: 'Sign up',
+    type: 'button',
+  },
+  signOut: {
+    href: '/signout',
+    label: 'Sign out',
     type: 'button',
   },
   contact: {
