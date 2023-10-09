@@ -51,6 +51,7 @@ export default function Testimonial() {
           pagination={{
             clickable: true,
           }}
+          loop={true}
           className="mySwiper h-[22rem] [&_.swiper-pagination]:-mb-3"
           modules={[Pagination, Navigation]}
           spaceBetween={30}
