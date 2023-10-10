@@ -4,17 +4,29 @@ import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import { SelectItem, Select } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
 import { createUser } from '@/app/(web)/signup/action';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
     <Button isLoading={pending} color="primary" type="submit">
-     Sign up
+      Sign up
     </Button>
   );
 }
 export default function Page() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/providers/hospital');
+    }
+  }, [status]);
+
   return (
     <div className="mcontainer min-h-screen py-12">
       <form

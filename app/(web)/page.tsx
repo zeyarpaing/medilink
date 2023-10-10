@@ -51,9 +51,9 @@ export default function Home() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48" width="48">
               <g fill="none">
                 <rect
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                   stroke="currentColor"
-                  stroke-width="4"
+                  strokeWidth="4"
                   height="26"
                   width="38"
                   rx="3"
@@ -65,11 +65,11 @@ export default function Home() {
                   fill="currentColor"
                 />
                 <path
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   d="M18 29h12m-6-6v12"
                   stroke="currentColor"
-                  stroke-width="4"
+                  strokeWidth="4"
                 />
               </g>
             </svg>
@@ -81,10 +81,10 @@ export default function Home() {
           </li>
           <li>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48" width="48">
-              <g stroke="currentColor" stroke-width="4" fill="none">
-                <path d="M4 5h40M4 43h40M8 36v7" stroke-linecap="round" />
+              <g stroke="currentColor" strokeWidth="4" fill="none">
+                <path d="M4 5h40M4 43h40M8 36v7" strokeLinecap="round" />
                 <path d="M12 28H4v8h8v-8Zm16-8h-8v8h8v-8Zm16-8h-8v8h8v-8Z" stroke-linejoin="round" />
-                <path d="M40 20v23M8 12v1m0 7v1m15-9v1m1 15v15" stroke-linecap="round" />
+                <path d="M40 20v23M8 12v1m0 7v1m15-9v1m1 15v15" strokeLinecap="round" />
               </g>
             </svg>
 
@@ -98,8 +98,8 @@ export default function Home() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48" width="48">
               <g stroke-linejoin="round" stroke="currentColor" stroke-width="4" fill="none">
                 <path d="M6 9.256L24.009 4L42 9.256v10.778C42 31.362 34.75 40.419 24.003 44C13.253 40.42 6 31.36 6 20.029V9.256Z" />
-                <circle stroke-linecap="round" cy="18" cx="24" r="5" />
-                <path d="M32 31a8 8 0 1 0-16 0" stroke-linecap="round" />
+                <circle strokeLinecap="round" cy="18" cx="24" r="5" />
+                <path d="M32 31a8 8 0 1 0-16 0" strokeLinecap="round" />
               </g>
             </svg>
 

@@ -1,10 +1,18 @@
 'use client';
 import { Button } from '@nextui-org/button';
 import { getCsrfToken, signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function SignIn() {
-  //   const csrfToken = await getCsrfToken();
-  const { data, status } = useSession();
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/providers/hospital');
+    }
+  }, [status]);
 
   return (
     <div className="mcontainer min-h-screen py-12">
@@ -17,35 +25,24 @@ export default function SignIn() {
               email: e.currentTarget.email.value,
               password: e.currentTarget.password.value,
             },
-            // callbackUrl: '/signin',
+            callbackUrl: '/providers/hospital',
           });
-          console.log('res ', res);
         }}
       >
         <h1 className="text-center text-2xl font-bold">Sign in </h1>
-        {/* <label>
-          Username:
-          <input className="w-full rounded-lg border p-3" name="username" type="text" required />
-        </label> */}
+
         <label>
-          Email:
-          <input className="w-full rounded-lg border p-3" name="email" type="email" required />
+          Email
+          <input className="mt-1 w-full rounded-lg border p-3" name="email" type="email" required />
         </label>
-        {/* <label>
-    Phone:
-    <input className="w-full rounded-lg border p-3" name="phone" type="tel" required />
-  </label> */}
         <label>
-          Password:
-          <input className="w-full rounded-lg border p-3" name="password" type="password" required />
+          Password
+          <input className="mt-1 w-full rounded-lg border p-3" name="password" type="password" required />
         </label>
 
         <Button color="primary" type="submit">
           Sign in
         </Button>
-
-        {JSON.stringify(data?.user)}
-        {status}
       </form>
     </div>
   );

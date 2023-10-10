@@ -10,6 +10,17 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
   session: { strategy: 'jwt' },
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      return token;
+    },
+    session: async ({ session, token }) => {
+      // @ts-ignore
+      session.user = token.user;
+      return session;
+    },
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -19,7 +30,7 @@ export const authOptions: NextAuthOptions = {
       id: 'credentials',
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'jsmith@gmail.com' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
@@ -29,6 +40,14 @@ export const authOptions: NextAuthOptions = {
           where: {
             email: credentials?.email,
           },
+          select: {
+            role: true,
+            password: true,
+            email: true,
+            name: true,
+            image: true,
+            id: true,
+          },
         });
         console.log('authorize', user);
         if (!user) return null;
@@ -36,14 +55,13 @@ export const authOptions: NextAuthOptions = {
         const comp = password.compare(user?.password);
         console.log('compaare ', comp);
         if (!comp) return null;
-        return user;
+        return { ...user, password: undefined };
       },
     }),
   ],
   pages: {
     signIn: '/signin',
     signOut: '/signout',
-    // newUser: '/signup',
   },
 };
 
