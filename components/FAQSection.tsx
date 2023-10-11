@@ -5,7 +5,7 @@ import RedirectButton from '@/components/RedirectButton';
 import AddIcon from '@/assets/icons/AddIcon';
 import { sitemap, topFAQs } from '@/lib/constants';
 
-export default function FAQSection({ hideFAQs = false, faqs = topFAQs }: { hideFAQs?: boolean; faqs: typeof topFAQs }) {
+export default function FAQSection({ hideFAQs = false, faqs = topFAQs }: { hideFAQs?: boolean; faqs?: typeof topFAQs }) {
   return (
     <section className="mcontainer my-24">
       <h2 className="header mb-6">Frequently Asked Questions</h2>
