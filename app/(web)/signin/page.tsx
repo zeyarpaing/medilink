@@ -1,15 +1,17 @@
 'use client';
 import { Button } from '@nextui-org/button';
 import { getCsrfToken, signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function SignIn() {
   const { status } = useSession();
   const router = useRouter();
 
+  const params = useSearchParams();
+  // console.log();
   useEffect(() => {
-    if (status === 'authenticated') {
+    if (status !== 'loading' && status === 'authenticated') {
       router.replace('/providers/hospital');
     }
   }, [status]);
@@ -25,7 +27,7 @@ export default function SignIn() {
               email: e.currentTarget.email.value,
               password: e.currentTarget.password.value,
             },
-            callbackUrl: '/providers/hospital',
+            callbackUrl: params.get('callbackUrl') || '/providers/hospital',
           });
         }}
       >

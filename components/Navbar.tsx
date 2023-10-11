@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/navbar';
 import { DropdownTrigger, DropdownMenu, DropdownItem, Dropdown } from '@nextui-org/dropdown';
 import ChevronDownIcon from '@/assets/icons/ChevronDownIcon';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@nextui-org/button';
 import { sitemap } from '@/lib/constants';
 import { useEffect, useState } from 'react';
@@ -29,7 +29,6 @@ export default function Navbar() {
   const router = useRouter();
   const [navigation, setNavigation] = useState([
     sitemap.healthProviders,
-    sitemap.services,
     sitemap.about,
     sitemap.contact,
     sitemap['sign-up'],
@@ -40,16 +39,9 @@ export default function Navbar() {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      setNavigation([sitemap.healthProviders, sitemap.services, sitemap.about, sitemap.contact]);
+      setNavigation([sitemap.healthProviders, sitemap.about, sitemap.contact]);
     } else {
-      setNavigation([
-        sitemap.healthProviders,
-        sitemap.services,
-        sitemap.about,
-        sitemap.contact,
-        sitemap['sign-up'],
-        sitemap.login,
-      ]);
+      setNavigation([sitemap.healthProviders, sitemap.about, sitemap.contact, sitemap['sign-up'], sitemap.login]);
     }
   }, [status]);
 
@@ -111,7 +103,7 @@ export default function Navbar() {
                   base: 'gap-4',
                 }}
                 aria-label={item.label}
-                className="w-[200px]"
+                className="w-[250px]"
               >
                 {
                   Object.values(item.children).map((child) => (
@@ -137,7 +129,7 @@ export default function Navbar() {
           )
         )}
         {status === 'authenticated' ? (
-          <Dropdown triggerScaleOnOpen={false} placement="bottom-end" className="w-full" size="lg">
+          <Dropdown placement="bottom-end" className="w-full" size="lg">
             <NavbarItem>
               <DropdownTrigger>
                 <button
@@ -182,14 +174,27 @@ export default function Navbar() {
           ''
         )}
       </NavbarContent>
-      <MobileNav isMenuOpen={isMenuOpen} navigation={navigation} />
+      <MobileNav isMenuOpen={isMenuOpen} navigation={navigation} setMenuOpen={setIsMenuOpen} />
     </$Navbar>
   );
 }
 
-function MobileNav({ isMenuOpen, navigation }: { isMenuOpen: boolean; navigation: (typeof sitemap)['string'][] }) {
+function MobileNav({
+  isMenuOpen,
+  navigation,
+  setMenuOpen,
+}: {
+  isMenuOpen: boolean;
+  navigation: (typeof sitemap)['string'][];
+  setMenuOpen: (isOpen: boolean) => void;
+}) {
   const [openedDropdown, setOpenedDropdown] = useState('');
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>

@@ -3,6 +3,7 @@ import Testimonial from '@/components/Testimonial';
 import FAQSection from '@/components/FAQSection';
 import { Button } from '@nextui-org/button';
 import Image from 'next/image';
+import CTAButton from '@/components/CTAButton';
 
 export default function Home() {
   return (
@@ -27,9 +28,7 @@ export default function Home() {
                   effortless healthcare management, seamless appointments,
                   <br /> and a healthier tomorrow.
                 </p>
-                <Button className="mt-4 w-full sm:w-fit" color="primary" size="lg">
-                  Get started
-                </Button>
+                <CTAButton>Get started</CTAButton>
               </div>
               <div className="sm:pr-32">
                 <CoverIllustration className="cover" width={'100%'} height={480} />
