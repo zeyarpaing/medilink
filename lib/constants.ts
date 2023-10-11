@@ -40,6 +40,14 @@ export const sitemap: Record<
     label: 'Services',
     href: '/services',
   },
+  privacyPolicy: {
+    label: 'Privacy policy',
+    href: '/privacy-policy',
+  },
+  termsAndConditions: {
+    label: 'Terms and conditions',
+    href: '/terms-and-conditions',
+  },
   login: {
     featured: true,
     type: 'button',
