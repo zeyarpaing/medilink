@@ -42,7 +42,7 @@ export default function Page({ params }: { params: { scheduleId: string; service
       >
         <h1 className="text-center text-2xl font-bold">Pay to confirm the booking </h1>
         <small>ID: {scheduleId}</small>
-        {/* <input
+        <input
           disabled
           className="w-full rounded-lg border p-3 disabled:bg-gray-200"
           name="userid"
@@ -76,8 +76,8 @@ export default function Page({ params }: { params: { scheduleId: string; service
         <label>
           Phone:
           <input className="w-full rounded-lg border p-3" name="phone" type="tel" required />
-        </label> */}
-        <img src="/image.jpg" />
+        </label>
+        {/* <img src="/image.jpg" /> */}
         <SubmitButton />
       </form>
     </div>

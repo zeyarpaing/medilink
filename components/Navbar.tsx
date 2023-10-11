@@ -29,7 +29,7 @@ export default function Navbar() {
   const router = useRouter();
   const [navigation, setNavigation] = useState([
     sitemap.healthProviders,
-    sitemap.about,
+    sitemap.faq,
     sitemap.contact,
     sitemap['sign-up'],
     sitemap.login,
@@ -39,9 +39,9 @@ export default function Navbar() {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      setNavigation([sitemap.healthProviders, sitemap.about, sitemap.contact]);
+      setNavigation([sitemap.healthProviders, sitemap.faq, sitemap.contact]);
     } else {
-      setNavigation([sitemap.healthProviders, sitemap.about, sitemap.contact, sitemap['sign-up'], sitemap.login]);
+      setNavigation([sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap['sign-up'], sitemap.login]);
     }
   }, [status]);
 

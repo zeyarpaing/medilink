@@ -1,3 +1,7 @@
+import FacebookIcon from '@/assets/icons/FacebookIcon';
+import InstagramIcon from '@/assets/icons/InstagramIcon';
+import LinkedinIcon from '@/assets/icons/LinkedinIcon';
+
 export const sitemap: Record<
   string,
   {
@@ -205,3 +209,22 @@ export const topFAQs: Array<{
 ];
 
 export const phoneNumber = '+959 12345678';
+
+export const address = 'No. 18, Bogyoke Street, Yangon, Myanmar';
+export const socialMidea = {
+  facebook: {
+    icon: FacebookIcon,
+    label: 'medilink',
+    link: 'https://facebook.com/medilink',
+  },
+  linkedIn: {
+    icon: LinkedinIcon,
+    label: 'medilink',
+    link: 'https://linkedin.com/medilink',
+  },
+  instagram: {
+    icon: InstagramIcon,
+    label: '@medilink',
+    link: 'https://instagram.com/@medilink',
+  },
+};
