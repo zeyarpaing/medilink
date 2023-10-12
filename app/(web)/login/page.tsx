@@ -1,24 +1,11 @@
 'use client';
 import { sitemap } from '@/lib/constants';
 import { Button } from '@nextui-org/button';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
-import { experimental_useFormStatus as useFormStatus } from 'react-dom';
+import { useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 export default function SignIn() {
-  const { status } = useSession();
-  const router = useRouter();
-
   const params = useSearchParams();
-  // console.log();
-  useEffect(() => {
-    if (status !== 'loading' && status === 'authenticated') {
-      router.replace(sitemap.healthProviders.href);
-    }
-  }, [status]);
-
-  const { pending } = useFormStatus();
 
   return (
     <div className="mcontainer min-h-screen py-12">
@@ -26,7 +13,7 @@ export default function SignIn() {
         className="mx-auto flex max-w-lg flex-col gap-4 py-12 [&_input]:block [&_label]:block [&_label]:w-full"
         onSubmit={async (e) => {
           e.preventDefault();
-          let res = await signIn('credentials', {
+          await signIn('credentials', {
             ...{
               email: e.currentTarget.email.value,
               password: e.currentTarget.password.value,
@@ -46,8 +33,8 @@ export default function SignIn() {
           <input className="mt-1 w-full rounded-lg border p-3" name="password" required type="password" />
         </label>
 
-        <Button color="primary" isLoading={pending} type="submit">
-          Sign in
+        <Button color="primary" type="submit">
+          Login
         </Button>
       </form>
     </div>

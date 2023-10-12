@@ -2,10 +2,6 @@
 
 import { createUser } from '@/app/(web)/register/action';
 import { Button } from '@nextui-org/button';
-import { Select, SelectItem } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
 function SubmitButton() {
@@ -18,15 +14,6 @@ function SubmitButton() {
   );
 }
 export default function Page() {
-  const { status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      router.replace('/providers/hospital');
-    }
-  }, [status]);
-
   return (
     <div className="mcontainer min-h-screen py-12">
       <form

@@ -1,12 +1,8 @@
 'use client';
 
 import { createBooking } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
-import { sitemap } from '@/lib/constants';
 import { Button } from '@nextui-org/button';
-import { Select, SelectItem } from '@nextui-org/react';
-import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
 function SubmitButton() {
@@ -22,18 +18,9 @@ export default function Page({ params }: { params: { scheduleId: string; service
   const scheduleId = params.scheduleId;
   const serviceId = params.serviceId;
 
-  const { data, status } = useSession();
+  const { data } = useSession();
 
   const createBookingWithSerciceId = createBooking.bind(null, { scheduleId, serviceId });
-
-  const router = useRouter();
-  const path = usePathname();
-
-  useEffect(() => {
-    if (status !== 'loading' && status !== 'authenticated') {
-      router.replace(sitemap.login.href + `?callbackUrl=${encodeURIComponent(path)}`);
-    }
-  }, [status]);
 
   return (
     <div className="mcontainer min-h-screen py-12">
@@ -49,7 +36,6 @@ export default function Page({ params }: { params: { scheduleId: string; service
           name="userid"
           required
           type="text"
-          // @ts-ignore
           value={data?.user?.id}
         />
         <label>
