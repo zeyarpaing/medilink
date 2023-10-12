@@ -1,53 +1,53 @@
-import { CardHeader, CardFooter, CardBody, Card } from '@nextui-org/card';
-import { Button } from '@nextui-org/button';
 import prisma from '@/lib/prisma';
+import { Button } from '@nextui-org/button';
+import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import Image from 'next/image';
 
 export const dynamic = 'force-static';
 const providers = {
-  hospitals: [
-    {
-      image:
-        'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1746&q=80',
-      description: 'Enjoy the convenience of healthier life today.',
-      name: 'ArYu Hospital',
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1706&q=80',
-      description: 'The biggest hospital with the best doctors in Myanmar.',
-      name: 'PunHlaing Hospital',
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1744&q=80',
-      description: 'Enjoy the convenience of healthier life today.',
-      name: 'Thukha Hospital',
-    },
-  ],
   clinics: [
     {
+      description: 'Enjoy the convenience of healthier life today.',
       image:
         'https://images.unsplash.com/photo-1631248207065-771ae9ac32f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
-      description: 'Enjoy the convenience of healthier life today.',
       name: 'Hanthar clinic',
     },
     {
+      description: 'Enjoy the convenience of healthier life today.',
       image:
         'https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1736&q=80',
-      description: 'Enjoy the convenience of healthier life today.',
       name: 'New day clinic',
     },
     {
+      description: 'Enjoy the convenience of healthier life today.',
       image:
         'https://images.unsplash.com/photo-1606811842243-af7e16970c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-      description: 'Enjoy the convenience of healthier life today.',
       name: 'KyiKone clinic',
+    },
+  ],
+  hospitals: [
+    {
+      description: 'Enjoy the convenience of healthier life today.',
+      image:
+        'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1746&q=80',
+      name: 'ArYu Hospital',
+    },
+    {
+      description: 'The biggest hospital with the best doctors in Myanmar.',
+      image:
+        'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1706&q=80',
+      name: 'PunHlaing Hospital',
+    },
+    {
+      description: 'Enjoy the convenience of healthier life today.',
+      image:
+        'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1744&q=80',
+      name: 'Thukha Hospital',
     },
   ],
 };
 
-export default async function Page({ params }: { params: { type: 'hospitals' | 'clinics' } }) {
+export default async function Page({ params }: { params: { type: 'clinics' | 'hospitals' } }) {
   const providerType = params.type;
 
   console.log('fetching hospitals ');
@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: { type: 'hospitals' | '
       </p>
       <ul className=" grid grid-cols-1 gap-6 pb-12 md:grid-cols-3">
         {providers.map((provider) => (
-          <Card className="w-full !shadow-sm" key={provider.name} isFooterBlurred shadow="none">
+          <Card className="w-full !shadow-sm" isFooterBlurred key={provider.name} shadow="none">
             <CardBody className="relative h-[200px] overflow-hidden p-0 ">
               <CardHeader className="absolute top-1 z-10 h-full flex-col items-start justify-end bg-gradient-to-t from-black/50 from-15% via-black/20 via-40% to-transparent to-90%">
                 <div className="px-2">
@@ -74,10 +74,10 @@ export default async function Page({ params }: { params: { type: 'hospitals' | '
                 </div>
               </CardHeader>
               <Image
-                className="z-0 h-full w-full  object-cover"
                 alt="Card example background"
-                src={provider.image}
+                className="z-0 h-full w-full  object-cover"
                 height={500}
+                src={provider.image}
                 width={500}
               />
             </CardBody>
@@ -86,12 +86,12 @@ export default async function Page({ params }: { params: { type: 'hospitals' | '
                 <p className="mb-4 text-sm text-black">{provider.description}</p>
                 <div className="text-right">
                   <Button
-                    href={`/providers/${providerType}/${provider.id}`}
+                    as="a"
                     className="px-8 text-sm"
                     color="primary"
+                    href={`/providers/${providerType}/${provider.id}`}
                     radius="full"
                     size="md"
-                    as="a"
                   >
                     Visit
                   </Button>

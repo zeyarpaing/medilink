@@ -9,11 +9,11 @@ export default async function Page({ params }: { params: { providerId: string } 
   const id = params.providerId;
   if (!+id) return <div>Not found</div>;
   const provider = await prisma.healthcareProvider.findUnique({
-    where: {
-      id: parseInt(id),
-    },
     include: {
       services: true,
+    },
+    where: {
+      id: parseInt(id),
     },
   });
 
@@ -26,11 +26,11 @@ export default async function Page({ params }: { params: { providerId: string } 
       <div>
         <div className="h-[32rem] w-full">
           <Image
-            src={provider.image}
-            height={1000}
-            className="h-full w-full rounded-xl object-cover"
-            width={3033}
             alt={provider.name}
+            className="h-full w-full rounded-xl object-cover"
+            height={1000}
+            src={provider.image}
+            width={3033}
           />
         </div>
         <div className="my-8">

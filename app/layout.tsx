@@ -1,7 +1,7 @@
 import { Providers } from '@/app/providers';
+import { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 import { twJoin } from 'tailwind-merge';
-import { Metadata } from 'next';
 
 import './globals.css';
 

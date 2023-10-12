@@ -1,11 +1,12 @@
-declare global {
-  interface DefaultSession {
+import NextAuth from 'next-auth';
+declare module 'next-auth' {
+  interface Session {
     user: {
-      id: string;
-      name: string;
-      image: string;
       email: string;
-      role: 'ADMIN' | 'USER' | 'DOCTOR';
+      id: string;
+      image: string;
+      name: string;
+      role: 'ADMIN' | 'DOCTOR' | 'USER';
     };
   }
 }

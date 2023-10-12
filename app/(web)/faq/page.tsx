@@ -17,32 +17,32 @@ export default function Page() {
     <section className="mcontainer py-12">
       <h1 className="header mb-8">Frequently Asked Questions </h1>
       <Input
-        value={search}
+        className="my-12 max-w-lg  rounded-lg border !bg-white px-3 py-2"
+        classNames={{
+          input: 'shadow-none appearance-none',
+          inputWrapper: '!bg-white shadow-none',
+        }}
         onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search FAQs"
+        size="lg"
         startContent={
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            stroke="currentColor"
             className="mr-2 h-6 w-6"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
             fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              strokeLinejoin="round"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         }
-        classNames={{
-          inputWrapper: '!bg-white shadow-none',
-          input: 'shadow-none appearance-none',
-        }}
-        className="my-12 max-w-lg  rounded-lg border !bg-white px-3 py-2"
-        placeholder="Search FAQs"
         type="search"
-        size="lg"
+        value={search}
       />
       {search && !filteredFaqs.length ? (
         <h3>
@@ -56,15 +56,15 @@ export default function Page() {
           {filteredFaqs.map((item, index) => {
             return (
               <AccordionItem
-                key={index}
                 aria-label={item.question?.toString()}
-                title={item.question}
                 className="border !px-6 py-1 !shadow-md data-[open=true]:!bg-slate-300/20"
                 classNames={{
                   title: 'text-sm md:text-base font-bold',
                 }}
                 disableIndicatorAnimation
                 indicator={<AddIcon />}
+                key={index}
+                title={item.question}
               >
                 {typeof item.answer === 'string' ? (
                   <p

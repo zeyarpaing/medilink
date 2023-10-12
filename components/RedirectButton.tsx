@@ -5,16 +5,16 @@ import { twMerge } from 'tailwind-merge';
 export default function RedirectButton({ className, ...props }: ButtonProps) {
   return (
     <Button
-      variant="bordered"
-      color="primary"
-      radius="full"
-      size="lg"
       className={twMerge('mt-8 px-6 py-4 text-base font-medium', className)}
+      color="primary"
       endContent={
         <span className="-rotate-90 scale-80">
           <ChevronDownIcon />
         </span>
       }
+      radius="full"
+      size="lg"
+      variant="bordered"
       {...props}
     >
       {props.children}

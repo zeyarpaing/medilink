@@ -1,4 +1,4 @@
-import { ReactNode, useState, Dispatch } from 'react';
+import { Dispatch, ReactNode, useState } from 'react';
 
 type StateProps<T> = {
   children: (state: T, setState: Dispatch<T>) => JSX.Element;

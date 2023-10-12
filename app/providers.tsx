@@ -1,14 +1,14 @@
 'use client';
-import { createContext, useEffect, useState } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
+import { createContext, useEffect, useState } from 'react';
 
 const ThemeProvider = createContext({
-  setColorScheme: (colorScheme: ColorScheme) => {},
   colorScheme: 'system',
+  setColorScheme: (colorScheme: ColorScheme) => {},
 });
 
-type ColorScheme = 'system' | 'light' | 'dark';
+type ColorScheme = 'dark' | 'light' | 'system';
 
 function updateColorScheme(colorScheme: ColorScheme) {
   const html = document.querySelector('html');
@@ -39,12 +39,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider.Provider
       value={{
+        colorScheme,
         setColorScheme: (colorScheme: ColorScheme) => {
           setColorScheme(colorScheme);
           updateColorScheme(colorScheme);
           localStorage.setItem('colorScheme', colorScheme as string);
         },
-        colorScheme,
       }}
     >
       <SessionProvider>

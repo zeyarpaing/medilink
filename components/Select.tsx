@@ -14,14 +14,14 @@ export default function Select({ name, options, ...props }: Omit<Props & SelectP
   const [field] = useField(name);
   return (
     <$Select
-      variant="bordered"
       classNames={{
         label: 'text-sm font-medium text-foreground',
         trigger: '!h-14 px-4',
       }}
+      label=" "
       labelPlacement="outside"
       placeholder=" "
-      label=" "
+      variant="bordered"
       {...field}
       {...props}
     >

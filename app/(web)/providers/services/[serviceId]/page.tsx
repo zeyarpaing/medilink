@@ -1,16 +1,16 @@
 import CTAButton from '@/components/CTAButton';
-import { Button } from '@nextui-org/react';
 import prisma from '@/lib/prisma';
+import { Button } from '@nextui-org/react';
 
 export default async function Page({ params }: { params: { serviceId: string } }) {
   const id = params.serviceId;
 
   const service = await prisma.service.findUnique({
-    where: {
-      id: parseInt(id),
-    },
     include: {
       schedule: true,
+    },
+    where: {
+      id: parseInt(id),
     },
   });
 
@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: { serviceId: string } }
             </p>
             <p className="text-bold">Booked : {bookings[schedule.id]}</p>
             <p> Max booking : {schedule.maxBooking}</p>
-            <CTAButton href={`${service.id}/book/${schedule.id}`} as={'a'}>
+            <CTAButton as={'a'} href={`${service.id}/book/${schedule.id}`}>
               Book this schedule
             </CTAButton>
           </li>

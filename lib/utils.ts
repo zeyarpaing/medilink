@@ -18,12 +18,12 @@ export class Password {
     this.password = password;
   }
 
+  compare(encrypedPassword: string) {
+    return this.encrypt() === encrypedPassword;
+  }
+
   encrypt() {
     const hashed = createHash('sha512').update(this.password).digest('binary');
     return pbkdf2Sync(hashed, process.env.SALT!, 1000, 64, 'sha512').toString('hex');
-  }
-
-  compare(encrypedPassword: string) {
-    return this.encrypt() === encrypedPassword;
   }
 }

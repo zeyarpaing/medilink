@@ -1,23 +1,23 @@
 'use client';
 
-import { TableColumn, TableHeader, TableCell, TableBody, TableRow, Table } from '@nextui-org/react';
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
 
 export default function FeatureTable() {
   return (
     <Table
+      aria-label="Example static collection table"
+      className="overflow-hidden rounded-xl border border-primary  [&_thead>tr[aria-hidden=true]]:hidden"
+      color="primary"
+      defaultSelectedKeys={['2', '4']}
+      disabledBehavior="selection"
+      removeWrapper
+      selectedKeys={['2', '4']}
+      selectionBehavior="replace"
+      selectionMode="multiple"
       style={{
         // @ts-ignore
         '--nextui-default-100': '187 100% 33%',
       }}
-      className="overflow-hidden rounded-xl border border-primary  [&_thead>tr[aria-hidden=true]]:hidden"
-      aria-label="Example static collection table"
-      defaultSelectedKeys={['2', '4']}
-      disabledBehavior="selection"
-      selectionBehavior="replace"
-      selectedKeys={['2', '4']}
-      selectionMode="multiple"
-      color="primary"
-      removeWrapper
     >
       <TableHeader className="bg-primary text-white">
         <TableColumn className="!rounded-b-none text-lg text-white"> </TableColumn>
@@ -59,31 +59,31 @@ export default function FeatureTable() {
         {
           [
             {
+              available: true,
               description:
                 "Policyholder's spouse, children, parents an parent-in-law who stay in the same Tengah address",
               title: 'Cover not only yourself, but 3 generations of your family against hospitalisation',
-              available: true,
             },
             {
-              title: 'Get affordable protection today from unforeseen emergencies tomorrow',
+              available: true,
               description: '',
-              available: true,
+              title: 'Get affordable protection today from unforeseen emergencies tomorrow',
             },
             {
+              available: true,
               description: 'Family Protection benefits per policy year limit will be refreshed upon renewal',
               title: 'Enjoy loyalty benefits with every renewal',
-              available: true,
             },
             {
-              title: 'Flexibility to increase coverage with Spouse Rider',
+              available: true,
               description: '',
-              available: true,
+              title: 'Flexibility to increase coverage with Spouse Rider',
             },
             {
+              available: true,
               description:
                 "Policy continue even after the Policyholder's death or disability if Spouse Rider is attached",
               title: 'Securing your future with policy continuity',
-              available: true,
             },
           ].map((item, idx) => (
             <TableRow className="pointer-events-none" key={idx + 1}>

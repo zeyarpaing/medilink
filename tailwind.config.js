@@ -2,15 +2,33 @@ const { nextui } = require('@nextui-org/react');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './assets/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+  ],
+  darkMode: 'class',
   plugins: [
     nextui({
+      addCommonColors: false,
+      defaultExtendTheme: 'light',
+      defaultTheme: 'light',
+      layout: {
+        radius: {
+          large: '10px', // rounded-large
+          medium: '8px', // rounded-medium
+          small: '6px', // rounded-small
+        },
+      },
       themes: {
         dark: {
           colors: {
-            primary: { DEFAULT: '#F13456', foreground: '#fff' },
-            secondary: 'rgba(239, 50, 84, 0.25)',
             background: '#101010',
             foreground: '#f3f3f3',
+            primary: { DEFAULT: '#F13456', foreground: '#fff' },
+            secondary: 'rgba(239, 50, 84, 0.25)',
           },
           extend: 'light',
         },
@@ -22,24 +40,7 @@ module.exports = {
           foreground: '#101010',
         },
       },
-      layout: {
-        radius: {
-          medium: '8px', // rounded-medium
-          large: '10px', // rounded-large
-          small: '6px', // rounded-small
-        },
-      },
-      defaultExtendTheme: 'light',
-      addCommonColors: false,
-      defaultTheme: 'light',
     }),
-  ],
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './assets/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -49,5 +50,4 @@ module.exports = {
       },
     },
   },
-  darkMode: 'class',
 };

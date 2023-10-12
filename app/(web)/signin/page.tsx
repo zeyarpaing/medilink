@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@nextui-org/button';
-import { getCsrfToken, signIn, useSession } from 'next-auth/react';
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { getCsrfToken, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 export default function SignIn() {
@@ -35,11 +35,11 @@ export default function SignIn() {
 
         <label>
           Email
-          <input className="mt-1 w-full rounded-lg border p-3" name="email" type="email" required />
+          <input className="mt-1 w-full rounded-lg border p-3" name="email" required type="email" />
         </label>
         <label>
           Password
-          <input className="mt-1 w-full rounded-lg border p-3" name="password" type="password" required />
+          <input className="mt-1 w-full rounded-lg border p-3" name="password" required type="password" />
         </label>
 
         <Button color="primary" type="submit">

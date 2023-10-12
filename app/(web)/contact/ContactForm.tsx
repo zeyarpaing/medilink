@@ -17,21 +17,21 @@ export default function ContactForm({}: Props) {
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 [&_label]:font-light">
-              <Input name="name" label="Full name" />
-              <Input type="tel" name="mobile" label="Mobile number" />
-              <Input name="email" label="Email address" />
+              <Input label="Full name" name="name" />
+              <Input label="Mobile number" name="mobile" type="tel" />
+              <Input label="Email address" name="email" />
               <Select
+                label="Subject"
+                name="subject"
                 options={[
                   {
                     label: 'Product enquiry',
                     value: 'Product enquiry',
                   },
                 ]}
-                name="subject"
-                label="Subject"
               />
             </div>
-            <Input name="message" type="textarea" label="Message" className="mt-4" />
+            <Input className="mt-4" label="Message" name="message" type="textarea" />
             <CTAButton className="mt-4 !w-full shadow-none" type="submit">
               Submit
             </CTAButton>

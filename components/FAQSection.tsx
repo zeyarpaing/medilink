@@ -1,11 +1,11 @@
 'use client';
 
-import { AccordionItem, Accordion } from '@nextui-org/react';
-import RedirectButton from '@/components/RedirectButton';
 import AddIcon from '@/assets/icons/AddIcon';
+import RedirectButton from '@/components/RedirectButton';
 import { sitemap, topFAQs } from '@/lib/constants';
+import { Accordion, AccordionItem } from '@nextui-org/react';
 
-export default function FAQSection({ hideFAQs = false, faqs = topFAQs }: { hideFAQs?: boolean; faqs?: typeof topFAQs }) {
+export default function FAQSection({ faqs = topFAQs, hideFAQs = false }: { faqs?: typeof topFAQs; hideFAQs?: boolean }) {
   return (
     <section className="mcontainer my-24">
       <h2 className="header mb-6">Frequently Asked Questions</h2>
@@ -17,12 +17,12 @@ export default function FAQSection({ hideFAQs = false, faqs = topFAQs }: { hideF
           {faqs.map((item, index) => {
             return (
               <AccordionItem
-                className="border !px-6 py-1 !shadow-md data-[open=true]:!bg-slate-300/20 [&>h2]:!text-sm [&>h2]:font-bold"
                 aria-label={item.question?.toString()}
+                className="border !px-6 py-1 !shadow-md data-[open=true]:!bg-slate-300/20 [&>h2]:!text-sm [&>h2]:font-bold"
                 disableIndicatorAnimation
                 indicator={<AddIcon />}
-                title={item.question}
                 key={index}
+                title={item.question}
               >
                 {typeof item.answer === 'string' ? (
                   <p
@@ -37,7 +37,7 @@ export default function FAQSection({ hideFAQs = false, faqs = topFAQs }: { hideF
           })}
         </Accordion>
       )}
-      <RedirectButton href={sitemap.faq.href} className="mt-6" as="a">
+      <RedirectButton as="a" className="mt-6" href={sitemap.faq.href}>
         See all FAQs
       </RedirectButton>
     </section>

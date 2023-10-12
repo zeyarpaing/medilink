@@ -1,7 +1,7 @@
 import CoverIllustration from '@/app/(web)/CoverIllustration';
-import Testimonial from '@/components/Testimonial';
-import FAQSection from '@/components/FAQSection';
 import CTAButton from '@/components/CTAButton';
+import FAQSection from '@/components/FAQSection';
+import Testimonial from '@/components/Testimonial';
 import { getServerSession } from 'next-auth';
 
 export default async function Home() {
@@ -22,17 +22,17 @@ export default async function Home() {
                   <br /> and a healthier tomorrow.
                 </p>
                 {session?.user ? (
-                  <CTAButton href="/providers/hospitals" as="a">
+                  <CTAButton as="a" href="/providers/hospitals">
                     Start booking
                   </CTAButton>
                 ) : (
-                  <CTAButton href="/signup" as="a">
+                  <CTAButton as="a" href="/signup">
                     Get started
                   </CTAButton>
                 )}
               </div>
               <div className="sm:pr-32">
-                <CoverIllustration className="cover" width={'100%'} height={480} />
+                <CoverIllustration className="cover" height={480} width={'100%'} />
               </div>
             </div>
           </div>
@@ -48,27 +48,27 @@ export default async function Home() {
 
         <ul className="my-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 [&>li>h3]:my-2 [&>li>h3]:text-lg [&>li>h3]:font-bold [&>li]:max-w-lg [&_li_svg]:text-primary">
           <li>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48" width="48">
+            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
               <g fill="none">
                 <rect
-                  strokeLinejoin="round"
-                  stroke="currentColor"
-                  strokeWidth="4"
                   height="26"
-                  width="38"
                   rx="3"
-                  y="16"
+                  stroke="currentColor"
+                  strokeLinejoin="round"
+                  strokeWidth="4"
+                  width="38"
                   x="5"
+                  y="16"
                 />
                 <path
                   d="M19 8h10V4H19v4Zm11 1v7h4V9h-4Zm-12 7V9h-4v7h4Zm11-8a1 1 0 0 1 1 1h4a5 5 0 0 0-5-5v4ZM19 4a5 5 0 0 0-5 5h4a1 1 0 0 1 1-1V4Z"
                   fill="currentColor"
                 />
                 <path
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
                   d="M18 29h12m-6-6v12"
                   stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   strokeWidth="4"
                 />
               </g>
@@ -80,10 +80,10 @@ export default async function Home() {
             </p>
           </li>
           <li>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48" width="48">
-              <g stroke="currentColor" strokeWidth="4" fill="none">
+            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" stroke="currentColor" strokeWidth="4">
                 <path d="M4 5h40M4 43h40M8 36v7" strokeLinecap="round" />
-                <path d="M12 28H4v8h8v-8Zm16-8h-8v8h8v-8Zm16-8h-8v8h8v-8Z" stroke-linejoin="round" />
+                <path d="M12 28H4v8h8v-8Zm16-8h-8v8h8v-8Zm16-8h-8v8h8v-8Z" strokeLinejoin="round" />
                 <path d="M40 20v23M8 12v1m0 7v1m15-9v1m1 15v15" strokeLinecap="round" />
               </g>
             </svg>
@@ -95,10 +95,10 @@ export default async function Home() {
             </p>
           </li>
           <li>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48" width="48">
-              <g stroke-linejoin="round" stroke="currentColor" stroke-width="4" fill="none">
+            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="4">
                 <path d="M6 9.256L24.009 4L42 9.256v10.778C42 31.362 34.75 40.419 24.003 44C13.253 40.42 6 31.36 6 20.029V9.256Z" />
-                <circle strokeLinecap="round" cy="18" cx="24" r="5" />
+                <circle cx="24" cy="18" r="5" strokeLinecap="round" />
                 <path d="M32 31a8 8 0 1 0-16 0" strokeLinecap="round" />
               </g>
             </svg>

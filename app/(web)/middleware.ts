@@ -3,10 +3,11 @@
 
 // next 13 middleware
 
+import type { NextRequest } from 'next/server';
+
+import { NextResponse } from 'next/server';
 // Path: app/middleware.ts
 import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {

@@ -6,10 +6,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions: NextAuthOptions = {
-  debug: true,
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET,
-  session: { strategy: 'jwt' },
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);
@@ -21,32 +18,31 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  debug: true,
+  pages: {
+    signIn: '/signin',
+    signOut: '/signout',
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      id: 'credentials',
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-      },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) return null;
 
         const user = await prisma.user.findUnique({
+          select: {
+            email: true,
+            id: true,
+            image: true,
+            name: true,
+            password: true,
+            role: true,
+          },
           where: {
             email: credentials?.email,
-          },
-          select: {
-            role: true,
-            password: true,
-            email: true,
-            name: true,
-            image: true,
-            id: true,
           },
         });
         console.log('authorize', user);
@@ -57,12 +53,16 @@ export const authOptions: NextAuthOptions = {
         if (!comp) return null;
         return { ...user, password: undefined };
       },
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      id: 'credentials',
+      name: 'Credentials',
     }),
   ],
-  pages: {
-    signIn: '/signin',
-    signOut: '/signout',
-  },
+  secret: process.env.SECRET,
+  session: { strategy: 'jwt' },
 };
 
 const handler = NextAuth(authOptions);
