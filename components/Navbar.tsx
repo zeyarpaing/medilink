@@ -13,18 +13,20 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from '@nextui-org/navbar';
+import { Spinner } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
-export default function Navbar({ session }: { session: Session | null }) {
+export default function Navbar({ children, session }: { children: ReactNode; session: Session }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openedDropdown, setOpenedDropdown] = useState('');
   const router = useRouter();
   const pathname = usePathname();
+  // const { data: session, status } = useSession();
 
   function isActive(href: string) {
     return pathname.includes(href);
@@ -123,62 +125,37 @@ export default function Navbar({ session }: { session: Session | null }) {
             </NavbarItem>
           )
         )}
-        {!!session?.user ? (
-          <Dropdown className="w-full" placement="bottom-end" size="lg">
-            <NavbarItem>
-              <DropdownTrigger>
-                <button
-                  className="flex w-full items-center justify-center  gap-2 rounded-full border py-2 pl-3 pr-4 text-left"
-                  type="button"
-                >
-                  <div className="h-8 w-8 rounded-full">
-                    <Image
-                      alt="avatar"
-                      className="h-full w-full rounded-full bg-gray-600 object-cover"
-                      height={30}
-                      src={
-                        session?.user?.image ||
-                        'https://img.freepik.com/free-photo/view-3d-confident-businessman_23-2150709932.jpg?t=st=1696934508~exp=1696938108~hmac=444e2593a42602e3dc5bea7fb3bc132a8b49248d13fd6ee0e235376235fa81c5&w=900'
-                      }
-                      width={30}
-                    />
-                  </div>
-                  <p className="text-sm">{session?.user?.name}</p>
-                  {/* <ChevronDownIcon
-                    className={`mt-0.5 h-4 w-4 transition-transform ${
-                      openedDropdown === 'account' ? 'rotate-180' : 'rotate-0'
-                    }`}
-                  /> */}
-                </button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label=""
-              className="block w-[300px]"
-              itemClasses={{
-                base: 'gap-4 w-full',
-              }}
-            >
-              <DropdownItem onClick={() => router.push('/account')}>Account</DropdownItem>
-              <DropdownItem className="text-danger" color="danger" onClick={() => signOut()}>
-                Log out
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        ) : (
-          ''
-        )}
+        {children}
+        {status === 'loading' && <Spinner />}
       </NavbarContent>
-      <MobileNav isMenuOpen={isMenuOpen} navigation={navigation} setMenuOpen={setIsMenuOpen} />
+      <MobileNav isMenuOpen={isMenuOpen} navigation={navigation} setMenuOpen={setIsMenuOpen}>
+        asdfsad
+        {/* {children} */}
+      </MobileNav>
     </$Navbar>
   );
 }
 
+export function AccountDropdownItems() {
+  return (
+    <>
+      <DropdownItem>
+        <Link href={sitemap.profile.href}>{sitemap.profile.label}</Link>
+      </DropdownItem>
+      <DropdownItem className="text-danger" color="danger" onClick={() => signOut()}>
+        Log out
+      </DropdownItem>
+    </>
+  );
+}
+
 function MobileNav({
+  children,
   isMenuOpen,
   navigation,
   setMenuOpen,
 }: {
+  children: ReactNode;
   isMenuOpen: boolean;
   navigation: (typeof sitemap)['string'][];
   setMenuOpen: (isOpen: boolean) => void;
@@ -249,6 +226,7 @@ function MobileNav({
             </NavbarMenuItem>
           )
         )}
+        {children}
       </NavbarMenu>
     </>
   );

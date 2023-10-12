@@ -1,6 +1,6 @@
 'use client';
 
-import { createBooking } from '@/app/(web)/providers/services/[serviceId]/book/[scheduleId]/action';
+import { createBooking } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
 import { Button } from '@nextui-org/button';
 import { Select, SelectItem } from '@nextui-org/react';
 import { usePathname, useRouter } from 'next/navigation';

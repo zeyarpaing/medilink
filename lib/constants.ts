@@ -2,16 +2,7 @@ import FacebookIcon from '@/assets/icons/FacebookIcon';
 import InstagramIcon from '@/assets/icons/InstagramIcon';
 import LinkedinIcon from '@/assets/icons/LinkedinIcon';
 
-export const sitemap: Record<
-  string,
-  {
-    children?: Record<string, { href: string; label: string }>;
-    featured?: boolean;
-    href: string;
-    label: string;
-    type?: 'button';
-  }
-> = {
+export const sitemap = {
   about: {
     href: '/about',
     label: 'About',
@@ -52,6 +43,10 @@ export const sitemap: Record<
     href: '/privacy-policy',
     label: 'Privacy policy',
   },
+  profile: {
+    href: '/profile',
+    label: 'Profile',
+  },
   services: {
     children: {
       patients: {
@@ -80,7 +75,7 @@ export const sitemap: Record<
     href: '/terms-and-conditions',
     label: 'Terms and conditions',
   },
-};
+} as const;
 
 export const products = [
   {

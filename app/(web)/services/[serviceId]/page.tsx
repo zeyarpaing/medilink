@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: { serviceId: string } }
             </p>
             <p className="text-bold">Booked : {bookings[schedule.id]}</p>
             <p> Max booking : {schedule.maxBooking}</p>
-            <CTAButton as={'a'} href={`${service.id}/book/${schedule.id}`}>
+            <CTAButton href={`${service.id}/book/${schedule.id}`} isLink>
               Book this schedule
             </CTAButton>
           </li>

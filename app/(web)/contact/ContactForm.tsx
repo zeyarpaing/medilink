@@ -3,13 +3,9 @@
 import CTAButton from '@/components/CTAButton';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
-import { Textarea } from '@nextui-org/react';
 import { Formik } from 'formik';
-import React from 'react';
 
-type Props = {};
-
-export default function ContactForm({}: Props) {
+export default function ContactForm() {
   return (
     <div className="w-full max-w-3xl rounded-lg border px-10 py-8 ">
       <h2 className="mb-5 text-2xl font-bold">What can we help you with?</h2>

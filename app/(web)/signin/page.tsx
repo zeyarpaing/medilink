@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@nextui-org/button';
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { getCsrfToken, signIn, useSession } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 export default function SignIn() {

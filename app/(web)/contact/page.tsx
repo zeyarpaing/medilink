@@ -1,6 +1,8 @@
 import ContactForm from '@/app/(web)/contact/ContactForm';
 import { address, phoneNumber, socialMidea } from '@/lib/constants';
 
+export const dynamic = 'force-static';
+
 export default function Page() {
   return (
     <section className="mcontainer flex flex-wrap-reverse gap-8 py-16 md:flex-nowrap">

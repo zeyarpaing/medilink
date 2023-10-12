@@ -1,10 +1,10 @@
 'use client';
 import AddIcon from '@/assets/icons/AddIcon';
-import FAQSection from '@/components/FAQSection';
 import { topFAQs } from '@/lib/constants';
-import { debounce } from '@/lib/utils';
 import { Accordion, AccordionItem, Input } from '@nextui-org/react';
 import { useState } from 'react';
+
+export const dynamic = 'force-static';
 
 export default function Page() {
   const [search, setSearch] = useState('');
