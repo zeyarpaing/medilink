@@ -44,7 +44,7 @@ export const sitemap = {
     label: 'Privacy policy',
   },
   profile: {
-    href: '/profile',
+    href: '/app/profile',
     label: 'Profile',
   },
   services: {

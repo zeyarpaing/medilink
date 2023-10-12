@@ -5,7 +5,13 @@ import RedirectButton from '@/components/RedirectButton';
 import { sitemap, topFAQs } from '@/lib/constants';
 import { Accordion, AccordionItem } from '@nextui-org/react';
 
-export default function FAQSection({ faqs = topFAQs, hideFAQs = false }: { faqs?: typeof topFAQs; hideFAQs?: boolean }) {
+export default function FAQSection({
+  faqs = topFAQs,
+  hideFAQs = false,
+}: {
+  faqs?: typeof topFAQs;
+  hideFAQs?: boolean;
+}) {
   return (
     <section className="mcontainer my-24">
       <h2 className="header mb-6">Frequently Asked Questions</h2>
@@ -37,7 +43,7 @@ export default function FAQSection({ faqs = topFAQs, hideFAQs = false }: { faqs?
           })}
         </Accordion>
       )}
-      <RedirectButton as="a" className="mt-6" href={sitemap.faq.href}>
+      <RedirectButton className="mt-6" href={sitemap.faq.href} isLink>
         See all FAQs
       </RedirectButton>
     </section>

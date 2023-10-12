@@ -26,6 +26,7 @@ module.exports = {
         dark: {
           colors: {
             background: '#101010',
+            focus: '#F13456',
             foreground: '#f3f3f3',
             primary: { DEFAULT: '#F13456', foreground: '#fff' },
             secondary: 'rgba(239, 50, 84, 0.25)',
@@ -34,6 +35,7 @@ module.exports = {
         },
         light: {
           colors: {
+            focus: '#EF3254',
             primary: { DEFAULT: '#EF3254', foreground: '#fff' },
             secondary: 'rgba(239, 50, 84, 0.25)',
           },

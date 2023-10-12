@@ -6,7 +6,6 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// import required modules
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,15 +13,15 @@ export default function Testimonial() {
   return (
     <section className="relative">
       <div className="h-[38rem] sm:h-[45rem]">
-        <Image
+        {/* <Image
           alt="hero image"
           className="h-full w-full object-cover"
           height={2000}
           src="https://img.freepik.com/free-vector/doctors-with-stethoscopes-nurses-standing-together-smiling-group-female-male-medical-staff-hospital-emergency-team-clinic-flat-vector-illustration-medicine-healthcare-concept_74855-21072.jpg?w=1380&t=st=1696329347~exp=1696329947~hmac=e9a3143f693f632d1077d9ad4f6dbd1840027269beee6dbd6643689991c65f14"
           width={3556}
-        />
+        /> */}
       </div>
-      <div className="absolute inset-0 bg-blue-950/80"></div>
+      <div className="absolute inset-0 bg-blue-950"></div>
       <div className="mcontainer absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
         <h2 className="header mb-16 text-center text-white">From our beloved customers</h2>
         <Swiper
@@ -80,14 +79,14 @@ export default function Testimonial() {
         </Swiper>
       </div>
       <button
-        aria-label="Previous review slides"
-        className="swiper-prev absolute left-4 top-1/2 mt-10 hidden -translate-y-1/2 rotate-180 text-primary sm:block"
+        aria-label="Previous slides"
+        className="swiper-prev absolute left-8 top-1/2 mt-10 hidden -translate-y-1/2 rotate-180 text-primary lg:block"
       >
         <ChevronBtnIcon />
       </button>
       <button
-        aria-label="Next review slides"
-        className="swiper-next absolute right-4 top-1/2 mt-10 hidden -translate-y-1/2 text-primary sm:block"
+        aria-label="Next slides"
+        className="swiper-next absolute right-8 top-1/2 mt-10 hidden -translate-y-1/2 text-primary lg:block"
       >
         <ChevronBtnIcon />
       </button>

@@ -17,12 +17,15 @@ import { Spinner } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { Router } from 'next/router';
 import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
 import { ReactNode, useEffect, useState } from 'react';
 
 function AccountDropdown() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const router = useRouter();
+
   return (
     <>
       {!!session?.user && (
@@ -57,8 +60,8 @@ function AccountDropdown() {
               title: 'text-lg sm:text-base',
             }}
           >
-            <DropdownItem>
-              <Link href={sitemap.profile.href}>{sitemap.profile.label}</Link>
+            <DropdownItem onClick={() => setTimeout(() => router.push(sitemap.profile.href), 500)}>
+              {sitemap.profile.label}
             </DropdownItem>
             <DropdownItem className="text-danger" color="danger" onClick={() => signOut()}>
               Log out

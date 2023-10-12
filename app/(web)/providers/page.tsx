@@ -34,12 +34,14 @@ export default async function Page() {
         {providers.map((provider) => (
           <Card className="w-full !shadow-sm" isFooterBlurred key={provider.name} shadow="none">
             <CardBody className="relative h-[200px] overflow-hidden p-0 ">
-              <CardHeader className="absolute top-1 z-10 h-full flex-col items-start justify-end bg-gradient-to-t from-black/50 from-15% via-black/20 via-40% to-transparent to-90%">
-                <div className="px-2">
-                  <h4 className="text-2xl font-bold text-white">{provider.name}</h4>
-                  <span className="rounded-md bg-slate-300/80 px-1.5 py-0.5  text-sm font-medium capitalize text-slate-800">
+              <CardHeader className="absolute top-1 z-10 h-full flex-col items-start justify-between bg-gradient-to-t from-black/50 from-15% via-black/20 via-40% to-transparent to-90%">
+                <div>
+                  <span className="h-full rounded-md bg-white/90 px-1.5 py-0.5  text-sm font-medium capitalize text-primary">
                     {provider.type}
                   </span>
+                </div>
+                <div className="px-2">
+                  <h4 className="text-2xl font-bold text-white">{provider.name}</h4>
                 </div>
               </CardHeader>
               <Image

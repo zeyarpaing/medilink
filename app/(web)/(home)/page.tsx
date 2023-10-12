@@ -16,7 +16,7 @@ export default async function Home() {
       <section className="border-b">
         <div className="relative h-[calc(100vh-4rem)] w-full">
           <div className="absolute top-0 flex h-full w-full flex-col justify-center">
-            <div className="mcontainer flex flex-col items-center justify-center sm:flex-row sm:justify-between">
+            <div className="mcontainer flex flex-col items-center justify-center gap-8 md:flex-row md:justify-between">
               <div className="max-w-md">
                 <h1 className="mb-2 text-4xl font-black text-primary md:text-6xl">Medilink</h1>
                 <h2 className="text-xl md:text-2xl"> Redefining how you access healthcare</h2>
