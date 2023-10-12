@@ -5,6 +5,7 @@ import ShieldIcon from '@/assets/icons/ShieldIcon';
 import CTAButton from '@/components/CTAButton';
 import FAQSection from '@/components/FAQSection';
 import Testimonial from '@/components/Testimonial';
+import { sitemap } from '@/lib/constants';
 import { getServerSession } from 'next-auth';
 
 export default async function Home() {
@@ -25,11 +26,11 @@ export default async function Home() {
                   <br /> and a healthier tomorrow.
                 </p>
                 {session?.user ? (
-                  <CTAButton as="a" href="/providers/hospitals">
+                  <CTAButton href={sitemap.healthProviders.href} isLink>
                     Start booking
                   </CTAButton>
                 ) : (
-                  <CTAButton as="a" href="/signup">
+                  <CTAButton href={sitemap['sign-up'].href} isLink>
                     Get started
                   </CTAButton>
                 )}

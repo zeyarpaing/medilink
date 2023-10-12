@@ -48,7 +48,7 @@ export default async function Page({ params }: { params: { providerId: string } 
             className=" rounded-lg  border border-gray-200 px-6 py-4 shadow-md  transition-all duration-250 hover:bg-primary hover:text-white"
             key={service.id}
           >
-            <Link href={`/providers/services/${service.id}`}>
+            <Link href={`/services/${service.id}`}>
               <h3 className="text-lg font-bold">{service.name}</h3>
               <p className="mt-1 opacity-80">{service.description}</p>
             </Link>

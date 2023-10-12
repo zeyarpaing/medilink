@@ -1,8 +1,8 @@
 'use client';
 
 import ChevronDownIcon from '@/assets/icons/ChevronDownIcon';
+import Button from '@/components/Button';
 import { sitemap } from '@/lib/constants';
-import { Button } from '@nextui-org/button';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
 import {
   Navbar as $Navbar,
@@ -21,12 +21,61 @@ import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
 import { ReactNode, useEffect, useState } from 'react';
 
-export default function Navbar({ children, session }: { children: ReactNode; session: Session }) {
+function AccountDropdown() {
+  const { data: session, status } = useSession();
+  return (
+    <>
+      {!!session?.user && (
+        <Dropdown backdrop="opaque" className="w-full" placement="bottom-end" size="lg">
+          <NavbarItem>
+            <DropdownTrigger>
+              <button
+                className="flex w-full items-center justify-center  gap-2 rounded-full border py-2 pl-3 pr-4 text-left"
+                type="button"
+              >
+                <div className="h-8 w-8 rounded-full">
+                  <Image
+                    alt="avatar"
+                    className="h-full w-full rounded-full bg-gray-600 object-cover"
+                    height={30}
+                    src={
+                      session?.user?.image ||
+                      'https://img.freepik.com/free-photo/view-3d-confident-businessman_23-2150709932.jpg?t=st=1696934508~exp=1696938108~hmac=444e2593a42602e3dc5bea7fb3bc132a8b49248d13fd6ee0e235376235fa81c5&w=900'
+                    }
+                    width={30}
+                  />
+                </div>
+                <p className="text-sm">{session?.user?.name}</p>
+              </button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label=""
+            className="block w-[calc(100vw-10rem)] sm:w-[300px]"
+            itemClasses={{
+              base: 'gap-4 w-full',
+              title: 'text-lg sm:text-base',
+            }}
+          >
+            <DropdownItem>
+              <Link href={sitemap.profile.href}>{sitemap.profile.label}</Link>
+            </DropdownItem>
+            <DropdownItem className="text-danger" color="danger" onClick={() => signOut()}>
+              Log out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      )}
+    </>
+  );
+}
+
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openedDropdown, setOpenedDropdown] = useState('');
   const router = useRouter();
   const pathname = usePathname();
-  // const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
 
   function isActive(href: string) {
     return pathname.includes(href);
@@ -59,7 +108,7 @@ export default function Navbar({ children, session }: { children: ReactNode; ses
           </Link>
         </NavbarBrand>
         {navigation.map((item) =>
-          item.children ? (
+          'children' in item && item.children ? (
             <Dropdown
               isOpen={openedDropdown === item.href}
               key={item.label}
@@ -113,8 +162,13 @@ export default function Navbar({ children, session }: { children: ReactNode; ses
               isActive={isActive(item.href)}
               key={item.label}
             >
-              {item.type === 'button' ? (
-                <Button as={'a'} color="primary" href={item.href} variant={item.featured ? 'solid' : 'bordered'}>
+              {'type' in item && item.type === 'button' ? (
+                <Button
+                  color="primary"
+                  href={item.href}
+                  isLink
+                  variant={'featured' in item && item.featured ? 'solid' : 'bordered'}
+                >
                   {item.label}
                 </Button>
               ) : (
@@ -125,39 +179,21 @@ export default function Navbar({ children, session }: { children: ReactNode; ses
             </NavbarItem>
           )
         )}
-        {children}
+        <AccountDropdown />
         {status === 'loading' && <Spinner />}
       </NavbarContent>
-      <MobileNav isMenuOpen={isMenuOpen} navigation={navigation} setMenuOpen={setIsMenuOpen}>
-        asdfsad
-        {/* {children} */}
-      </MobileNav>
+      <MobileNav isMenuOpen={isMenuOpen} navigation={navigation} setMenuOpen={setIsMenuOpen} />
     </$Navbar>
   );
 }
 
-export function AccountDropdownItems() {
-  return (
-    <>
-      <DropdownItem>
-        <Link href={sitemap.profile.href}>{sitemap.profile.label}</Link>
-      </DropdownItem>
-      <DropdownItem className="text-danger" color="danger" onClick={() => signOut()}>
-        Log out
-      </DropdownItem>
-    </>
-  );
-}
-
 function MobileNav({
-  children,
   isMenuOpen,
   navigation,
   setMenuOpen,
 }: {
-  children: ReactNode;
   isMenuOpen: boolean;
-  navigation: (typeof sitemap)['string'][];
+  navigation: (typeof sitemap)[keyof typeof sitemap][];
   setMenuOpen: (isOpen: boolean) => void;
 }) {
   const [openedDropdown, setOpenedDropdown] = useState('');
@@ -171,11 +207,12 @@ function MobileNav({
   return (
     <>
       <NavbarContent className="sm:hidden" justify="end">
+        <AccountDropdown />
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className="sm:hidden" />
       </NavbarContent>
       <NavbarMenu className="py-6">
         {navigation.map((item, index) =>
-          item.children ? (
+          'children' in item && item.children ? (
             <Dropdown
               className="w-full"
               key={item.label}
@@ -205,13 +242,13 @@ function MobileNav({
                   base: 'gap-4 w-full',
                 }}
               >
-                {
-                  Object.values(item.children).map((child) => (
-                    <DropdownItem key={child.label} onClick={() => router.push(child.href)}>
-                      {child.label}
-                    </DropdownItem>
-                  )) as any
-                }
+                {'children' in item
+                  ? (Object.values(item.children).map((child) => (
+                      <DropdownItem key={child.label} onClick={() => router.push(child.href)}>
+                        {child.label}
+                      </DropdownItem>
+                    )) as any)
+                  : ''}
               </DropdownMenu>
             </Dropdown>
           ) : (
@@ -226,7 +263,6 @@ function MobileNav({
             </NavbarMenuItem>
           )
         )}
-        {children}
       </NavbarMenu>
     </>
   );

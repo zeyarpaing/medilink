@@ -8,15 +8,16 @@ type Props = ButtonProps & {
   isLink?: boolean;
 };
 
-export default function Button({ children, className, href, isLink, ...props }: Props) {
+export default function Button({ children, className, isLink, ...props }: Props) {
   return (
     <$Button
-      className={twMerge(' w-full px-8 text-sm hover:opacity-90 sm:w-fit', className)}
+      as={isLink ? Link : undefined}
+      className={twMerge(' w-full text-sm hover:opacity-90 sm:w-fit', className)}
       color="primary"
       size="md"
       {...props}
     >
-      {isLink ? <Link href={href!}>{children}</Link> : children}
+      {children}
     </$Button>
   );
 }

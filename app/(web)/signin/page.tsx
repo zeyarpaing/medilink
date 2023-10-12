@@ -1,8 +1,10 @@
 'use client';
+import { sitemap } from '@/lib/constants';
 import { Button } from '@nextui-org/button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
+import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
 export default function SignIn() {
   const { status } = useSession();
@@ -12,9 +14,11 @@ export default function SignIn() {
   // console.log();
   useEffect(() => {
     if (status !== 'loading' && status === 'authenticated') {
-      router.replace('/providers/hospital');
+      router.replace(sitemap.healthProviders.href);
     }
   }, [status]);
+
+  const { pending } = useFormStatus();
 
   return (
     <div className="mcontainer min-h-screen py-12">
@@ -27,7 +31,7 @@ export default function SignIn() {
               email: e.currentTarget.email.value,
               password: e.currentTarget.password.value,
             },
-            callbackUrl: params.get('callbackUrl') || '/providers/hospital',
+            callbackUrl: params.get('callbackUrl') || sitemap.healthProviders.href,
           });
         }}
       >
@@ -42,7 +46,7 @@ export default function SignIn() {
           <input className="mt-1 w-full rounded-lg border p-3" name="password" required type="password" />
         </label>
 
-        <Button color="primary" type="submit">
+        <Button color="primary" isLoading={pending} type="submit">
           Sign in
         </Button>
       </form>

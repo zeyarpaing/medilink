@@ -18,11 +18,11 @@ export const sitemap = {
   healthProviders: {
     children: {
       clinics: {
-        href: '/providers/clinic',
+        href: '/providers?type=clinic',
         label: 'Clinics',
       },
       hospitals: {
-        href: '/providers/hospital',
+        href: '/providers?type=hospital',
         label: 'Hospitals',
       },
     },

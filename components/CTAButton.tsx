@@ -6,15 +6,16 @@ type Props = ButtonProps & {
   isLink?: boolean;
 };
 
-export default function CTAButton({ children, className, href, isLink, ...props }: Props) {
+export default function CTAButton({ children, className, isLink, ...props }: Props) {
   return (
     <Button
+      as={isLink ? Link : undefined}
       className={twMerge('mt-2 w-full px-8 py-4 text-lg font-semibold shadow-lg hover:opacity-90 sm:w-fit', className)}
       color="primary"
       size="lg"
       {...props}
     >
-      {isLink ? <Link href={href!}>{children}</Link> : children}
+      {children}
     </Button>
   );
 }
