@@ -35,8 +35,13 @@ export const sitemap = {
   },
   login: {
     featured: true,
-    href: '/signin',
-    label: 'Sign in',
+    href: '/login',
+    label: 'Login',
+    type: 'button',
+  },
+  logout: {
+    href: '/signout',
+    label: 'Sign out',
     type: 'button',
   },
   privacyPolicy: {
@@ -46,6 +51,11 @@ export const sitemap = {
   profile: {
     href: '/app/profile',
     label: 'Profile',
+  },
+  register: {
+    href: '/register',
+    label: 'Register',
+    type: 'button',
   },
   services: {
     children: {
@@ -60,16 +70,6 @@ export const sitemap = {
     },
     href: '/services',
     label: 'Services',
-  },
-  'sign-up': {
-    href: '/signup',
-    label: 'Sign up',
-    type: 'button',
-  },
-  signOut: {
-    href: '/signout',
-    label: 'Sign out',
-    type: 'button',
   },
   termsAndConditions: {
     href: '/terms-and-conditions',

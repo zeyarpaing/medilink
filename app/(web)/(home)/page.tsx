@@ -30,7 +30,7 @@ export default async function Home() {
                     Start booking
                   </CTAButton>
                 ) : (
-                  <CTAButton href={sitemap['sign-up'].href} isLink>
+                  <CTAButton href={sitemap['register'].href} isLink>
                     Get started
                   </CTAButton>
                 )}

@@ -1,6 +1,6 @@
 'use client';
 
-import { createUser } from '@/app/(web)/signup/action';
+import { createUser } from '@/app/(web)/register/action';
 import { Button } from '@nextui-org/button';
 import { Select, SelectItem } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
@@ -13,7 +13,7 @@ function SubmitButton() {
 
   return (
     <Button color="primary" isLoading={pending} type="submit">
-      Sign up
+      Register
     </Button>
   );
 }
@@ -33,7 +33,7 @@ export default function Page() {
         action={createUser}
         className="mx-auto flex max-w-lg flex-col gap-4 py-12 [&_input]:block [&_label]:block [&_label]:w-full"
       >
-        <h1 className="text-center text-2xl font-bold">Sing up </h1>
+        <h1 className="text-center text-2xl font-bold">Register to get started</h1>
         <label>
           Username:
           <input className="w-full rounded-lg border p-3" name="username" required type="text" />

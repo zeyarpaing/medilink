@@ -17,10 +17,8 @@ import { Spinner } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Router } from 'next/router';
-import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function AccountDropdown() {
   const { data: session } = useSession();
@@ -86,7 +84,7 @@ export default function Navbar() {
 
   const navigation = session?.user
     ? [sitemap.healthProviders, sitemap.faq, sitemap.contact]
-    : [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap['sign-up'], sitemap.login];
+    : [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap['register'], sitemap.login];
 
   return (
     <$Navbar

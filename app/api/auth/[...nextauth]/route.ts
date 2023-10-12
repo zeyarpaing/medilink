@@ -1,3 +1,4 @@
+import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
 import { Password } from '@/lib/utils';
 import { PrismaAdapter } from '@auth/prisma-adapter';
@@ -20,8 +21,8 @@ const authOptions: NextAuthOptions = {
   },
   debug: true,
   pages: {
-    signIn: '/signin',
-    signOut: '/signout',
+    signIn: sitemap.login.href,
+    signOut: sitemap.logout.href,
   },
   providers: [
     GoogleProvider({

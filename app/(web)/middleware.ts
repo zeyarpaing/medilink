@@ -1,4 +1,4 @@
-// if authenticated redirect signup and signin to home
+// if authenticated redirect register and signin to home
 // if not authenticated for /app/* redirect to signin
 
 // next 13 middleware
@@ -11,7 +11,7 @@ import { getServerSession } from 'next-auth';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  // if authenticated redirect signup and signin to home
+  // if authenticated redirect register and signin to home
   // if not authenticated for /app/* redirect to signin
   console.log('request %c', 'color: green; font-size: 16px;', request);
   //   const session = await getServerSession();

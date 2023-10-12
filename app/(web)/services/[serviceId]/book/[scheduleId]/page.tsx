@@ -1,6 +1,7 @@
 'use client';
 
 import { createBooking } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
+import { sitemap } from '@/lib/constants';
 import { Button } from '@nextui-org/button';
 import { Select, SelectItem } from '@nextui-org/react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -30,7 +31,7 @@ export default function Page({ params }: { params: { scheduleId: string; service
 
   useEffect(() => {
     if (status !== 'loading' && status !== 'authenticated') {
-      router.replace('/signin' + `?callbackUrl=${encodeURIComponent(path)}`);
+      router.replace(sitemap.login.href + `?callbackUrl=${encodeURIComponent(path)}`);
     }
   }, [status]);
 
