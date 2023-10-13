@@ -5,6 +5,12 @@ import { revalidatePath } from 'next/cache';
 import { RedirectType } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
 
+export async function createSchedule(...args: any[]) {
+  console.log('createSchedule', args, typeof window, process.pid);
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return null;
+}
+
 export async function createBooking(
   { scheduleId, serviceId }: { scheduleId: string; serviceId: string },
   formData: FormData

@@ -2,6 +2,7 @@
 import { NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
 import { createContext, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 const ThemeProvider = createContext({
   colorScheme: 'system',
@@ -48,7 +49,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       }}
     >
       <SessionProvider>
-        <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider>
+          {children}
+          <Toaster />
+        </NextUIProvider>
       </SessionProvider>
     </ThemeProvider.Provider>
   );

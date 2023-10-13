@@ -1,72 +1,52 @@
 'use client';
 
-import { createBooking } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
+import { createSchedule } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
+import Input from '@/components/Input';
+import Form from '@/components/form/Form';
 import { Button } from '@nextui-org/button';
 import { useSession } from 'next-auth/react';
-import { experimental_useFormStatus as useFormStatus } from 'react-dom';
+import toast from 'react-hot-toast';
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button color="primary" isLoading={pending} type="submit">
-      Pay Now
-    </Button>
-  );
-}
 export default function Page({ params }: { params: { scheduleId: string; serviceId: string } }) {
   const scheduleId = params.scheduleId;
   const serviceId = params.serviceId;
 
   const { data } = useSession();
 
-  const createBookingWithSerciceId = createBooking.bind(null, { scheduleId, serviceId });
+  const createBookingWithSerciceId = async function (values: any) {
+    return createSchedule({ scheduleId, serviceId }, values).then((res) => {
+      //   ^^ Server action
+      toast.success('Booking success! ');
+    });
+  };
 
   return (
     <div className="mcontainer min-h-screen py-12">
-      <form
+      <Form
         action={createBookingWithSerciceId}
-        className="mx-auto flex max-w-lg flex-col gap-4 py-12 [&_input]:block [&_label]:block [&_label]:w-full"
+        className="mx-auto flex max-w-lg flex-col gap-4 py-12 "
+        enableReinitialize
+        initialValues={{
+          email: data?.user?.email,
+          phone: '',
+          userid: data?.user?.id,
+          username: data?.user?.name,
+        }}
       >
-        <h1 className="text-center text-2xl font-bold">Pay to confirm the booking </h1>
-        <small>ID: {scheduleId}</small>
-        <input
-          className="w-full rounded-lg border p-3 disabled:bg-gray-200"
-          disabled
-          name="userid"
-          required
-          type="text"
-          value={data?.user?.id}
-        />
-        <label>
-          Username:
-          <input
-            className="w-full rounded-lg border p-3 disabled:bg-gray-200"
-            disabled
-            name="username"
-            required
-            type="text"
-            value={data?.user?.name}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            className="w-full rounded-lg border p-3 disabled:bg-gray-200"
-            disabled
-            name="email"
-            required
-            type="email"
-            value={data?.user?.email}
-          />
-        </label>
-        <label>
-          Phone:
-          <input className="w-full rounded-lg border p-3" name="phone" required type="tel" />
-        </label>
-        {/* <img src="/image.jpg" /> */}
-        <SubmitButton />
-      </form>
+        {({ isSubmitting }) => (
+          <>
+            <h1 className="text-center text-2xl font-bold">Book this Schedule </h1>
+            <small>Schedule ID: {scheduleId}</small>
+            <Input disabled label="User ID" name="userid" required />
+            <Input disabled label="Username" name="username" required />
+            <Input disabled label="Email" name="email" required type="email" />
+            <Input label="Phone" name="phone" required type="tel" />
+            <Button color="primary" isLoading={isSubmitting} type="submit">
+              Book now
+            </Button>
+          </>
+        )}
+      </Form>
     </div>
   );
 }
