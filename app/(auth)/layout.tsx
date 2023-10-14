@@ -1,4 +1,3 @@
-import RegisterForm from '@/app/(auth)/register/page';
 import BrandLogo from '@/assets/icons/BrandLogo';
 import { sitemap } from '@/lib/constants';
 import { Metadata } from 'next';
@@ -38,12 +37,12 @@ export default function AuthenticationPage({ children }: { children: ReactNode }
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 overflow-y-auto sm:w-[350px]">
             {children}
             <p className="text-muted-foreground px-8 text-center text-sm">
-              By clicking continue, you agree to our{' '}
-              <Link className="underline underline-offset-4 hover:text-primary" href="/terms">
+              By submitting the form, you agree to our{' '}
+              <Link className="underline underline-offset-4 hover:text-primary" href={sitemap.termsAndConditions.href}>
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link className="underline underline-offset-4 hover:text-primary" href="/privacy">
+              <Link className="underline underline-offset-4 hover:text-primary" href={sitemap.privacyPolicy.href}>
                 Privacy Policy
               </Link>
               .

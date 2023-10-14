@@ -46,11 +46,10 @@ const authOptions: NextAuthOptions = {
             email: credentials?.email,
           },
         });
-        console.log('authorize', user);
         if (!user) return null;
         const password = new Password(credentials?.password);
         const comp = password.compare(user?.password);
-        console.log('compaare ', comp);
+
         if (!comp) return null;
         return { ...user, password: undefined };
       },
