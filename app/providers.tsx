@@ -51,7 +51,19 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <SessionProvider>
         <NextUIProvider>
           {children}
-          <Toaster />
+          <Toaster
+            toastOptions={{
+              error: {
+                className: '!border-2 !border-red-500',
+              },
+              style: {
+                maxWidth: '31.25rem',
+              },
+              success: {
+                className: '!border-2 !border-emerald-500',
+              },
+            }}
+          />
         </NextUIProvider>
       </SessionProvider>
     </ThemeProvider.Provider>

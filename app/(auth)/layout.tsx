@@ -14,9 +14,8 @@ export const metadata: Metadata = {
 export default function AuthenticationPage({ children }: { children: ReactNode }) {
   return (
     <>
-      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-       
-        <div className="bg-muted relative hidden h-full flex-col p-10 text-white dark:border-r lg:flex">
+      <div className="container relative  h-screen max-w-none grid-cols-2 flex-col items-center justify-center px-0 md:grid">
+        <div className="bg-muted relative hidden h-full flex-col p-10 text-white dark:border-r md:flex">
           <div className="absolute inset-0 flex items-center justify-center bg-secondary">
             <Image alt="Authentication" className="block" height={1000} src="/images/medical-report.png" width={1000} />
           </div>
@@ -35,7 +34,7 @@ export default function AuthenticationPage({ children }: { children: ReactNode }
             </blockquote>
           </div>
         </div>
-        <div className="lg:p-8">
+        <div className=" flex h-full items-center justify-center p-4 lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 overflow-y-auto sm:w-[350px]">
             {children}
             <p className="text-muted-foreground px-8 text-center text-sm">

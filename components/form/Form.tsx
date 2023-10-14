@@ -1,6 +1,7 @@
 'use client';
 
 import { Formik, FormikConfig, Form as FormikForm, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import toast from 'react-hot-toast';
 
 type Props<T extends FormikValues> = Omit<FormikConfig<T>, 'onSubmit'> & {
   action?: (values: T) => Promise<any> | void;
@@ -23,14 +24,17 @@ export default function Form<T extends FormikValues>({
   return (
     <Formik
       onSubmit={async (values, helpers) => {
-        // helpers.setSubmitting(true);
         if (typeof beforeSubmit === 'function') {
           values = beforeSubmit(values);
         }
         return action
           ? action(values)
-              ?.then((r) => console.log('r', r))
-              .catch((e) => console.log('e', e.message))
+              ?.then((res) => {
+                if (res?.message) toast.success(res.message);
+              })
+              .catch((e) => {
+                if (e?.message) toast.error(e.message);
+              })
           : onSubmit?.(values, helpers);
       }}
       {...rest}

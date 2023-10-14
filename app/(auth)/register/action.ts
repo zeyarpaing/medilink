@@ -3,27 +3,34 @@
 import { RegisterForm, registerSchema } from '@/app/(auth)/register/schema';
 import prisma from '@/lib/prisma';
 import { Password } from '@/lib/utils';
-import { RedirectType } from 'next/dist/client/components/redirect';
-import { redirect } from 'next/navigation';
+import { Role } from '@prisma/client';
 
 export async function registerAccount(formData: RegisterForm) {
-  return registerSchema.isValid(formData).then((valid) => {
+  return registerSchema.isValid(formData).then(async (valid) => {
     if (!valid) {
       throw new Error('Invalid data');
     }
-    console.log('valid', valid);
-    return 'Hello world';
+    const password = new Password(formData.password);
+    return prisma.user
+      .create({
+        data: {
+          email: formData.email.trim(),
+          name: formData.name.trim(),
+          password: password.encrypt(),
+          role: formData.role as Role,
+        },
+      })
+      .then((user) => {
+        return {
+          data: user,
+          message: 'Account registered.',
+        };
+      })
+      .catch((reason) => {
+        if (reason.code === 'P2002') {
+          throw new Error('An account with this email already exists.');
+        }
+        throw new Error('An error occurred while creating your account.');
+      });
   });
-  return;
-  const password = new Password('' + formData.password);
-
-  const user = await prisma.user.create({
-    data: {
-      email: '' + formData.get('email'),
-      name: '' + formData.get('username') ?? '',
-      password: password.encrypt(),
-    },
-  });
-  console.log('createUser', user);
-  redirect(`/`, RedirectType.replace);
 }

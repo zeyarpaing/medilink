@@ -9,7 +9,6 @@ export const registerSchema = object().shape({
   password: string()
     .required('Password is required')
     .min(8, 'Please set a password with at least 8 characters for stronger security'),
-  phone: string().required(),
   role: string().required(),
 });
 

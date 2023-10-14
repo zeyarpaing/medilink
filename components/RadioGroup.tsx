@@ -1,31 +1,43 @@
 'use client';
 
-import { CustomRadio } from '@/components/Radio';
+import { CheckRadioItem } from '@/components/Radio';
 import { RadioGroup as $RadioGroup, RadioGroupProps } from '@nextui-org/react';
 import { useField } from 'formik';
+import { ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-type Props = { name: string; options: Array<{ label: string; value: boolean | string }> };
+type Props = { name: string; options: Array<{ icon?: ReactNode; label: string; value: boolean | string }> };
 
-export default function RadioGroup({ name, options, ...props }: RadioGroupProps & Props) {
-  const [{ onChange, value, ...field }] = useField(name);
+export default function RadioGroup({ className, name, options, ...props }: RadioGroupProps & Props) {
+  const [{ onChange, value, ...field }, { error }] = useField(name);
   return (
-    <$RadioGroup
-      classNames={{ label: 'text-sm text-foreground font-medium', wrapper: 'flex-row [&>*]:flex-1' }}
-      label=" "
-      {...field}
-      onChange={(e) => {
-        typeof options[0].value === 'boolean'
-          ? onChange({ ...e, target: { ...e.target, name, value: e.target.value === 'true' } })
-          : onChange(e);
-      }}
-      value={'' + value}
-      {...props}
-    >
-      {options.map((item) => (
-        <CustomRadio key={'' + item.value} name={name} value={'' + item.value}>
-          {item.label}
-        </CustomRadio>
-      ))}
-    </$RadioGroup>
+    <div>
+      <$RadioGroup
+        classNames={{
+          label: 'text-sm text-foreground font-medium',
+          wrapper: twMerge('flex-col [&>*]:flex-1', className),
+        }}
+        label=" "
+        {...field}
+        {...props}
+      >
+        {options.map((item) => (
+          <CheckRadioItem
+            isSelected={'' + item.value === value}
+            key={'' + item.value}
+            name={name}
+            onChange={(e) => {
+              console.log('e : ', e.target.value, e.target.name);
+              onChange({ ...e, target: { ...e.target, name, value: e.target.checked ? item.value : '' } });
+            }}
+            outline
+            value={'' + item.value}
+          >
+            {item.icon} {item.label}
+          </CheckRadioItem>
+        ))}
+      </$RadioGroup>
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
+    </div>
   );
 }
