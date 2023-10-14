@@ -10,7 +10,7 @@ export default function CTAButton({ children, className, isLink, ...props }: Pro
   return (
     <Button
       as={isLink ? Link : undefined}
-      className={twMerge('mt-2 w-full px-8 py-4 text-lg font-semibold shadow-lg hover:opacity-90 sm:w-fit', className)}
+      className={twMerge('mt-2 w-full px-8 py-4 text-lg font-semibold shadow-lg hover:opacity-80 sm:w-fit', className)}
       color="primary"
       size="lg"
       {...props}

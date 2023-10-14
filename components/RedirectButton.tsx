@@ -7,10 +7,10 @@ export default function RedirectButton({ children, className, isLink, ...props }
   return (
     <Button
       as={isLink ? Link : undefined}
-      className={twMerge('mt-8 px-6 py-4 text-base font-medium', className)}
+      className={twMerge('group mt-8 px-6 py-4 text-base font-medium hover:opacity-90', className)}
       color="primary"
       endContent={
-        <span className="-rotate-90 scale-80">
+        <span className="-rotate-90 scale-80 transition-transform group-hover:translate-x-1">
           <ChevronDownIcon />
         </span>
       }
