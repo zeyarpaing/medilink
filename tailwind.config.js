@@ -28,16 +28,16 @@ module.exports = {
             background: '#101010',
             focus: '#F13456',
             foreground: '#f3f3f3',
-            primary: { DEFAULT: '#F13456', foreground: '#fff' },
-            secondary: 'rgba(239, 50, 84, 0.25)',
+            primary: { DEFAULT: 'rgba(241, 52, 86, <alpha-value>)', foreground: '#fff' },
+            secondary: 'rgba(25, 140, 210, <alpha-value>)',
           },
           extend: 'light',
         },
         light: {
           colors: {
             focus: '#EF3254',
-            primary: { DEFAULT: '#EF3254', foreground: '#fff' },
-            secondary: 'rgba(239, 50, 84, 0.25)',
+            primary: { DEFAULT: 'rgba(241, 52, 86, <alpha-value>)', foreground: '#fff' },
+            secondary: 'rgba(25, 140, 210, <alpha-value>)',
           },
           foreground: '#101010',
         },
@@ -49,6 +49,10 @@ module.exports = {
       backgroundImage: {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      colors: {
+        primary: { DEFAULT: 'rgba(241, 52, 86, <alpha-value>)', foreground: '#fff' },
+        secondary: 'rgba(25, 140, 210, <alpha-value>)',
       },
     },
   },

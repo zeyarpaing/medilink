@@ -27,7 +27,11 @@ export default function Form<T extends FormikValues>({
         if (typeof beforeSubmit === 'function') {
           values = beforeSubmit(values);
         }
-        return action ? action(values) : onSubmit?.(values, helpers);
+        return action
+          ? action(values)
+              ?.then((r) => console.log('r', r))
+              .catch((e) => console.log('e', e.message))
+          : onSubmit?.(values, helpers);
       }}
       {...rest}
     >
