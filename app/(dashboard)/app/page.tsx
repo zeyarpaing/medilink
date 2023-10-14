@@ -1,3 +1,6 @@
+import { sitemap } from '@/lib/constants';
+import { redirect } from 'next/navigation';
+
 export default async function Dashboard() {
-  return <div className="text-2xl font-extrabold text-red-600">This is dashboard page</div>;
+  redirect(sitemap.app.children.profile.href);
 }

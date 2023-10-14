@@ -1,8 +1,10 @@
 import BookingIcon from '@/assets/icons/BookingIcon';
 import FacebookIcon from '@/assets/icons/FacebookIcon';
+import FirstAidIcon from '@/assets/icons/FirstAidIcon';
 import HospitalIcon from '@/assets/icons/HospitalIcon';
 import InstagramIcon from '@/assets/icons/InstagramIcon';
 import LinkedinIcon from '@/assets/icons/LinkedinIcon';
+import PieChartIcon from '@/assets/icons/PieChartIcon';
 import ProfileIcon from '@/assets/icons/ProfileIcon';
 import ScheduleIcon from '@/assets/icons/ScheduleIcon';
 import ServiceIcon from '@/assets/icons/ServiceIcon';
@@ -30,7 +32,7 @@ export const sitemap = {
       },
       report: {
         href: '/app/report',
-        icon: TrendIcon,
+        icon: PieChartIcon,
         label: 'Report',
         role: ['ADMIN'],
       },
@@ -40,8 +42,8 @@ export const sitemap = {
         label: 'Schedule',
         role: ['DOCTOR', 'ADMIN'],
       },
-      services: {
-        href: '/app/services',
+      service: {
+        href: '/app/service',
         icon: ServiceIcon,
         label: 'Services',
         role: ['ADMIN'],

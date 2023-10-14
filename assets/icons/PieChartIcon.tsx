@@ -1,5 +1,5 @@
 import { SVGProps } from 'react';
-export default function PieChart(props: SVGProps<SVGSVGElement>) {
+export default function PieChartIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
