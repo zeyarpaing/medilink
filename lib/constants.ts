@@ -1,15 +1,77 @@
+import BookingIcon from '@/assets/icons/BookingIcon';
 import FacebookIcon from '@/assets/icons/FacebookIcon';
+import HospitalIcon from '@/assets/icons/HospitalIcon';
 import InstagramIcon from '@/assets/icons/InstagramIcon';
 import LinkedinIcon from '@/assets/icons/LinkedinIcon';
+import ProfileIcon from '@/assets/icons/ProfileIcon';
+import ScheduleIcon from '@/assets/icons/ScheduleIcon';
+import ServiceIcon from '@/assets/icons/ServiceIcon';
+import SettingIcon from '@/assets/icons/SettingIcon';
+import TrendIcon from '@/assets/icons/TrendIcon';
 
 export const sitemap = {
   about: {
     href: '/about',
     label: 'About',
   },
+  app: {
+    children: {
+      booking: {
+        href: '/app/booking',
+        icon: BookingIcon,
+        label: 'Bookings',
+        role: ['USER', 'DOCTOR'],
+      },
+      provider: {
+        href: '/app/provider',
+        icon: HospitalIcon,
+        label: 'Provider',
+        role: ['ADMIN'],
+      },
+      report: {
+        href: '/app/report',
+        icon: TrendIcon,
+        label: 'Report',
+        role: ['ADMIN'],
+      },
+      schedule: {
+        href: '/app/schedule',
+        icon: ScheduleIcon,
+        label: 'Schedule',
+        role: ['DOCTOR', 'ADMIN'],
+      },
+      services: {
+        href: '/app/services',
+        icon: ServiceIcon,
+        label: 'Services',
+        role: ['ADMIN'],
+      },
+      // eslint-disable-next-line
+      profile: {
+        href: '/app/profile',
+        icon: ProfileIcon,
+        label: 'Profile',
+        role: ['USER', 'DOCTOR', 'ADMIN'],
+      },
+      settings: {
+        href: '/app/settings',
+        icon: SettingIcon,
+        label: 'Settings',
+        role: ['USER', 'DOCTOR', 'ADMIN'],
+      },
+    },
+    href: '/app',
+    label: 'App',
+  },
   contact: {
     href: '/contact',
     label: 'Contact',
+  },
+  dashboard: {
+    featured: true,
+    href: '/app',
+    label: 'Dashboard',
+    type: 'button',
   },
   faq: {
     href: '/faq',
@@ -44,6 +106,13 @@ export const sitemap = {
     label: 'Sign out',
     type: 'button',
   },
+  myBooking: {
+    featured: true,
+    href: '/app/booking',
+    label: 'My bookings',
+    type: 'button',
+  },
+
   privacyPolicy: {
     href: '/privacy-policy',
     label: 'Privacy policy',
@@ -76,75 +145,6 @@ export const sitemap = {
     label: 'Terms and conditions',
   },
 } as const;
-
-export const products = [
-  {
-    description: 'MyTengah Family Protection Pla protects what is important to you against unexpected circumstance.',
-    image:
-      'https://img.freepik.com/free-photo/happy-asian-young-family-having-fun-laughing-moving-into-new-home-japanese-parents-mother-father-smiling-helping-excited-little-girl-riding-sitting-cardboard-box-new-property-relocation_7861-2288.jpg?w=1380&t=st=1695970469~exp=1695971069~hmac=2f94cecdceac0b791a0aef261a282a7bec3625cc05b2f6a6e74471f146535503',
-    link: '/products/family-protection',
-    name: 'Family Protection Plan',
-    provider: 'MyTengah',
-  },
-  {
-    description:
-      'MyTengah Smart-Home Protection Plan (HPP) protects what is important to you against unexpected circumstance.',
-    image:
-      'https://img.freepik.com/free-photo/young-couple-holding-white-miniature-house-living-room_1150-5271.jpg?w=1380&t=st=1695970778~exp=1695971378~hmac=5f2fc4820582962bb70eeeae4d2cb5261b954585e4bdeee0e968afbaaab01558',
-    link: '/products/home-protection',
-    name: 'Smart Home Protection Plan',
-    provider: 'MyTengah',
-  },
-  {
-    description: 'Personal Accident Plan protects what is important to you against unexpected circumstance.',
-    image:
-      'https://img.freepik.com/free-photo/lonely-accident-patients-injury-headache-woman-hospital-medical-concept_1150-21721.jpg?w=1380&t=st=1695970626~exp=1695971226~hmac=8603911a04ce44b1bb709917796c61760f3a7b7b161fce0be6d0c9e988479f9e',
-    link: '/products/personal-accident',
-    name: 'Personal Accident Plan',
-    provider: 'Tokio Marine',
-  },
-];
-
-export const statistics = [
-  {
-    count: '40k',
-    description: 'homes protected',
-  },
-  {
-    count: '2 million',
-    description: 'homes protected',
-  },
-  {
-    count: '50+',
-    description: 'countries',
-  },
-  {
-    count: '2k+',
-    description: 'staff',
-  },
-  {
-    count: '75',
-    description: 'good years',
-  },
-];
-
-export const productHighlights = [
-  {
-    description: "Just pay for ONE plan and we'll have your whole family covered.",
-    image: '/icons/1inall.webp',
-    title: 'All-for-1',
-  },
-  {
-    description: 'Customise your own plans with our flexible add-on benefits.',
-    image: '/icons/flexible.webp',
-    title: 'Flexible benefits',
-  },
-  {
-    description: 'Fuss-free application with no medical check-up required.',
-    image: '/icons/nocheckup.webp',
-    title: 'No medical check-up',
-  },
-];
 
 export const testimonials = [
   {

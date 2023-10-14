@@ -3,15 +3,25 @@
 import CTAButton from '@/components/CTAButton';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
+import Form from '@/components/form/Form';
 import { Formik } from 'formik';
+import { useSession } from 'next-auth/react';
 
 export default function ContactForm() {
+  const { data } = useSession();
   return (
     <div className="w-full max-w-3xl rounded-lg border px-10 py-8 ">
       <h2 className="mb-5 text-2xl font-bold">What can we help you with?</h2>
-      <Formik initialValues={{}} onSubmit={(values) => {}}>
+      <Form
+        enableReinitialize
+        initialValues={{
+          email: data?.user?.email,
+          name: data?.user?.name,
+        }}
+        onSubmit={(values) => {}}
+      >
         {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <div>
             <div className="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 [&_label]:font-light">
               <Input label="Full name" name="name" />
               <Input label="Mobile number" name="mobile" type="tel" />
@@ -21,8 +31,16 @@ export default function ContactForm() {
                 name="subject"
                 options={[
                   {
-                    label: 'Product enquiry',
-                    value: 'Product enquiry',
+                    label: 'Enquiry',
+                    value: 'Enquiry',
+                  },
+                  {
+                    label: 'Feedback',
+                    value: 'Feedback',
+                  },
+                  {
+                    label: 'Others',
+                    value: 'Others',
                   },
                 ]}
               />
@@ -31,9 +49,9 @@ export default function ContactForm() {
             <CTAButton className="mt-4 !w-full shadow-none" type="submit">
               Submit
             </CTAButton>
-          </form>
+          </div>
         )}
-      </Formik>
+      </Form>
     </div>
   );
 }

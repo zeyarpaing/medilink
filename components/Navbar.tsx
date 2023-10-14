@@ -83,7 +83,9 @@ export default function Navbar() {
   }
 
   const navigation = session?.user
-    ? [sitemap.healthProviders, sitemap.faq, sitemap.contact]
+    ? session.user.role === 'USER'
+      ? [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap.myBooking]
+      : [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap.dashboard]
     : [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap['register'], sitemap.login];
 
   return (
