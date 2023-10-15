@@ -62,6 +62,7 @@ model User {
   sessions      Session[]
   role          Role      @default(USER)
   password      String
+  phone         String?
 }
 
 model Transaction {
@@ -106,14 +107,21 @@ model Service {
   schedule             Schedule[]
 }
 
+enum ProviderType {
+  HOSPITAL
+  CLINIC
+  LABORATORY
+}
+
 model HealthcareProvider {
-  id          Int       @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   name        String
   address     String
   phone       String
   email       String
   image       String
-  type        String
+  slug        String
+  type        ProviderType
   description String
   services    Service[]
 }
