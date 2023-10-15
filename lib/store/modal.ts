@@ -3,22 +3,13 @@ import { deepMap } from 'nanostores';
 import { ReactNode } from 'react';
 
 export type Modal = {
-  actions?: [
-    {
-      color: ButtonProps['color'];
-      label: string;
-      onClick: () => Promise<void> | void;
-      type: 'cancel';
-      variant: ButtonProps['variant'];
-    },
-    {
-      color: ButtonProps['color'];
-      label: string;
-      onClick: () => Promise<void> | void;
-      type: 'proceed';
-      variant: ButtonProps['variant'];
-    }
-  ];
+  actions?: Array<{
+    color: ButtonProps['color'];
+    label: string;
+    onClick: () => Promise<void> | void;
+    type: 'cancel' | 'proceed';
+    variant: ButtonProps['variant'];
+  }>;
   closeOnProceed?: boolean;
   content: ReactNode | string;
   id: string;
