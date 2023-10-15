@@ -20,7 +20,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Navbar />
+      <Navbar isApp />
       <main className="flex">
         <aside className="h-[calc(100vh-4.05rem)] w-full max-w-xs border-r bg-background shadow-md">
           <ul className="flex flex-col p-4">

@@ -45,7 +45,7 @@ export const sitemap = {
       service: {
         href: '/app/service',
         icon: ServiceIcon,
-        label: 'Services',
+        label: 'Service',
         role: ['ADMIN'],
       },
       // eslint-disable-next-line
@@ -56,9 +56,9 @@ export const sitemap = {
         role: ['USER', 'DOCTOR', 'ADMIN'],
       },
       settings: {
-        href: '/app/settings',
+        href: '/app/setting',
         icon: SettingIcon,
-        label: 'Settings',
+        label: 'Setting',
         role: ['USER', 'DOCTOR', 'ADMIN'],
       },
     },

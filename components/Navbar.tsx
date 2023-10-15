@@ -71,7 +71,7 @@ function AccountDropdown() {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ isApp }: { isApp?: boolean }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openedDropdown, setOpenedDropdown] = useState('');
   const router = useRouter();
@@ -83,7 +83,9 @@ export default function Navbar() {
   }
 
   const navigation = session?.user
-    ? session.user.role === 'USER'
+    ? isApp
+      ? [sitemap.healthProviders, sitemap.faq, sitemap.contact]
+      : session.user.role === 'USER'
       ? [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap.myBooking]
       : [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap.dashboard]
     : [sitemap.healthProviders, sitemap.faq, sitemap.contact, sitemap['register'], sitemap.login];
