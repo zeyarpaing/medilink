@@ -1,8 +1,8 @@
 'use client';
 
 import { createSchedule } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
-import Input from '@/components/Input';
 import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
 import { Button } from '@nextui-org/button';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';

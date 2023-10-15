@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckRadioItem } from '@/components/Radio';
+import { CheckRadioItem } from '@/components/form/Radio';
 import { RadioGroup as $RadioGroup, RadioGroupProps } from '@nextui-org/react';
 import { useField } from 'formik';
 import { ReactNode } from 'react';

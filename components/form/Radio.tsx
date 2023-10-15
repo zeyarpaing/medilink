@@ -1,4 +1,4 @@
-import CheckBox from '@/components/CheckBox';
+import CheckBox from '@/components/form/CheckBox';
 import { CheckboxProps, Radio, RadioProps } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 

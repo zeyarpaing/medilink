@@ -3,9 +3,9 @@
 import { registerAccount } from '@/app/(auth)/register/action';
 import { registerSchema } from '@/app/(auth)/register/schema';
 import Button from '@/components/Button';
-import Input from '@/components/Input';
-import RadioGroup from '@/components/RadioGroup';
 import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
+import RadioGroup from '@/components/form/RadioGroup';
 import { sitemap } from '@/lib/constants';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
