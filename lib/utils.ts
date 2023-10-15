@@ -1,3 +1,4 @@
+import { $modals, Modal } from '@/lib/store/modal';
 import { createHash, pbkdf2Sync } from 'crypto';
 
 export function debounce(fn: () => void, delay: number) {
@@ -26,4 +27,17 @@ export class Password {
     const hashed = createHash('sha512').update(this.password).digest('binary');
     return pbkdf2Sync(hashed, process.env.SALT!, 1000, 64, 'sha512').toString('hex');
   }
+}
+
+export function openModal({ closeOnProceed, content, title, ...props }: Omit<Modal, 'id'>) {
+  const modals = $modals.get();
+  const keys = Object.keys(modals);
+  const newId = keys.length;
+  $modals.setKey(`${newId}`, {
+    closeOnProceed: closeOnProceed ?? true,
+    content,
+    id: `${newId}`,
+    title,
+    ...props,
+  } as never);
 }

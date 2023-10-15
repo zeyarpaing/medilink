@@ -3,6 +3,7 @@
 import ChevronDownIcon from '@/assets/icons/ChevronDownIcon';
 import Button from '@/components/Button';
 import { sitemap } from '@/lib/constants';
+import { openModal } from '@/lib/utils';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
 import {
   Navbar as $Navbar,
@@ -61,7 +62,18 @@ function AccountDropdown() {
             <DropdownItem onClick={() => setTimeout(() => router.push(sitemap.profile.href), 500)}>
               {sitemap.profile.label}
             </DropdownItem>
-            <DropdownItem className="text-danger" color="danger" onClick={() => signOut()}>
+            <DropdownItem
+              className="text-danger"
+              color="danger"
+              onClick={() => {
+                openModal({
+                  content: 'Are you sure you want to log out?',
+                  onProceed: () => signOut(),
+                  size: 'sm',
+                  title: 'Log out',
+                });
+              }}
+            >
               Log out
             </DropdownItem>
           </DropdownMenu>
