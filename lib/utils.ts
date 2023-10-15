@@ -29,6 +29,14 @@ export class Password {
   }
 }
 
+export function slugify(str: string) {
+  return str
+    .trim()
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '');
+}
+
 export function openModal({ closeOnProceed, content, title, ...props }: Omit<Modal, 'id'>) {
   const modals = $modals.get();
   const keys = Object.keys(modals);

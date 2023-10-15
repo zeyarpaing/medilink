@@ -1,22 +1,21 @@
 import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
+import { User } from '@/lib/types';
 import { Password } from '@/lib/utils';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     jwt: async ({ token, user }) => {
-      user && (token.user = user);
+      user && (token.user = user as User);
       return token;
     },
     session: async ({ session, token }) => {
-      // @ts-ignore
-      session.user = token.user;
-      return session;
+      return { ...session, user: token.user };
     },
   },
   debug: true,
@@ -30,7 +29,7 @@ const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
         const user = await prisma.user.findUnique({

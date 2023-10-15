@@ -11,13 +11,14 @@ type Props = {
 };
 
 export default function Select({ name, options, ...props }: Omit<Props & SelectProps, 'children'>) {
-  const [field] = useField(name);
+  const [field, { error, touched }] = useField(name);
   return (
     <$Select
       classNames={{
         label: 'text-sm font-medium text-foreground',
-        trigger: '!h-14 px-4',
+        trigger: '!h-[3.2rem] px-4',
       }}
+      errorMessage={touched ? error : undefined}
       label=" "
       labelPlacement="outside"
       placeholder=" "

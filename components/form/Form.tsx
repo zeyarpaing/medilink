@@ -4,12 +4,13 @@ import { Formik, FormikConfig, Form as FormikForm, FormikHelpers, FormikProps, F
 import toast from 'react-hot-toast';
 
 type Props<T extends FormikValues> = Omit<FormikConfig<T>, 'onSubmit'> & {
-  action?: (values: T) => Promise<any> | void;
+  action?: (values: any) => Promise<any> | void;
   beforeSubmit?: (values: T) => T;
   children: ((props: FormikProps<T>) => React.ReactNode) | React.ReactNode;
   className?: string;
   id?: string;
   onSubmit?: (values: T, helpers: FormikHelpers<T>) => Promise<any> | void;
+  useFormData?: boolean;
 };
 
 export default function Form<T extends FormikValues>({
@@ -19,6 +20,7 @@ export default function Form<T extends FormikValues>({
   className,
   id,
   onSubmit,
+  useFormData,
   ...rest
 }: Props<T>) {
   return (
@@ -26,6 +28,13 @@ export default function Form<T extends FormikValues>({
       onSubmit={async (values, helpers) => {
         if (typeof beforeSubmit === 'function') {
           values = beforeSubmit(values);
+        }
+        if (useFormData) {
+          const formData = new FormData();
+          Object.keys(values).forEach((key) => {
+            formData.append(key, values[key]);
+          });
+          values = formData as unknown as T;
         }
         return action
           ? action(values)

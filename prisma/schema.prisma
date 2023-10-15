@@ -53,16 +53,17 @@ enum Role {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  role          Role      @default(USER)
-  password      String
-  phone         String?
+  id                 String               @id @default(cuid())
+  name               String?
+  email              String?              @unique
+  emailVerified      DateTime?
+  image              String?
+  accounts           Account[]
+  sessions           Session[]
+  role               Role                 @default(USER)
+  password           String
+  phone              String?
+  HealthcareProvider HealthcareProvider[]
 }
 
 model Transaction {
@@ -124,4 +125,6 @@ model HealthcareProvider {
   type        ProviderType
   description String
   services    Service[]
+  owner       User         @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }

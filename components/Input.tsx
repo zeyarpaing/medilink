@@ -32,7 +32,7 @@ export default function Input({ name, ...props }: InputProps & Props) {
       classNames={{
         base: 'data-[disabled=true]:opacity-100 [&>div>div]:data-[disabled=true]:bg-gray-200',
         input: 'text-left px-4 rounded-lg !text-[16px]',
-        inputWrapper: '!h-14 px-0 data-[focus=true]:!border-blue-800',
+        inputWrapper: '!h-[3.2rem] px-0 data-[focus=true]:!border-blue-800',
         label: 'text-sm font-medium text-foreground',
       }}
       errorMessage={touched ? error : undefined}

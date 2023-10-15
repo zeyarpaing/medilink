@@ -5,11 +5,11 @@ const nextConfig = {
   },
   images: {
     domains: [
+      'res.cloudinary.com',
       'unsplash.com',
       'images.unsplash.com',
       'source.unsplash.com',
       'img.freepik.com',
-      'example.com',
       'play-lh.googleusercontent.com',
     ],
   },
