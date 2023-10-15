@@ -31,7 +31,7 @@ export default function ImageInput({ label, name }: Props) {
               alt="image"
               className="h-[23rem] w-full object-cover"
               height={800}
-              src={field.value instanceof File ? URL.createObjectURL(field.value) : field.value}
+              src={typeof field.value === 'string' ? field.value : URL.createObjectURL(field.value)}
               width={1200}
             />
             <button

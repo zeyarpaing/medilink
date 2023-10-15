@@ -38,7 +38,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <li className="" key={route.href}>
                   <Link
                     className={`flex w-full items-center gap-3 rounded-lg ${
-                      pathname.includes(route.href) ? ' bg-primary text-white' : 'text-gray-600'
+                      pathname.includes(route.href) ? ' bg-primary text-white' : 'text-foreground/70'
                     } px-4 py-3 `}
                     href={route.href}
                   >

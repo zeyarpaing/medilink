@@ -1,16 +1,5 @@
 import { InferType, mixed, object, string } from 'yup';
 
-//  {
-//     address: '',
-//     description: '',
-//     email: '',
-//     image: '',
-//     name: '',
-//     ownerId: '',
-//     phone: '',
-//     slug: '',
-//     type: 'HOSPITAL',}
-
 export const providerSchema = object().shape({
   address: string().required(),
   description: string().required(),

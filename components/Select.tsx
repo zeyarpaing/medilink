@@ -19,9 +19,11 @@ export default function Select({ name, options, ...props }: Omit<Props & SelectP
         trigger: '!h-[3.2rem] px-4',
       }}
       errorMessage={touched ? error : undefined}
+      isDisabled={props.disabled}
       label=" "
       labelPlacement="outside"
       placeholder=" "
+      selectedKeys={[field.value]}
       variant="bordered"
       {...field}
       {...props}

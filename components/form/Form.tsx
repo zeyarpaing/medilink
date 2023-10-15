@@ -1,5 +1,6 @@
 'use client';
 
+import { Listener } from '@/components/Listener';
 import { Formik, FormikConfig, Form as FormikForm, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import toast from 'react-hot-toast';
 
@@ -9,6 +10,7 @@ type Props<T extends FormikValues> = Omit<FormikConfig<T>, 'onSubmit'> & {
   children: ((props: FormikProps<T>) => React.ReactNode) | React.ReactNode;
   className?: string;
   id?: string;
+  listenKeyboardSave?: boolean;
   onSubmit?: (values: T, helpers: FormikHelpers<T>) => Promise<any> | void;
   useFormData?: boolean;
 };
@@ -19,6 +21,7 @@ export default function Form<T extends FormikValues>({
   children,
   className,
   id,
+  listenKeyboardSave,
   onSubmit,
   useFormData,
   ...rest
@@ -51,6 +54,13 @@ export default function Form<T extends FormikValues>({
       {(props) => (
         <FormikForm className={className} id={id} onSubmit={props.handleSubmit}>
           {children instanceof Function ? children(props) : children}
+          {listenKeyboardSave ? (
+            <Listener
+              onTrigger={() => {
+                if (props.dirty) props.isValid ? props.submitForm() : toast.error('Invalid form');
+              }}
+            />
+          ) : null}
         </FormikForm>
       )}
     </Formik>
