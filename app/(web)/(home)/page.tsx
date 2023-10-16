@@ -25,9 +25,13 @@ export default async function Home() {
                   effortless healthcare management, seamless appointments,
                   <br /> and a healthier tomorrow.
                 </p>
-                {session?.user ? (
+                {session?.user?.role === 'USER' ? (
                   <CTAButton href={sitemap.healthProviders.href} isLink>
                     Start booking
+                  </CTAButton>
+                ) : session?.user ? (
+                  <CTAButton href={sitemap.app.href} isLink>
+                    Start managing
                   </CTAButton>
                 ) : (
                   <CTAButton href={sitemap['register'].href} isLink>

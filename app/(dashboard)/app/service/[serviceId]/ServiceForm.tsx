@@ -1,38 +1,32 @@
 'use client';
-
-import { mutateHealthcareProvider } from '@/app/(dashboard)/app/provider/action';
-import { providerSchema } from '@/app/(dashboard)/app/provider/schema';
+import { mutateService } from '@/app/(dashboard)/app/service/[serviceId]/action';
+import { serviceSchema } from '@/app/(dashboard)/app/service/[serviceId]/schema';
 import CTAButton from '@/components/CTAButton';
-import Effect from '@/components/Effect';
 import Form from '@/components/form/Form';
 import ImageInput from '@/components/form/ImageInput';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
-import { slugify } from '@/lib/utils';
 import { Kbd } from '@nextui-org/react';
-import { HealthcareProvider } from '@prisma/client';
+import { Service } from '@prisma/client';
 
-type Props = {
-  initialValues: Partial<HealthcareProvider>;
-};
+export default function ServiceForm({ initialValues }: { initialValues: Partial<Service> }) {
+  const isEdit = initialValues.id !== undefined;
 
-export default function ProviderForm({ initialValues }: Props) {
   return (
     <Form
-      action={mutateHealthcareProvider}
+      action={mutateService}
       enableReinitialize
       initialValues={initialValues}
       listenKeyboardSave
       useFormData
-      validationSchema={providerSchema}
+      validationSchema={serviceSchema}
     >
       {({ dirty, isSubmitting, isValid, setFieldValue, values }) => {
         return (
           <div>
             <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background pb-4">
               <div>
-                <h1 className="text-2xl font-bold ">Healthcare provider</h1>
-                <p className="text-sm text-gray-500">Manage your healthcare provider</p>
+                <h1 className="text-2xl font-bold ">{isEdit ? 'Edit service' : 'Create service'}</h1>
               </div>
               <div>
                 <CTAButton
@@ -53,12 +47,7 @@ export default function ProviderForm({ initialValues }: Props) {
               <ImageInput label="Image" name="image" />
               <div className="flex gap-4">
                 <Input label="Name" name="name" />
-                <Effect
-                  callback={() => {
-                    values.name && setFieldValue('slug', slugify(values.name));
-                  }}
-                  deps={[values.name]}
-                />
+
                 <Select
                   label="Provider type"
                   name="type"

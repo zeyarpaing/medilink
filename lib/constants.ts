@@ -9,7 +9,6 @@ import ProfileIcon from '@/assets/icons/ProfileIcon';
 import ScheduleIcon from '@/assets/icons/ScheduleIcon';
 import ServiceIcon from '@/assets/icons/ServiceIcon';
 import SettingIcon from '@/assets/icons/SettingIcon';
-import TrendIcon from '@/assets/icons/TrendIcon';
 
 export const sitemap = {
   about: {
@@ -30,22 +29,24 @@ export const sitemap = {
         label: 'Provider',
         role: ['ADMIN'],
       },
-      report: {
-        href: '/app/report',
-        icon: PieChartIcon,
-        label: 'Report',
+      service: {
+        href: '/app/service',
+        icon: ServiceIcon,
+        label: 'Service',
         role: ['ADMIN'],
       },
+      // eslint-disable-next-line
       schedule: {
         href: '/app/schedule',
         icon: ScheduleIcon,
         label: 'Schedule',
         role: ['DOCTOR', 'ADMIN'],
       },
-      service: {
-        href: '/app/service',
-        icon: ServiceIcon,
-        label: 'Service',
+      // eslint-disable-next-line
+      report: {
+        href: '/app/report',
+        icon: PieChartIcon,
+        label: 'Report',
         role: ['ADMIN'],
       },
       // eslint-disable-next-line

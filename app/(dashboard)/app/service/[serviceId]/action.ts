@@ -1,18 +1,18 @@
 'use server';
 
-import { ProviderFormValues, providerSchema } from '@/app/(dashboard)/app/provider/schema';
+import { ServiceFormValues, serviceSchema } from '@/app/(dashboard)/app/service/[serviceId]/schema';
 import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
 import { uploadImage } from '@/lib/upload';
-import { HealthcareProvider } from '@prisma/client';
+import { Service } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
-export async function mutateHealthcareProvider(formData: FormData) {
+export async function mutateService(formData: FormData) {
   const data = Object.fromEntries(formData.entries()) as unknown;
 
   const isEdit = data && typeof data === 'object' && 'id' in data && !!data.id;
 
-  return providerSchema
+  return serviceSchema
     .validate(data)
     .then((valid) => {
       if (!valid) {
@@ -20,26 +20,26 @@ export async function mutateHealthcareProvider(formData: FormData) {
       }
 
       if (isEdit) {
-        const editData = data as HealthcareProvider;
+        const editData = data as Service;
         if (typeof editData.image === 'string' && editData.image.startsWith('http')) {
           // image not changed
-          return prisma.healthcareProvider
+          return prisma.service
             .update({
               data: { ...editData, id: undefined },
               where: {
                 id: +editData.id,
               },
             })
-            .then((provider) => {
+            .then((service) => {
               return {
-                data: provider,
+                data: service,
                 message: 'Saved.',
               };
             });
         }
-        return uploadImage(formData.get('image') as File, 'healthcare-provider')
+        return uploadImage(formData.get('image') as File, 'service')
           .then(async (image) => {
-            return prisma.healthcareProvider
+            return prisma.service
               .update({
                 data: {
                   ...editData,
@@ -50,9 +50,9 @@ export async function mutateHealthcareProvider(formData: FormData) {
                   id: +editData.id,
                 },
               })
-              .then((provider) => {
+              .then((service) => {
                 return {
-                  data: provider,
+                  data: service,
                   message: 'Saved.',
                 };
               });
@@ -63,24 +63,24 @@ export async function mutateHealthcareProvider(formData: FormData) {
       }
 
       /** Create Action */
-      const createData = data as ProviderFormValues;
-      return uploadImage(formData.get('image') as File, 'healthcare-provider')
+      const createData = data as ServiceFormValues;
+      return uploadImage(formData.get('image') as File, 'service')
         .then(async (image) => {
-          const provider = await prisma.healthcareProvider.create({
+          const service = await prisma.service.create({
             data: {
               ...createData,
-              image: image.url,
-              owner: {
+              HealthcareProvider: {
                 connect: {
-                  id: createData.ownerId,
+                  id: createData.healthcareProviderId,
                 },
               },
-              ownerId: undefined,
+              healthcareProviderId: undefined,
+              image: image.url,
             },
           });
           return {
-            data: provider,
-            message: 'Saved.',
+            data: service,
+            message: 'Service created.',
           };
         })
         .catch(() => {
@@ -88,7 +88,7 @@ export async function mutateHealthcareProvider(formData: FormData) {
         });
     })
     .then((res) => {
-      revalidatePath(sitemap.app.children.provider.href);
+      revalidatePath(sitemap.app.children.service.href);
       return res;
     });
 }

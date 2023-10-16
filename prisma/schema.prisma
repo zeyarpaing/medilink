@@ -75,9 +75,9 @@ model Transaction {
 }
 
 model Booking {
-  id            Int         @id @default(autoincrement())
+  id            String      @id @default(cuid())
   schedule      Schedule    @relation(fields: [scheduleId], references: [id])
-  scheduleId    Int
+  scheduleId    String
   username      String
   email         String
   phone         String
@@ -88,12 +88,11 @@ model Booking {
 }
 
 model Schedule {
-  id         Int       @id @default(autoincrement())
-  date       DateTime
-  time       DateTime
+  id         String    @id @default(cuid())
+  dateTime   DateTime
   duration   Int
-  Service    Service?  @relation(fields: [serviceId], references: [id])
-  serviceId  Int?
+  Service    Service   @relation(fields: [serviceId], references: [id])
+  serviceId  Int
   maxBooking Int
   Booking    Booking[]
 }
@@ -102,6 +101,8 @@ model Service {
   id                   Int                 @id @default(autoincrement())
   name                 String
   image                String
+  bookingPrice         Int
+  minDuration          Int
   description          String
   HealthcareProvider   HealthcareProvider? @relation(fields: [healthcareProviderId], references: [id])
   healthcareProviderId Int?
