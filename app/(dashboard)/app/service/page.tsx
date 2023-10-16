@@ -1,5 +1,6 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import CTAButton from '@/components/CTAButton';
+import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
 import { getServerSession } from 'next-auth';
@@ -31,9 +32,11 @@ export default async function Page({}: Props) {
         </div>
       </div>
       <section className="relative z-0 mb-6 flex flex-col gap-4">
-        <ul>
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
-            <li key={service.id}>{service.name}</li>
+            <li key={service.id}>
+              <Card {...service} link={`service/${service.id}`} title={service.name} />
+            </li>
           ))}
         </ul>
       </section>

@@ -7,10 +7,16 @@ import { getProvider } from '@/lib/services';
 import { uploadImage } from '@/lib/upload';
 import { Service } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 
 export async function mutateService(formData: FormData) {
-  const data = Object.fromEntries(formData.entries()) as unknown;
+  const data = Object.fromEntries(
+    Object.entries(Object.fromEntries(formData.entries())).map(([key, val]) => {
+      if (typeof val === 'string' && val.length > 0 && !isNaN(+val)) {
+        return [key, +val];
+      }
+      return [key, val];
+    })
+  ) as unknown;
 
   const isEdit = data && typeof data === 'object' && 'id' in data && !!data.id;
 
@@ -82,10 +88,8 @@ export async function mutateService(formData: FormData) {
                   id: createData.healthcareProviderId,
                 },
               },
-              bookingPrice: +createData.bookingPrice,
               healthcareProviderId: undefined,
               image: image.url,
-              minDuration: +createData.minDuration,
             },
           });
           return {
