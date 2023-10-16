@@ -3,9 +3,11 @@
 import { ServiceFormValues, serviceSchema } from '@/app/(dashboard)/app/service/[serviceId]/schema';
 import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
+import { getProvider } from '@/lib/services';
 import { uploadImage } from '@/lib/upload';
 import { Service } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
 
 export async function mutateService(formData: FormData) {
   const data = Object.fromEntries(formData.entries()) as unknown;
@@ -14,7 +16,7 @@ export async function mutateService(formData: FormData) {
 
   return serviceSchema
     .validate(data)
-    .then((valid) => {
+    .then(async (valid) => {
       if (!valid) {
         throw new Error('Invalid request');
       }
@@ -64,6 +66,12 @@ export async function mutateService(formData: FormData) {
 
       /** Create Action */
       const createData = data as ServiceFormValues;
+
+      if (!createData.healthcareProviderId) {
+        const provider = await getProvider();
+        createData.healthcareProviderId = provider?.id;
+      }
+      if (!createData.healthcareProviderId) return { data: null, message: 'Invalid request' };
       return uploadImage(formData.get('image') as File, 'service')
         .then(async (image) => {
           const service = await prisma.service.create({
@@ -74,8 +82,10 @@ export async function mutateService(formData: FormData) {
                   id: createData.healthcareProviderId,
                 },
               },
+              bookingPrice: +createData.bookingPrice,
               healthcareProviderId: undefined,
               image: image.url,
+              minDuration: +createData.minDuration,
             },
           });
           return {
@@ -83,7 +93,8 @@ export async function mutateService(formData: FormData) {
             message: 'Service created.',
           };
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log('err : ', err);
           throw new Error('An error occurred while uploading your image.');
         });
     })

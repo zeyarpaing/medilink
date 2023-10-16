@@ -10,8 +10,10 @@ export default async function Page({ params }: Props) {
 
   if (serviceId === 'new') {
     initialValues = {
+      bookingPrice: 0,
       description: '',
       image: '',
+      minDuration: 15,
       name: '',
     };
   } else {

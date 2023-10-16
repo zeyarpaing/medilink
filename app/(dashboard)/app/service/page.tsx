@@ -1,22 +1,15 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import Button from '@/components/Button';
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
+import { getProvider } from '@/lib/services';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 
 type Props = {};
 
 export default async function Page({}: Props) {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user.id) return <p>not found</p>;
-
-  const provider = await prisma.healthcareProvider.findFirst({
-    where: {
-      ownerId: session?.user.id,
-    },
-  });
+  const provider = await getProvider();
+  if (!provider) return <div>Not found</div>;
 
   const services = await prisma.service.findMany({
     where: {

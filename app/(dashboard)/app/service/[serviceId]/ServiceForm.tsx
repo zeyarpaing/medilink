@@ -8,13 +8,20 @@ import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { Kbd } from '@nextui-org/react';
 import { Service } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 export default function ServiceForm({ initialValues }: { initialValues: Partial<Service> }) {
   const isEdit = initialValues.id !== undefined;
 
+  const router = useRouter();
   return (
     <Form
-      action={mutateService}
+      action={(...args) =>
+        mutateService(...args)?.then((res) => {
+          router.back();
+          return res;
+        })
+      }
       enableReinitialize
       initialValues={initialValues}
       listenKeyboardSave
@@ -47,32 +54,11 @@ export default function ServiceForm({ initialValues }: { initialValues: Partial<
               <ImageInput label="Image" name="image" />
               <div className="flex gap-4">
                 <Input label="Name" name="name" />
-
-                <Select
-                  label="Provider type"
-                  name="type"
-                  options={[
-                    {
-                      label: 'Hospital',
-                      value: 'HOSPITAL',
-                    },
-                    {
-                      label: 'Clinic',
-                      value: 'CLINIC',
-                    },
-                    {
-                      label: 'Laboratory',
-                      value: 'LABORATORY',
-                    },
-                  ]}
-                />
-                <Input label="Slug" name="slug" />
+                <Input label="Booking price " name="bookingPrice" type="number" />
               </div>
-              <Input label="A short introduction" name="description" type="textarea" />
-              <Input label="Address" name="address" />
               <div className="flex gap-4">
-                <Input label="Phone" name="phone" />
-                <Input label="Email" name="email" />
+                <Input label="Minimum duration (minutes)" name="minDuration" type="number" />
+                <Input label="A short introduction" name="description" type="textarea" />
               </div>
             </section>
           </div>
