@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 export default function ContactForm() {
   const { data } = useSession();
   return (
-    <div className="w-full max-w-3xl rounded-lg border px-10 py-8 ">
+    <div className="w-full max-w-3xl rounded-lg  border-2 px-10 py-8 dark:border-foreground/30 ">
       <h2 className="mb-5 text-2xl font-bold">What can we help you with?</h2>
       <Form
         enableReinitialize

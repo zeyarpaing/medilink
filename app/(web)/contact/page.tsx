@@ -18,7 +18,7 @@ export default function Page() {
         <h2>Social media</h2>
         <ul className="pt-2">
           {Object.values(socialMidea).map((media) => (
-            <li className="mb-6 flex gap-2 text-gray-600" key={media.link}>
+            <li className="mb-6 flex gap-2 text-foreground/60" key={media.link}>
               <media.icon />
               <a href={media.label}>{media.label}</a>
             </li>

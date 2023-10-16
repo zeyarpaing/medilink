@@ -17,10 +17,10 @@ export default function Page() {
     <section className="mcontainer py-12">
       <h1 className="header mb-8">Frequently Asked Questions </h1>
       <Input
-        className="my-12 max-w-lg  rounded-lg border !bg-white px-3 py-2"
+        className="my-12 max-w-lg  rounded-lg border !bg-background px-3 py-2"
         classNames={{
           input: 'shadow-none appearance-none',
-          inputWrapper: '!bg-white shadow-none',
+          inputWrapper: '!bg-background shadow-none',
         }}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search FAQs"

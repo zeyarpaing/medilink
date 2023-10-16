@@ -32,7 +32,12 @@ export default async function Page() {
       </p>
       <ul className=" grid grid-cols-1 gap-6 pb-12 md:grid-cols-2 lg:grid-cols-3">
         {providers.map((provider) => (
-          <Card className="w-full !shadow-sm" isFooterBlurred key={provider.name} shadow="none">
+          <Card
+            className="w-full border border-zinc-400 !shadow-sm dark:border-zinc-700"
+            isFooterBlurred
+            key={provider.name}
+            shadow="none"
+          >
             <CardBody className="relative h-[200px] overflow-hidden p-0 ">
               <CardHeader className="absolute top-1 z-10 h-full flex-col items-start justify-between bg-gradient-to-t from-black/50 from-15% via-black/20 via-40% to-transparent to-90%">
                 <div>
@@ -52,9 +57,9 @@ export default async function Page() {
                 width={500}
               />
             </CardBody>
-            <CardFooter className="justify-between border border-zinc-200 bg-white/60">
+            <CardFooter className="justify-between border border-zinc-200 bg-white/60 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
               <div className="w-full px-2 pb-2">
-                <p className="mb-4 text-sm text-black">{provider.description}</p>
+                <p className="mb-4 text-sm ">{provider.description}</p>
                 <div className="text-right">
                   <Button href={`/providers/${provider.id}`} isLink radius="full">
                     Visit

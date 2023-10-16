@@ -35,10 +35,12 @@ export default async function Page({ params }: { params: { providerId: string } 
         </div>
         <div className="my-8">
           <h1 className="mb-2 text-3xl font-black">{provider.name}</h1>
-          <p className="text-gray-600">{provider.address}</p>
-          <p className="mt-2 text-gray-700">{provider.description}</p>
-          <p className="mt-2 text-gray-700">{provider.phone}</p>
-          <p className="mt-2 text-gray-700">{provider.email}</p>
+          <div className="flex flex-col gap-3 text-foreground/70">
+            <p>{provider.address}</p>
+            <p>{provider.description}</p>
+            <p>{provider.phone}</p>
+            <p>{provider.email}</p>
+          </div>
         </div>
       </div>
       <h2 className="mb-4 mt-6 text-2xl font-bold">Services Offered</h2>
