@@ -20,7 +20,7 @@ export default function Card({ description, image, link, title }: Props) {
 
         <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">{description}</p>
 
-        <Link className="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary" href={link}>
+        <Link className="group mt-4 flex items-center justify-end gap-1 text-sm font-medium text-primary" href={link}>
           Edit
           <span aria-hidden="true" className="block transition-all group-hover:ms-0.5 rtl:rotate-180">
             &rarr;
