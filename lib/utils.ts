@@ -37,6 +37,10 @@ export function slugify(str: string) {
     .replace(/[^\w-]+/g, '');
 }
 
+export function cn(...classes: any) {
+  return classes.filter(Boolean).join(' ');
+}
+
 export function openModal({ closeOnProceed, content, title, ...props }: Omit<Modal, 'id'>) {
   const modals = $modals.get();
   const keys = Object.keys(modals);

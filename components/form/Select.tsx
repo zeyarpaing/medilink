@@ -1,11 +1,12 @@
 'use client';
 import { Select as $Select, SelectItem, SelectProps } from '@nextui-org/react';
 import { useField } from 'formik';
+import { ReactNode } from 'react';
 
 type Props = {
   name: string;
   options: Array<{
-    label: string;
+    label: ReactNode | string;
     value: string;
   }>;
 };

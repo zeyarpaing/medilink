@@ -2,19 +2,21 @@
 
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Input, InputProps } from '@nextui-org/react';
+import { format } from 'date-fns';
+import { useField } from 'formik';
 import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
 type Props = {
-  onSelectedChange: (value?: Date) => void;
-  selected: Date;
+  name: string;
 };
 
 const CURRENT_YEAR = new Date().getFullYear();
 const LAST_YEAR = 1900;
 
-export default function Datepicker({ onSelectedChange, selected, ...props }: InputProps & Props) {
+export default function Datepicker({ ...props }: InputProps & Props) {
+  const [field, { error, touched }] = useField(props.name);
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -29,7 +31,7 @@ export default function Datepicker({ onSelectedChange, selected, ...props }: Inp
           <Input
             classNames={{
               input: 'text-left px-2',
-              inputWrapper: '!h-14',
+              inputWrapper: '!h-[3.2rem]',
               label: 'text-sm font-medium text-foreground',
             }}
             endContent={
@@ -46,6 +48,7 @@ export default function Datepicker({ onSelectedChange, selected, ...props }: Inp
             label="Date of birth"
             labelPlacement="outside"
             placeholder="Date of birth"
+            value={field.value && format(field.value, 'dd MMM yyyy')}
             variant="bordered"
             {...props}
           />
@@ -56,10 +59,10 @@ export default function Datepicker({ onSelectedChange, selected, ...props }: Inp
             fromYear={LAST_YEAR}
             mode="single"
             onSelect={(value) => {
-              onSelectedChange(value);
+              field.onChange({ target: { name: props.name, value } });
               setOpen(false);
-            }} 
-            selected={selected} 
+            }}
+            selected={field.value}
             style={{
               // @ts-ignore
               '--rdp-accent-color': '#0096A9',
