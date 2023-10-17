@@ -24,7 +24,7 @@ export default function Select({ name, options, ...props }: Omit<Props & SelectP
       label=" "
       labelPlacement="outside"
       placeholder=" "
-      selectedKeys={[field.value]}
+      selectedKeys={[''+field.value]}
       variant="bordered"
       {...field}
       {...props}

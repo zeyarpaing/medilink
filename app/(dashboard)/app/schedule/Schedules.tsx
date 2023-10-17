@@ -2,13 +2,13 @@
 
 import ChevronDownIcon from '@/assets/icons/ChevronDownIcon';
 import { cn } from '@/lib/utils';
-import { Schedule, Service } from '@prisma/client';
+import { Schedule, Service, User } from '@prisma/client';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-type Props = { schedules: (Schedule & { Service: Service })[] };
+type Props = { schedules: (Schedule & { Service: Service; User: User })[] };
 
 const meetings = [
   {
@@ -146,15 +146,15 @@ export default function Schedules({ schedules }: Props) {
               <Link className="relative flex items-center space-x-6 py-6 xl:static" href={`schedule/${schedule.id}`}>
                 <Image
                   alt="service"
-                  className="h-24 w-24 flex-none rounded-full"
+                  className="h-24 w-24 flex-none rounded-xl"
                   height={200}
                   src={schedule.Service.image}
                   width={200}
                 />
                 <div className="flex-auto">
-                  <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0">{schedule.Service.name}</h3>
+                  <h3 className="pr-10 text-lg font-semibold text-gray-900 xl:pr-0">{schedule.Service.name}</h3>
                   <div className="flex items-start space-x-3">
-                    <p className="mt-1"> Doctor: {schedule.userId}</p>
+                    <p className="mt-1"> Doctor: {schedule.User.name}</p>
                   </div>
                   <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">
                     <div className="flex items-start space-x-3">

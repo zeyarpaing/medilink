@@ -11,6 +11,7 @@ export default async function Page({}: Props) {
   const schedules = await prisma.schedule.findMany({
     include: {
       Service: true,
+      User: true,
     },
     where: {
       providerId: provider?.id,
@@ -30,6 +31,7 @@ export default async function Page({}: Props) {
           </CTAButton>
         </div>
       </div>
+      {/* @ts-ignore */}
       <Schedules schedules={schedules} />
     </div>
   );

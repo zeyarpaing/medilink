@@ -39,7 +39,10 @@ export default function ScheduleForm({
         };
       }}
       enableReinitialize
-      initialValues={initialValues}
+      initialValues={{
+        ...initialValues,
+        dateTime: format(initialValues?.dateTime, 'yyyy-MM-dd<_>HH:mm')?.replace('<_>', 'T'),
+      }}
       listenKeyboardSave
       // useFormData
       validationSchema={scheduleSchema}
@@ -109,7 +112,7 @@ export default function ScheduleForm({
                 />
                 <Select
                   label="Doctor"
-                  name="doctorId"
+                  name="userId"
                   options={doctors.map((user) => ({
                     label: user.name,
                     value: user.id,

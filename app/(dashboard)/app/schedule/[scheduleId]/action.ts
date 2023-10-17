@@ -31,7 +31,7 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
               },
               User: {
                 connect: {
-                  id: data.doctorId!,
+                  id: data.userId!,
                 },
               },
               dateTime: data.dateTime!,
@@ -66,7 +66,7 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
           },
           User: {
             connect: {
-              id: data.doctorId!,
+              id: data.userId!,
             },
           },
           dateTime: data.dateTime!,

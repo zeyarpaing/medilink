@@ -1,6 +1,7 @@
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
 import { Button } from '@nextui-org/react';
+import { format } from 'date-fns';
 
 export default async function Page({ params }: { params: { serviceId: string } }) {
   const id = params.serviceId;
@@ -39,9 +40,9 @@ export default async function Page({ params }: { params: { serviceId: string } }
       <ul className="mt-2">
         {service.schedule.map((schedule) => (
           <li className="mt-2 rounded-md border border-gray-200 p-3 shadow-md" key={schedule.id}>
-            <h3 className="text-lg font-semibold">Date: {schedule.date.toLocaleDateString()}</h3>
+            <h3 className="text-lg font-semibold">Date: {format(schedule.dateTime, 'dd MMM yyyy')} </h3>
             <p className="mt-2 text-gray-700">
-              Time: {schedule.time.toLocaleTimeString()} | Duration: {schedule.duration} minutes
+              Time: {format(schedule.dateTime, 'hh:mm a')} | Duration: {schedule.duration} minutes
             </p>
             <p className="text-bold">Booked : {bookings[schedule.id]}</p>
             <p> Max booking : {schedule.maxBooking}</p>
