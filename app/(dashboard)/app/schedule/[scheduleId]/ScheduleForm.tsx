@@ -41,7 +41,9 @@ export default function ScheduleForm({
       enableReinitialize
       initialValues={{
         ...initialValues,
-        dateTime: format(initialValues?.dateTime, 'yyyy-MM-dd<_>HH:mm')?.replace('<_>', 'T'),
+        dateTime: initialValues?.dateTime
+          ? format(initialValues?.dateTime, 'yyyy-MM-dd<_>HH:mm')?.replace('<_>', 'T')
+          : '',
       }}
       listenKeyboardSave
       // useFormData

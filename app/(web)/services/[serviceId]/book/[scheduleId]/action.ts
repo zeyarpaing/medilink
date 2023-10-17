@@ -23,7 +23,7 @@ export async function createBooking(
       phone: '' + formData.get('phone'),
       schedule: {
         connect: {
-          id: parseInt(scheduleId),
+          id: scheduleId,
         },
       },
       //bind transaction id

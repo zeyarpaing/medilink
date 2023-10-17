@@ -4,6 +4,9 @@ import { createSchedule } from '@/app/(web)/services/[serviceId]/book/[scheduleI
 import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
 import { Button } from '@nextui-org/button';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import Script from 'next/script';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 
@@ -41,6 +44,17 @@ export default function Page({ params }: { params: { scheduleId: string; service
             <Input disabled label="Username" name="username" required />
             <Input disabled label="Email" name="email" required type="email" />
             <Input label="Phone" name="phone" required type="tel" />
+            <p className="font-semibold">Flat booking fees : 5000 (To confirm your booking)</p>
+            <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+            {/* @ts-ignore */}
+            <stripe-buy-button
+              buy-button-id="buy_btn_1O2BkoDNFrhDsjQpUs35pe8C"
+              className="!w-full [&>iframe]:!w-screen"
+              publishable-key="pk_test_51NzeiKDNFrhDsjQpIA7jelmTRIKMZbKkurcJ3RiprkuLakMo0XuRMJ5AmPSDZWr3HzBx7yNyaCBYaxHefntXuljp00pOqSTNqU"
+            >
+              {/* @ts-ignore */}
+            </stripe-buy-button>
             <Button color="primary" isLoading={isSubmitting} type="submit">
               Book now
             </Button>
