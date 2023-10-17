@@ -26,11 +26,19 @@ export default async function Page({ params }: Props) {
   const provider = await getProvider();
   if (!provider) return <div>Not found</div>;
 
+  initialValues.providerId = provider.id;
+
   const services = await prisma.service.findMany({
     where: {
       healthcareProviderId: provider?.id,
     },
   });
 
-  return <ScheduleForm initialValues={initialValues} services={services} />;
+  const doctors = await prisma.user.findMany({
+    where: {
+      role: 'DOCTOR',
+    },
+  });
+
+  return <ScheduleForm doctors={doctors} initialValues={initialValues} services={services} />;
 }

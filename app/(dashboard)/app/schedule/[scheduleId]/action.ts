@@ -18,7 +18,26 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
       if (isEdit) {
         return prisma.schedule
           .update({
-            data: { ...data, id: undefined },
+            data: {
+              Provider: {
+                connect: {
+                  id: +data.providerId!,
+                },
+              },
+              Service: {
+                connect: {
+                  id: +data.serviceId!,
+                },
+              },
+              User: {
+                connect: {
+                  id: data.doctorId!,
+                },
+              },
+              dateTime: data.dateTime!,
+              duration: +data.duration!,
+              maxBooking: +data.maxBooking!,
+            },
             where: {
               id: data.id,
             },
@@ -35,9 +54,19 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
 
       const schedule = await prisma.schedule.create({
         data: {
+          Provider: {
+            connect: {
+              id: +data.providerId!,
+            },
+          },
           Service: {
             connect: {
               id: +data.serviceId!,
+            },
+          },
+          User: {
+            connect: {
+              id: data.doctorId!,
             },
           },
           dateTime: data.dateTime!,
@@ -55,9 +84,7 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
       return res;
     })
     .catch((err) => {
-      return {
-        data: null,
-        message: 'Failed to save schedule.',
-      };
+      console.log(err);
+      throw new Error(err);
     });
 }

@@ -6,13 +6,16 @@ import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { Kbd } from '@nextui-org/react';
-import { Schedule, Service } from '@prisma/client';
+import { Schedule, Service, User } from '@prisma/client';
+import { format, formatISO } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 export default function ScheduleForm({
+  doctors,
   initialValues,
   services,
 }: {
+  doctors: User[];
   initialValues: Partial<Schedule>;
   services: Service[];
 }) {
@@ -27,13 +30,22 @@ export default function ScheduleForm({
           return res;
         })
       }
+      // @ts-ignore
+      beforeSubmit={(values) => {
+        return {
+          ...values,
+          // @ts-ignore
+          dateTime: new Date(values?.dateTime).toISOString(),
+        };
+      }}
       enableReinitialize
       initialValues={initialValues}
       listenKeyboardSave
       // useFormData
       validationSchema={scheduleSchema}
     >
-      {({ dirty, isSubmitting, isValid, setFieldValue, values }) => {
+      {({ dirty, errors, isSubmitting, isValid, setFieldValue, values }) => {
+        console.log('values', errors);
         return (
           <div>
             <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background pb-4">
@@ -95,6 +107,17 @@ export default function ScheduleForm({
                     value: '' + service.id,
                   }))}
                 />
+                <Select
+                  label="Doctor"
+                  name="doctorId"
+                  options={doctors.map((user) => ({
+                    label: user.name,
+                    value: user.id,
+                  }))}
+                />
+              </div>
+              <div className="flex gap-4">
+                <Input label="Duration (minutes)" name="duration" type="number" />
                 <Input label="Max booking" name="maxBooking" type="number" />
               </div>
             </section>
