@@ -19,6 +19,4 @@ export type Modal = {
   title: ReactNode | string;
 };
 
-export const $modals = deepMap<Record<number, Modal>>({
-  ...[],
-});
+export const $modals = deepMap<Record<number, Modal>>();

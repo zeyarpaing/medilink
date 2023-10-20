@@ -46,13 +46,30 @@ export default async function Page({ params }: { params: { providerId: string } 
       <h2 className="mb-4 mt-6 text-2xl font-bold">Services Offered</h2>
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {provider.services.map((service) => (
-          <li
-            className=" rounded-lg  border border-gray-200 px-6 py-4 shadow-md  transition-all duration-250 hover:bg-primary hover:text-white"
-            key={service.id}
-          >
-            <Link href={`/services/${service.id}`}>
-              <h3 className="text-lg font-bold">{service.name}</h3>
-              <p className="mt-1 opacity-80">{service.description}</p>
+          <li key={service.id}>
+            <Link
+              className="flex gap-4 rounded-xl border-2 border-zinc-400/20  px-5 py-4 shadow-md transition-all duration-250 hover:border-primary "
+              href={`/services/${service.id}`}
+            >
+              <Image
+                alt={service.name}
+                className="h-40 w-40 rounded-lg object-cover"
+                height={1000}
+                src={service.image}
+                width={1000}
+              />
+              <div>
+                <h3 className="text-lg font-bold">{service.name}</h3>
+                <p className="mt-1 opacity-80">{service.description}</p>
+                <div className="my-2 ">
+                  <p className="text-xs font-semibold uppercase text-foreground/50">Booking fees</p>{' '}
+                  <p className="text-lg">{service.bookingPrice} MMK </p>
+                </div>
+                <div className="my-2 ">
+                  <p className="text-xs font-semibold uppercase text-foreground/50">Minimum duration</p>{' '}
+                  <p className="text-lg">{service.minDuration} minutes </p>
+                </div>
+              </div>
             </Link>
           </li>
         ))}

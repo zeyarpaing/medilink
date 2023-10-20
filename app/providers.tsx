@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Button';
-import State from '@/components/State';
+import State from '@/components/utils/State';
 import { $modals } from '@/lib/store/modal';
 import { useStore } from '@nanostores/react';
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';

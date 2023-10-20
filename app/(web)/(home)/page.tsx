@@ -1,10 +1,10 @@
+import Testimonial from '@/app/(web)/(home)/Testimonial';
 import CoverIllustration from '@/app/(web)/CoverIllustration';
 import FirstAidIcon from '@/assets/icons/FirstAidIcon';
 import RealtimeIcon from '@/assets/icons/RealtimeIcon';
 import ShieldIcon from '@/assets/icons/ShieldIcon';
 import CTAButton from '@/components/CTAButton';
 import FAQSection from '@/components/FAQSection';
-import Testimonial from '@/components/Testimonial';
 import { sitemap } from '@/lib/constants';
 import { getServerSession } from 'next-auth';
 

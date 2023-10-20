@@ -3,11 +3,11 @@
 import { mutateHealthcareProvider } from '@/app/(dashboard)/app/provider/action';
 import { providerSchema } from '@/app/(dashboard)/app/provider/schema';
 import CTAButton from '@/components/CTAButton';
-import Effect from '@/components/Effect';
 import Form from '@/components/form/Form';
 import ImageInput from '@/components/form/ImageInput';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
+import Effect from '@/components/utils/Effect';
 import { slugify } from '@/lib/utils';
 import { Kbd } from '@nextui-org/react';
 import { HealthcareProvider } from '@prisma/client';
