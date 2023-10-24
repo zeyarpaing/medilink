@@ -30,12 +30,14 @@ export async function createBooking({ scheduleId, userId }: { scheduleId: string
       },
     })
     .then((booking) => {
+      revalidatePath(`/app/booking`);
       return {
         data: booking,
         message: 'Booked successfully.',
       };
     })
     .catch((error) => {
+      console.log('err : ', error);
       throw new Error('Booking failed.');
     });
 }

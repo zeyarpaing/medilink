@@ -29,7 +29,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "prisma/seed.js",
-    "app/(web)/services/[serviceId]/book/[scheduleId]/api.js"
+    "app/(web)/services/[serviceId]/book/[scheduleId]/api.js",
+    "components/form/CheckoutForm.jsx",
+    "app/api/payment/create-payment-intent/route.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -35,7 +35,7 @@ export default function BookingCard({ booking, schedule, title }: Props) {
   const user = data?.user;
 
   return (
-    <div className="relative flex justify-between gap-2 rounded-xl border p-4">
+    <div className="relative flex justify-between gap-2 rounded-xl border border-zinc-500/50 p-4">
       <div className="relative flex items-center space-x-6  xl:static">
         <Image
           alt="service"
@@ -46,9 +46,14 @@ export default function BookingCard({ booking, schedule, title }: Props) {
         />
         <div className="flex-auto">
           <div className="flex items-center gap-2">
-            <h3 className="pr-10 text-lg font-semibold text-gray-900 xl:pr-0">{title}</h3>
-            <Chip color={booking.status === 'CANCELLED' ? 'danger' : 'success'} size="sm" variant="flat">
-              {booking.status}
+            <h3 className="pr-10 text-lg font-semibold  xl:pr-0">{title}</h3>
+            <Chip
+              className="capitalize"
+              color={booking.status === 'CANCELLED' ? 'danger' : 'success'}
+              size="sm"
+              variant="flat"
+            >
+              {booking.status?.toLowerCase()}
             </Chip>
           </div>
           <div className="flex items-start space-x-3">

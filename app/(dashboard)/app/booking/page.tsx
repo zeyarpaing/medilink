@@ -1,4 +1,5 @@
 import BookingCard from '@/app/(dashboard)/app/booking/BookingCard';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import prisma from '@/lib/prisma';
 import { Menu } from '@nextui-org/react';
 import { format } from 'date-fns';
@@ -10,7 +11,7 @@ import React from 'react';
 type Props = {};
 
 export default async function Page({}: Props) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const bookings = await prisma.booking.findMany({
     include: {
       schedule: {
@@ -21,9 +22,16 @@ export default async function Page({}: Props) {
       },
       user: true,
     },
-    where: {
-      userId: session?.user?.id,
-    },
+    where:
+      session?.user?.role === 'USER'
+        ? {
+            userId: session?.user?.id,
+          }
+        : {
+            schedule: {
+              userId: session?.user?.id,
+            },
+          },
   });
   return (
     <div>
@@ -33,7 +41,7 @@ export default async function Page({}: Props) {
         </div>
         <div></div>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         {bookings?.map((booking) => (
           <BookingCard
             booking={booking}
