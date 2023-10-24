@@ -65,6 +65,7 @@ model User {
   password           String
   phone              String?
   HealthcareProvider HealthcareProvider[]
+  Booking            Booking[]
 }
 
 model Transaction {
@@ -76,16 +77,15 @@ model Transaction {
 }
 
 model Booking {
-  id            String      @id @default(cuid())
-  schedule      Schedule    @relation(fields: [scheduleId], references: [id])
+  id            String       @id @default(cuid())
+  schedule      Schedule     @relation(fields: [scheduleId], references: [id])
   scheduleId    String
-  username      String
-  email         String
-  phone         String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  transaction   Transaction @relation(fields: [transactionId], references: [id])
-  transactionId Int         @unique
+  user          User         @relation(fields: [userId], references: [id])
+  userId        String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId Int?         @unique
 }
 
 model Schedule {
