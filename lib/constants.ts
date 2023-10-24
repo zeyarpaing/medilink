@@ -43,12 +43,12 @@ export const sitemap = {
         role: ['DOCTOR', 'ADMIN'],
       },
       // eslint-disable-next-line
-      report: {
-        href: '/app/report',
-        icon: PieChartIcon,
-        label: 'Report',
-        role: ['ADMIN'],
-      },
+      // report: {
+      //   href: '/app/report',
+      //   icon: PieChartIcon,
+      //   label: 'Report',
+      //   role: ['ADMIN'],
+      // },
       // eslint-disable-next-line
       profile: {
         href: '/app/profile',
@@ -56,12 +56,12 @@ export const sitemap = {
         label: 'Profile',
         role: ['USER', 'DOCTOR', 'ADMIN'],
       },
-      settings: {
-        href: '/app/setting',
-        icon: SettingIcon,
-        label: 'Setting',
-        role: ['USER', 'DOCTOR', 'ADMIN'],
-      },
+      // settings: {
+      //   href: '/app/setting',
+      //   icon: SettingIcon,
+      //   label: 'Setting',
+      //   role: ['USER', 'DOCTOR', 'ADMIN'],
+      // },
     },
     href: '/app',
     label: 'App',
