@@ -11,33 +11,31 @@ export async function createSchedule(...args: any[]) {
   return null;
 }
 
-export async function createBooking(
-  { scheduleId, serviceId }: { scheduleId: string; serviceId: string },
-  formData: FormData
-) {
-  console.log('createBooking', scheduleId, formData.get('paymentMethod'));
+export async function createBooking({ scheduleId, userId }: { scheduleId: string; userId: string }) {
+  console.log('createBooking', scheduleId, userId);
 
-  const booking = await prisma.booking.create({
-    data: {
-      email: '' + formData.get('email'),
-      phone: '' + formData.get('phone'),
-      schedule: {
-        connect: {
-          id: scheduleId,
+  return prisma.booking
+    .create({
+      data: {
+        schedule: {
+          connect: {
+            id: scheduleId,
+          },
+        },
+        user: {
+          connect: {
+            id: userId,
+          },
         },
       },
-      //bind transaction id
-      transaction: {
-        create: {
-          paymentMethod: '' + formData.get('paymentMethod'),
-        },
-      },
-      username: '' + formData.get('username') ?? '',
-    },
-  });
-  if (!booking) {
-    redirect('/');
-  }
-  revalidatePath(`/providers/services/${serviceId}`);
-  redirect(`/providers/services/${serviceId}`, RedirectType.replace);
+    })
+    .then((booking) => {
+      return {
+        data: booking,
+        message: 'Booked successfully.',
+      };
+    })
+    .catch((error) => {
+      throw new Error('Booking failed.');
+    });
 }

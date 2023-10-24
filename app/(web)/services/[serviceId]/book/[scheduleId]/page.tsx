@@ -1,6 +1,6 @@
 'use client';
 
-import { createSchedule } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
+import { createBooking, createSchedule } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
 import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
 import { Button } from '@nextui-org/button';
@@ -12,38 +12,34 @@ import toast from 'react-hot-toast';
 
 export default function Page({ params }: { params: { scheduleId: string; serviceId: string } }) {
   const scheduleId = params.scheduleId;
-  const serviceId = params.serviceId;
-
   const { data } = useSession();
 
-  const createBookingWithSerciceId = async function (values: any) {
-    return createSchedule({ scheduleId, serviceId }, values).then((res) => {
-      //   ^^ Server action
-      toast.success('Booking success! ');
-    });
-  };
+  // const createBookingWithSerciceId = async function (values: any) {
+  //   return createSchedule({ scheduleId, serviceId }, values).then((res) => {
+  //     //   ^^ Server action
+  //     toast.success('Booking success! ');
+  //   });
+  // };
 
   return (
     <div className="mcontainer min-h-screen py-12">
       <Form
-        action={createBookingWithSerciceId}
+        action={createBooking}
         className="mx-auto flex max-w-lg flex-col gap-4 py-12 "
         enableReinitialize
         initialValues={{
-          email: data?.user?.email,
-          phone: '',
-          userid: data?.user?.id,
-          username: data?.user?.name,
+          scheduleId: scheduleId,
+          userId: data?.user?.id,
         }}
       >
         {({ isSubmitting }) => (
           <>
             <h1 className="text-center text-2xl font-bold">Book this Schedule </h1>
             <small>Schedule ID: {scheduleId}</small>
-            <Input disabled label="User ID" name="userid" required />
+            {/* <Input disabled label="User ID" name="userid" required />
             <Input disabled label="Username" name="username" required />
             <Input disabled label="Email" name="email" required type="email" />
-            <Input label="Phone" name="phone" required type="tel" />
+            <Input label="Phone" name="phone" required type="tel" /> */}
             <p className="font-semibold">Flat booking fees : 5000 (To confirm your booking)</p>
             <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 
