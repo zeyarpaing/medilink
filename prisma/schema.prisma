@@ -6,9 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // model Account {
@@ -81,7 +81,6 @@ model User {
   Account        Account          @relation(fields: [accountId], references: [id])
   accountId      String           @unique
   Booking        Booking[]
-  Schedule       Schedule[]
   MedicalHistory MedicalHistory[]
 }
 
@@ -91,6 +90,7 @@ model Doctor {
   Account              Account             @relation(fields: [accountId], references: [id])
   accountId            String              @unique
   Booking              Booking[]
+  Schedule             Schedule[]
   speciality           String
   certification        String
   HealthcareProvider   HealthcareProvider? @relation(fields: [healthcareProviderId], references: [id])
@@ -141,11 +141,11 @@ model Schedule {
   Service    Service            @relation(fields: [serviceId], references: [id])
   serviceId  Int
   maxBooking Int
-  Booking    Booking[]
   providerId Int
   Provider   HealthcareProvider @relation(fields: [providerId], references: [id])
-  User       User?              @relation(fields: [userId], references: [id])
-  userId     String?
+  Doctor     Doctor?            @relation(fields: [doctorId], references: [id])
+  doctorId   String?
+  Booking    Booking[]
 }
 
 model Service {

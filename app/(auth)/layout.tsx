@@ -33,8 +33,8 @@ export default function AuthenticationPage({ children }: { children: ReactNode }
             </blockquote>
           </div>
         </div>
-        <div className=" flex h-full items-center justify-center p-4 lg:p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 overflow-y-auto sm:w-[350px]">
+        <div className=" flex h-screen items-center justify-center overflow-y-auto p-4 lg:p-8">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             {children}
             <p className="text-muted-foreground px-8 text-center text-sm">
               By submitting the form, you agree to our{' '}

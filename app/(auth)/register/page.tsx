@@ -1,7 +1,7 @@
 'use client';
 
 import { registerAccount } from '@/app/(auth)/register/action';
-import { registerSchema } from '@/app/(auth)/register/schema';
+import { RegisterForm, registerSchema } from '@/app/(auth)/register/schema';
 import Button from '@/components/Button';
 import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
@@ -22,7 +22,7 @@ export default function RegisterForm() {
         <h1 className="text-2xl font-bold tracking-tight">Create an account</h1>
         <p className="text-muted-foreground text-sm">Enter your information below to register </p>
       </div>
-      <Form
+      <Form<RegisterForm>
         action={async (values) =>
           registerAccount(values).then(async (res) => {
             await signIn('credentials', {
@@ -38,11 +38,13 @@ export default function RegisterForm() {
         className="flex w-full flex-col gap-4"
         enableReinitialize
         initialValues={{
+          certification: '',
           confirmPassword: '',
           email: '',
           name: '',
           password: '',
-          role: '',
+          role: 'USER',
+          speciality: '',
         }}
         validateOnChange
         validationSchema={registerSchema}
@@ -72,6 +74,12 @@ export default function RegisterForm() {
               <Input label="Email" name="email" type="email" />
               <Input label="Password" name="password" type="password" />
               <Input label="Confirm password" name="confirmPassword" type="password" />
+              {values.role === 'DOCTOR' ? (
+                <>
+                  <Input label="Certification (Publicy accessible link)" name="certification" />
+                  <Input label="Speciality" name="speciality" placeholder="Neurology" />
+                </>
+              ) : null}
               <Button color="primary" disabled={!isValid} isLoading={isSubmitting} type="submit">
                 Register
               </Button>
