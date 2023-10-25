@@ -1,10 +1,7 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import CTAButton from '@/components/CTAButton';
 import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
-import { getServerSession } from 'next-auth';
-import React from 'react';
 
 type Props = {};
 

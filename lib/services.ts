@@ -7,11 +7,13 @@ import { getServerSession } from 'next-auth';
 export async function getProvider() {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user.id) return null;
+  if (!session?.user.id || session?.user.role !== 'ADMIN') return null;
 
   const provider = await prisma.healthcareProvider.findFirst({
     where: {
-      ownerId: session?.user.id,
+      Admin: {
+        accountId: session?.user.id,
+      },
     },
   });
   return provider ?? null;
