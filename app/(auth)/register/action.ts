@@ -22,7 +22,7 @@ export async function registerAccount(formData: RegisterForm) {
           ...(formData.role === 'USER'
             ? {
                 User: {
-                  create: true,
+                  create: {},
                 },
               }
             : formData.role === 'DOCTOR'
@@ -36,7 +36,7 @@ export async function registerAccount(formData: RegisterForm) {
               }
             : {
                 Admin: {
-                  create: true,
+                  create: {},
                 },
               }),
         },
@@ -51,6 +51,7 @@ export async function registerAccount(formData: RegisterForm) {
         if (reason.code === 'P2002') {
           throw new Error('An account with this email already exists.');
         }
+        console.error(reason);
         throw new Error('An error occurred while creating your account.');
       });
   });

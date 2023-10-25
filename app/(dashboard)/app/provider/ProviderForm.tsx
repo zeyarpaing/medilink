@@ -1,7 +1,7 @@
 'use client';
 
 import { mutateHealthcareProvider } from '@/app/(dashboard)/app/provider/action';
-import { providerSchema } from '@/app/(dashboard)/app/provider/schema';
+import { ProviderFormValues, providerSchema } from '@/app/(dashboard)/app/provider/schema';
 import CTAButton from '@/components/CTAButton';
 import Form from '@/components/form/Form';
 import ImageInput from '@/components/form/ImageInput';
@@ -13,7 +13,7 @@ import { Kbd } from '@nextui-org/react';
 import { HealthcareProvider } from '@prisma/client';
 
 type Props = {
-  initialValues: Partial<HealthcareProvider>;
+  initialValues: Partial<ProviderFormValues>;
 };
 
 export default function ProviderForm({ initialValues }: Props) {

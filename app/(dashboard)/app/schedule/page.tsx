@@ -4,18 +4,48 @@ import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
 import React from 'react';
 
-type Props = {};
+type Props = {
+  params: any;
+  searchParams: {
+    date?: string;
+  };
+};
 
-export default async function Page({}: Props) {
-  const provider = await getProvider();
+export default async function Page({ params, searchParams }: Props) {
+  const date = searchParams?.date;
+  const { account, provider } = await getProvider();
+
   const schedules = await prisma.schedule.findMany({
     include: {
+      Doctor: {
+        include: {
+          Account: true,
+        },
+      },
       Service: true,
-      User: true,
     },
-    where: {
-      providerId: provider?.id,
-    },
+    where:
+      account?.role === 'DOCTOR'
+        ? {
+            Doctor: {
+              accountId: account?.id,
+            },
+            dateTime: date
+              ? {
+                  gte: date ? new Date(date) : new Date(),
+                  lte: date ? new Date(date) : new Date(),
+                }
+              : undefined,
+          }
+        : {
+            dateTime: date
+              ? {
+                  gte: date ? new Date(date) : new Date(),
+                  lte: date ? new Date(date) : new Date(),
+                }
+              : undefined,
+            providerId: provider?.id,
+          },
   });
 
   return (
@@ -32,7 +62,7 @@ export default async function Page({}: Props) {
         </div>
       </div>
       {/* @ts-ignore */}
-      <Schedules schedules={schedules} />
+      <Schedules role={account?.role} schedules={schedules} />
     </div>
   );
 }

@@ -74,7 +74,7 @@ export async function mutateService(formData: FormData) {
       const createData = data as ServiceFormValues;
 
       if (!createData.healthcareProviderId) {
-        const provider = await getProvider();
+        const { provider } = await getProvider();
         createData.healthcareProviderId = provider?.id;
       }
       if (!createData.healthcareProviderId) return { data: null, message: 'Invalid request' };

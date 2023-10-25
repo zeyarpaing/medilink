@@ -6,7 +6,7 @@ import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { Kbd } from '@nextui-org/react';
-import { Schedule, Service, User } from '@prisma/client';
+import { Doctor, Prisma, Schedule, Service, User } from '@prisma/client';
 import { format, formatISO } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
@@ -15,7 +15,11 @@ export default function ScheduleForm({
   initialValues,
   services,
 }: {
-  doctors: User[];
+  doctors: Prisma.DoctorGetPayload<{
+    include: {
+      Account: true;
+    };
+  }>[];
   initialValues: Partial<Schedule>;
   services: Service[];
 }) {
@@ -88,6 +92,7 @@ export default function ScheduleForm({
                   <Datepicker label="Date" name="date" />
                 </div> */}
                 <Input label="Start date and time" name="dateTime" type="datetime-local" />
+                <Input label="Booking price " name="bookingPrice" type="number" />
               </div>
               <div className="flex gap-4">
                 <Select
@@ -95,29 +100,15 @@ export default function ScheduleForm({
                   name="serviceId"
                   options={services.map((service) => ({
                     label: service.name,
-                    /*
-                    (
-                      <div className="flex items-center gap-2 font-bold">
-                        <Image
-                          alt="service"
-                          className="h-9 w-9 rounded-md object-cover"
-                          height={100}
-                          src={service.image}
-                          width={100}
-                        />
-                        {service.name}
-                      </div>
-                    )
-                    */
                     value: '' + service.id,
                   }))}
                 />
                 <Select
                   label="Doctor"
-                  name="userId"
-                  options={doctors.map((user) => ({
-                    label: user.name,
-                    value: user.id,
+                  name="doctorId"
+                  options={doctors.map((doctor) => ({
+                    label: doctor.Account.name,
+                    value: doctor.id,
                   }))}
                 />
               </div>

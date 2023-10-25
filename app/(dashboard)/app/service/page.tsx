@@ -6,7 +6,8 @@ import { getProvider } from '@/lib/services';
 type Props = {};
 
 export default async function Page({}: Props) {
-  const provider = await getProvider();
+  const { provider } = await getProvider();
+
   if (!provider) return <div>Not found</div>;
 
   const services = await prisma.service.findMany({

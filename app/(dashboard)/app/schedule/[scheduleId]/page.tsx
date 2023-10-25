@@ -23,7 +23,7 @@ export default async function Page({ params }: Props) {
     initialValues = schedule;
   }
 
-  const provider = await getProvider();
+  const { provider } = await getProvider();
   if (!provider) return <div>Not found</div>;
 
   initialValues.providerId = provider.id;
@@ -34,9 +34,12 @@ export default async function Page({ params }: Props) {
     },
   });
 
-  const doctors = await prisma.user.findMany({
+  const doctors = await prisma.doctor.findMany({
+    include: {
+      Account: true,
+    },
     where: {
-      role: 'DOCTOR',
+      healthcareProviderId: provider?.id,
     },
   });
 

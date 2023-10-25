@@ -14,7 +14,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from '@nextui-org/navbar';
-import { Spinner } from '@nextui-org/react';
+import { Avatar, Spinner } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -36,16 +36,7 @@ function AccountDropdown() {
                 type="button"
               >
                 <div className="h-8 w-8 rounded-full">
-                  <Image
-                    alt="avatar"
-                    className="h-full w-full rounded-full bg-gray-600 object-cover"
-                    height={30}
-                    src={
-                      session?.user?.image ||
-                      'https://img.freepik.com/free-photo/view-3d-confident-businessman_23-2150709932.jpg?t=st=1696934508~exp=1696938108~hmac=444e2593a42602e3dc5bea7fb3bc132a8b49248d13fd6ee0e235376235fa81c5&w=900'
-                    }
-                    width={30}
-                  />
+                  <Avatar className="h-8 w-8" name={session?.user.name} src={session?.user.image} />
                 </div>
                 <p className="text-sm">{session?.user?.name}</p>
               </button>

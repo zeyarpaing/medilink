@@ -19,6 +19,11 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
         return prisma.schedule
           .update({
             data: {
+              Doctor: {
+                connect: {
+                  id: data.doctorId!,
+                },
+              },
               Provider: {
                 connect: {
                   id: +data.providerId!,
@@ -27,11 +32,6 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
               Service: {
                 connect: {
                   id: +data.serviceId!,
-                },
-              },
-              User: {
-                connect: {
-                  id: data.userId!,
                 },
               },
               dateTime: data.dateTime!,
@@ -54,6 +54,11 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
 
       const schedule = await prisma.schedule.create({
         data: {
+          Doctor: {
+            connect: {
+              id: data.doctorId!,
+            },
+          },
           Provider: {
             connect: {
               id: +data.providerId!,
@@ -62,11 +67,6 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
           Service: {
             connect: {
               id: +data.serviceId!,
-            },
-          },
-          User: {
-            connect: {
-              id: data.userId!,
             },
           },
           dateTime: data.dateTime!,

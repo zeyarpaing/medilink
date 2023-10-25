@@ -69,13 +69,14 @@ export async function mutateHealthcareProvider(formData: FormData) {
           const provider = await prisma.healthcareProvider.create({
             data: {
               ...createData,
-              image: image.url,
-              owner: {
+              Admin: {
                 connect: {
-                  id: createData.ownerId,
+                  accountId: createData.adminId,
                 },
               },
-              ownerId: undefined,
+              // @ts-ignore
+              adminId: undefined,
+              image: image.url,
             },
           });
           return {
@@ -83,7 +84,8 @@ export async function mutateHealthcareProvider(formData: FormData) {
             message: 'Saved.',
           };
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error(err);
           throw new Error('An error occurred while uploading your image.');
         });
     })

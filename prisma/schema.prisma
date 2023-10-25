@@ -135,17 +135,18 @@ model Booking {
 }
 
 model Schedule {
-  id         String             @id @default(cuid())
-  dateTime   DateTime
-  duration   Int
-  Service    Service            @relation(fields: [serviceId], references: [id])
-  serviceId  Int
-  maxBooking Int
-  providerId Int
-  Provider   HealthcareProvider @relation(fields: [providerId], references: [id])
-  Doctor     Doctor?            @relation(fields: [doctorId], references: [id])
-  doctorId   String?
-  Booking    Booking[]
+  id           String             @id @default(cuid())
+  dateTime     DateTime
+  duration     Int
+  Service      Service            @relation(fields: [serviceId], references: [id])
+  serviceId    Int
+  maxBooking   Int
+  bookingPrice Int                @default(0)
+  providerId   Int
+  Provider     HealthcareProvider @relation(fields: [providerId], references: [id])
+  Doctor       Doctor?            @relation(fields: [doctorId], references: [id])
+  doctorId     String?
+  Booking      Booking[]
 }
 
 model Service {
