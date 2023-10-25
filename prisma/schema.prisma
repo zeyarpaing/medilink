@@ -6,37 +6,37 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+// model Account {
+//   id                String  @id @default(cuid())
+//   userId            String
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String? @db.Text
+//   access_token      String? @db.Text
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String? @db.Text
+//   session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
-}
+//   @@unique([provider, providerAccountId])
+// }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+// model Session {
+//   id           String   @id @default(cuid())
+//   sessionToken String   @unique
+//   userId       String
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
 
 model VerificationToken {
   identifier String
@@ -52,20 +52,57 @@ enum Role {
   ADMIN
 }
 
+model Account {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
+  password      String
+  phone         String?
+  User          User?
+  Doctor        Doctor?
+  Admin         Admin?
+}
+
+model MedicalHistory {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  User        User     @relation(fields: [userId], references: [id])
+  userId      String
+}
+
 model User {
-  id                 String               @id @default(cuid())
-  name               String?
-  email              String?              @unique
-  emailVerified      DateTime?
-  image              String?
-  accounts           Account[]
-  sessions           Session[]
-  schedule           Schedule[]
-  role               Role                 @default(USER)
-  password           String
-  phone              String?
-  HealthcareProvider HealthcareProvider[]
-  Booking            Booking[]
+  id             String           @id @default(cuid())
+  Account        Account          @relation(fields: [accountId], references: [id])
+  accountId      String           @unique
+  Booking        Booking[]
+  Schedule       Schedule[]
+  MedicalHistory MedicalHistory[]
+}
+
+// Create Doctor and Admin 
+model Doctor {
+  id                   String              @id @default(cuid())
+  Account              Account             @relation(fields: [accountId], references: [id])
+  accountId            String              @unique
+  Booking              Booking[]
+  speciality           String
+  certification        String
+  HealthcareProvider   HealthcareProvider? @relation(fields: [healthcareProviderId], references: [id])
+  healthcareProviderId Int?
+}
+
+model Admin {
+  id                 String              @id @default(cuid())
+  Account            Account             @relation(fields: [accountId], references: [id])
+  accountId          String              @unique
+  HealthcareProvider HealthcareProvider? @relation(fields: [providerId], references: [id])
+  providerId         Int?                @unique
 }
 
 model Transaction {
@@ -93,6 +130,8 @@ model Booking {
   status        BookingStatus @default(CONFIRMED)
   transaction   Transaction?  @relation(fields: [transactionId], references: [id])
   transactionId Int?          @unique
+  Doctor        Doctor?       @relation(fields: [doctorId], references: [id])
+  doctorId      String?
 }
 
 model Schedule {
@@ -138,7 +177,7 @@ model HealthcareProvider {
   type        ProviderType
   description String
   services    Service[]
-  owner       User         @relation(fields: [ownerId], references: [id])
-  ownerId     String
+  Admin       Admin?
   Schedule    Schedule[]
+  Doctor      Doctor[]
 }

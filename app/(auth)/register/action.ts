@@ -11,13 +11,34 @@ export async function registerAccount(formData: RegisterForm) {
       throw new Error('Invalid data');
     }
     const password = new Password(formData.password);
-    return prisma.user
+    return prisma.account
       .create({
+        // @ts-ignore
         data: {
           email: formData.email.trim(),
           name: formData.name.trim(),
           password: password.encrypt(),
           role: formData.role as Role,
+          ...(formData.role === 'USER'
+            ? {
+                User: {
+                  create: true,
+                },
+              }
+            : formData.role === 'DOCTOR'
+            ? {
+                Doctor: {
+                  create: {
+                    certification: formData.certification,
+                    speciality: formData.speciality,
+                  },
+                },
+              }
+            : {
+                Admin: {
+                  create: true,
+                },
+              }),
         },
       })
       .then((user) => {
