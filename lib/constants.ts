@@ -29,26 +29,33 @@ export const sitemap = {
         label: 'Provider',
         role: ['ADMIN'],
       },
+      // eslint-disable-next-line
+      doctor: {
+        href: '/app/doctor',
+        icon: FirstAidIcon,
+        label: 'Doctors',
+        role: ['ADMIN'],
+      },
       service: {
         href: '/app/service',
         icon: ServiceIcon,
-        label: 'Service',
+        label: 'Services',
         role: ['ADMIN'],
       },
       // eslint-disable-next-line
       schedule: {
         href: '/app/schedule',
         icon: ScheduleIcon,
-        label: 'Schedule',
+        label: 'Schedules',
         role: ['DOCTOR', 'ADMIN'],
       },
       // eslint-disable-next-line
-      // report: {
-      //   href: '/app/report',
-      //   icon: PieChartIcon,
-      //   label: 'Report',
-      //   role: ['ADMIN'],
-      // },
+      report: {
+        href: '/app/report',
+        icon: PieChartIcon,
+        label: 'Report',
+        role: ['ADMIN'],
+      },
       // eslint-disable-next-line
       profile: {
         href: '/app/profile',
