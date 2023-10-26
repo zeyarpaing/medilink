@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -10,23 +11,16 @@ type Props = {
 
 export default function Card({ description, image, link, title }: Props) {
   return (
-    <article className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm">
-      <img alt="Office" className="h-56 w-full object-cover" src={image} />
+    <Link aria-label={title} href={link}>
+      <article className="overflow-hidden rounded-lg border border-foreground/10 bg-background shadow-sm hover:border-foreground/30">
+        {image && <Image alt={title} className="h-56 w-full object-cover" height={500} src={image} width={1000} />}
 
-      <div className="p-3 sm:p-4">
-        <Link href={link}>
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-        </Link>
+        <div className="p-3 sm:p-4">
+          <h3 className="text-lg font-semibold ">{title}</h3>
 
-        <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">{description}</p>
-
-        <Link className="group mt-4 flex items-center justify-end gap-1 text-sm font-medium text-primary" href={link}>
-          Edit
-          <span aria-hidden="true" className="block transition-all group-hover:ms-0.5 rtl:rotate-180">
-            &rarr;
-          </span>
-        </Link>
-      </div>
-    </article>
+          <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">{description}</p>
+        </div>
+      </article>
+    </Link>
   );
 }

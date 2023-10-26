@@ -1,4 +1,5 @@
 import CTAButton from '@/components/CTAButton';
+import Card from '@/components/Card';
 import EmptyState from '@/components/EmptyState';
 import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
@@ -9,6 +10,9 @@ type Props = {};
 export default async function page({}: Props) {
   const { provider } = await getProvider();
   const doctors = await prisma.doctor.findMany({
+    include: {
+      Account: true,
+    },
     where: {
       healthcareProviderId: provider?.id,
     },
@@ -27,9 +31,19 @@ export default async function page({}: Props) {
           </CTAButton>
         </div>
       </div>
-      <div className="my-12">
+      <div className="my-4">
         {doctors?.length > 0 ? (
-          <></>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {doctors.map((doctor) => (
+              <Card
+                description={doctor.speciality}
+                image={doctor.Account.image!}
+                key={doctor.id}
+                link={`/app/doctor/${doctor.id}`}
+                title={'Dr. ' + doctor.Account.name!}
+              />
+            ))}
+          </div>
         ) : (
           <EmptyState
             action={{
