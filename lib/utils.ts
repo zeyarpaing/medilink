@@ -29,6 +29,10 @@ export class Password {
   }
 }
 
+export function base64Hash(str: string) {
+  return pbkdf2Sync(str, process.env.SALT!, 10, 10, 'sha256').toString('base64url');
+}
+
 export function slugify(str: string) {
   return str
     .trim()

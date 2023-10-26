@@ -22,7 +22,7 @@ export default async function page({}: Props) {
           <p className="text-sm text-gray-500">Manage your doctors</p>
         </div>
         <div>
-          <CTAButton className="px-5 text-base" href="schedule/new" isLink>
+          <CTAButton className="px-5 text-base" href="doctor/new" isLink>
             + Invite doctors
           </CTAButton>
         </div>

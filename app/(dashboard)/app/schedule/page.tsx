@@ -53,7 +53,9 @@ export default async function Page({ params, searchParams }: Props) {
       <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background pb-4">
         <div>
           <h1 className="text-2xl font-bold ">Schedules</h1>
-          <p className="text-sm text-gray-500">Manage your provided services</p>
+          <p className="text-sm text-gray-500">
+            {account?.role === 'ADMIN' ? 'Manage your provided services' : 'Track the schedules assigned to you'}
+          </p>
         </div>
         <div>
           <CTAButton className="px-5 text-base" href="schedule/new" isLink>

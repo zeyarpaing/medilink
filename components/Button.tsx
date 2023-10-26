@@ -2,14 +2,13 @@
 
 import { Button as $Button, ButtonProps } from '@nextui-org/react';
 import Link from 'next/link';
-import { forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = ButtonProps & {
   isLink?: boolean;
 };
 
-const Button = forwardRef(function Button({ children, className, isLink, ref, ...props }: Props) {
+const Button = function Button({ children, className, isLink, ref, ...props }: Props) {
   return (
     <$Button
       as={isLink ? Link : undefined}
@@ -28,6 +27,6 @@ const Button = forwardRef(function Button({ children, className, isLink, ref, ..
       {children}
     </$Button>
   );
-});
+};
 
 export default Button;

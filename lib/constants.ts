@@ -23,12 +23,6 @@ export const sitemap = {
         label: 'Bookings',
         role: ['USER', 'DOCTOR'],
       },
-      provider: {
-        href: '/app/provider',
-        icon: HospitalIcon,
-        label: 'Provider',
-        role: ['ADMIN'],
-      },
       // eslint-disable-next-line
       doctor: {
         href: '/app/doctor',
@@ -36,18 +30,22 @@ export const sitemap = {
         label: 'Doctors',
         role: ['ADMIN'],
       },
-      service: {
-        href: '/app/service',
-        icon: ServiceIcon,
-        label: 'Services',
-        role: ['ADMIN'],
+      doctorJoin: {
+        href: '/app/join',
+        label: 'Doctor Join',
       },
       // eslint-disable-next-line
-      schedule: {
-        href: '/app/schedule',
-        icon: ScheduleIcon,
-        label: 'Schedules',
-        role: ['DOCTOR', 'ADMIN'],
+      profile: {
+        href: '/app/profile',
+        icon: ProfileIcon,
+        label: 'Profile',
+        role: ['USER', 'DOCTOR', 'ADMIN'],
+      },
+      provider: {
+        href: '/app/provider',
+        icon: HospitalIcon,
+        label: 'Provider',
+        role: ['ADMIN'],
       },
       // eslint-disable-next-line
       report: {
@@ -57,11 +55,17 @@ export const sitemap = {
         role: ['ADMIN'],
       },
       // eslint-disable-next-line
-      profile: {
-        href: '/app/profile',
-        icon: ProfileIcon,
-        label: 'Profile',
-        role: ['USER', 'DOCTOR', 'ADMIN'],
+      schedule: {
+        href: '/app/schedule',
+        icon: ScheduleIcon,
+        label: 'Schedules',
+        role: ['DOCTOR', 'ADMIN'],
+      },
+      service: {
+        href: '/app/service',
+        icon: ServiceIcon,
+        label: 'Services',
+        role: ['ADMIN'],
       },
       // settings: {
       //   href: '/app/setting',

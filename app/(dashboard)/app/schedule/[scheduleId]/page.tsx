@@ -23,8 +23,19 @@ export default async function Page({ params }: Props) {
     initialValues = schedule;
   }
 
-  const { provider } = await getProvider();
-  if (!provider) return <div>Not found</div>;
+  const { account, provider: p } = await getProvider();
+  if (!p && account?.role === 'ADMIN') return <div>Not found</div>;
+
+  const provider = { ...p };
+  if (account?.role === 'DOCTOR') {
+    const doctor = await prisma.doctor.findUnique({
+      where: {
+        accountId: account?.id,
+      },
+    });
+    if (!doctor) return <div>Not found</div>;
+    provider.id = doctor?.healthcareProviderId!;
+  }
 
   initialValues.providerId = provider.id;
 
