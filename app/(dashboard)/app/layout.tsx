@@ -15,7 +15,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       typeof route === 'object' &&
       'role' in route &&
       Array.isArray(route?.role) &&
-      route.role.includes(data?.user?.role)
+      route.role.includes(data?.user?.role),
   );
 
   return (

@@ -185,7 +185,7 @@ export default function Navbar({ isApp }: { isApp?: boolean }) {
                 </Link>
               )}
             </NavbarItem>
-          )
+          ),
         )}
         <AccountDropdown />
         {status === 'loading' && <Spinner />}
@@ -269,7 +269,7 @@ function MobileNav({
                 {item.label}
               </Link>
             </NavbarMenuItem>
-          )
+          ),
         )}
       </NavbarMenu>
     </>

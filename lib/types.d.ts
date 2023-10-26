@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import NextAuth from 'next-auth';
+
 type User = {
   email: string;
   id: string;
@@ -7,6 +8,7 @@ type User = {
   name: string;
   role: 'ADMIN' | 'DOCTOR' | 'USER';
 };
+
 declare module 'next-auth' {
   interface Session {
     user: User;

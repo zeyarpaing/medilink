@@ -1,5 +1,5 @@
 import CheckBox from '@/components/form/CheckBox';
-import { CheckboxProps, Radio, RadioProps } from '@nextui-org/react';
+import { CheckboxProps } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 
 // export const CustomRadio = ({ className, ...props }: RadioProps) => {
@@ -34,7 +34,7 @@ export const CheckRadioItem = ({ className, outline, ...props }: CheckboxProps &
           `data-[selected=true]:border-primary ${
             outline ? '' : 'data-[selected=true]:bg-primary [&_*]:data-[selected=true]:text-white'
           }`,
-          className
+          className,
         ),
         label: 'w-full text-base',
       }}

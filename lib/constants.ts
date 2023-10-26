@@ -33,6 +33,7 @@ export const sitemap = {
       doctorJoin: {
         href: '/app/join',
         label: 'Doctor Join',
+        role: ['DOCTOR'],
       },
       // eslint-disable-next-line
       profile: {

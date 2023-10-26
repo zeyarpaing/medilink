@@ -16,7 +16,7 @@ const Button = function Button({ children, className, isLink, ref, ...props }: P
         `w-full text-sm hover:opacity-90 sm:w-fit ${
           props.type === 'submit' ? 'h-10 text-base font-semibold sm:w-full' : ''
         }`,
-        className
+        className,
       )}
       color="primary"
       isDisabled={props.disabled}

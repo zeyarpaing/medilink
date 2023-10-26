@@ -15,7 +15,7 @@ export async function mutateService(formData: FormData) {
         return [key, +val];
       }
       return [key, val];
-    })
+    }),
   ) as unknown;
 
   const isEdit = data && typeof data === 'object' && 'id' in data && !!data.id;

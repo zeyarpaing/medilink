@@ -27,7 +27,7 @@ export default withAuth(
         return !(protectedRoutes.some((route) => route.test(req.nextUrl.pathname)) && !token);
       },
     },
-  }
+  },
 );
 
 export const config = {

@@ -64,7 +64,6 @@ export default function ServiceForm({ initialValues }: { initialValues: Partial<
               <ImageInput label="Image" name="image" />
               <div className="flex gap-4">
                 <Input label="Name" name="name" />
-               
               </div>
               <div className="flex gap-4">
                 <Input label="Minimum duration (minutes)" name="minDuration" type="number" />

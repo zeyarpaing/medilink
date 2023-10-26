@@ -1,13 +1,17 @@
 {
-  "plugins": ["jsx-a11y", "react-camel-case", "perfectionist"],
+  "plugins": [  "prettier", "jsx-a11y", "react-camel-case", "perfectionist"],
   "extends": [
     "next",
     "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:perfectionist/recommended-natural"
   ],
   "rules": {
     "react-camel-case/react-camel-case": "error",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "prettier/prettier": "error" ,
+    "no-unused-vars": "warn"
   }
 }
