@@ -22,8 +22,8 @@ export default async function Page({ params }: { params: { providerId: string } 
   }
 
   return (
-    <div className="mcontainer min-h-screen py-12">
-      <div>
+    <div className="mcontainer flex min-h-screen gap-10 py-12">
+      <div className="flex-1">
         <div className="h-[32rem] w-full">
           <Image
             alt={provider.name}
@@ -43,37 +43,39 @@ export default async function Page({ params }: { params: { providerId: string } 
           </div>
         </div>
       </div>
-      <h2 className="mb-4 mt-6 text-2xl font-bold">Services Offered</h2>
-      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {provider.services.map((service) => (
-          <li key={service.id}>
-            <Link
-              className="flex gap-4 rounded-xl border-2 border-zinc-400/20  px-5 py-4 shadow-md transition-all duration-250 hover:border-primary "
-              href={`/services/${service.id}`}
-            >
-              <Image
-                alt={service.name}
-                className="h-40 w-40 rounded-lg object-cover"
-                height={1000}
-                src={service.image}
-                width={1000}
-              />
-              <div>
-                <h3 className="text-lg font-bold">{service.name}</h3>
-                <p className="mt-1 opacity-80">{service.description}</p>
-                <div className="my-2 ">
-                  <p className="text-xs font-semibold uppercase text-foreground/50">Booking fees</p>{' '}
-                  <p className="text-lg">{service.bookingPrice} MMK </p>
+      <div className="h-screen flex-1 overflow-hidden">
+        <h2 className="mb-4 text-2xl font-bold">Services Offered</h2>
+        <ul className="flex h-[80vh] flex-col gap-3 overflow-auto">
+          {provider.services.map((service) => (
+            <li key={service.id}>
+              <Link
+                className="flex gap-4 rounded-xl border-2 border-zinc-400/20  px-5 py-4 transition-all duration-250 hover:border-primary "
+                href={`/services/${service.id}`}
+              >
+                <Image
+                  alt={service.name}
+                  className="w-40 rounded-lg object-cover"
+                  height={1000}
+                  src={service.image}
+                  width={1000}
+                />
+                <div>
+                  <h3 className="text-lg font-bold">{service.name}</h3>
+                  <p className="mt-1 opacity-80">{service.description}</p>
+                  {/* <div className="my-2 ">
+                    <p className="text-xs font-semibold uppercase text-foreground/50">Booking fees</p>{' '}
+                    <p className="text-lg">{service.bookingPrice} MMK </p>
+                  </div> */}
+                  <div className="mt-5 ">
+                    <p className="text-xs font-semibold uppercase text-foreground/50">Minimum duration</p>{' '}
+                    <p className="text-lg">{service.minDuration} minutes </p>
+                  </div>
                 </div>
-                <div className="my-2 ">
-                  <p className="text-xs font-semibold uppercase text-foreground/50">Minimum duration</p>{' '}
-                  <p className="text-lg">{service.minDuration} minutes </p>
-                </div>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

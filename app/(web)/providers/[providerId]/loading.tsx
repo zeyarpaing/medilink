@@ -2,8 +2,8 @@ import { Skeleton } from '@nextui-org/skeleton';
 
 export default async function Page() {
   return (
-    <div className="mcontainer min-h-screen py-12">
-      <div>
+    <div className="mcontainer flex min-h-screen gap-10 py-12">
+      <div className="flex-1">
         <Skeleton className="h-[32rem] w-full rounded-xl">
           <div className="h-full w-full rounded-xl bg-gray-500 object-cover" />
         </Skeleton>
@@ -15,12 +15,14 @@ export default async function Page() {
           <Skeleton className="mb-2 mt-3 h-5 w-32 rounded-lg "> </Skeleton>
         </div>
       </div>
-      <h2 className="mb-4 mt-6 text-2xl font-bold">Services Offered</h2>
-      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Skeleton className="mb-4 h-24 w-full rounded-lg  text-sm"> </Skeleton>
-        <Skeleton className="mb-4 h-24 w-full rounded-lg  text-sm"> </Skeleton>
-        <Skeleton className="mb-4 h-24 w-full rounded-lg  text-sm"> </Skeleton>
-      </ul>
+      <div className="flex-1">
+        <h2 className="mb-4 mt-6 text-2xl font-bold">Services Offered</h2>
+        <ul className="flex flex-col gap-4">
+          <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
+          <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
+          <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
+        </ul>
+      </div>
     </div>
   );
 }

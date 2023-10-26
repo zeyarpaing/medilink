@@ -88,11 +88,8 @@ export default function ScheduleForm({
 
             <section className="relative z-0 mb-6 flex flex-col gap-4">
               <div className="flex gap-4">
-                {/* <div className="w-full">
-                  <Datepicker label="Date" name="date" />
-                </div> */}
                 <Input label="Start date and time" name="dateTime" type="datetime-local" />
-                <Input label="Booking price " name="bookingPrice" type="number" />
+                <Input label="Fees (Upfront cost for booking in USD)" name="bookingPrice" type="number" />
               </div>
               <div className="flex gap-4">
                 <Select

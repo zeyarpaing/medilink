@@ -41,7 +41,7 @@ export default function Schedules({ role, schedules }: Props) {
               const s = current.toString();
               router.replace(`${pathname}?${s}`);
             }}
-            selected={searchParams.get('date') ? new Date(searchParams.get('date') ?? '') : new Date()}
+            selected={searchParams.get('date') ? new Date(searchParams.get('date') ?? '') : undefined}
           />
         </div>
         {schedules.length === 0 ? (
@@ -58,7 +58,7 @@ export default function Schedules({ role, schedules }: Props) {
                 >
                   <Image
                     alt="service"
-                    className="h-24 w-24 flex-none rounded-xl"
+                    className="h-24 w-24 flex-none rounded-xl object-cover"
                     height={200}
                     src={schedule.Service.image}
                     width={200}
@@ -69,7 +69,7 @@ export default function Schedules({ role, schedules }: Props) {
                       <p className="mt-1"> Doctor: {schedule.Doctor?.Account.name}</p>
                     </div>
                     <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">
-                      <div className="flex items-start space-x-3">
+                      <div className="flex items-center space-x-3">
                         <dt className="mt-0.5">
                           <span className="sr-only">Date</span>
                           <svg
@@ -92,7 +92,7 @@ export default function Schedules({ role, schedules }: Props) {
                           </time>
                         </dd>
                       </div>
-                      <div className="mt-2 flex items-start space-x-3 xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+                      <div className="mt-2 flex items-center space-x-3 xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
                         <dt className="mt-0.5">
                           <span className="sr-only">Duration</span>
                           <svg

@@ -2,6 +2,7 @@ import Schedules from '@/app/(dashboard)/app/schedule/Schedules';
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
+import { endOfDay, startOfDay } from 'date-fns';
 import React from 'react';
 
 type Props = {
@@ -32,16 +33,16 @@ export default async function Page({ params, searchParams }: Props) {
             },
             dateTime: date
               ? {
-                  gte: date ? new Date(date) : new Date(),
-                  lte: date ? new Date(date) : new Date(),
+                  gte: startOfDay(new Date(date)),
+                  lte: endOfDay(new Date(date)),
                 }
               : undefined,
           }
         : {
             dateTime: date
               ? {
-                  gte: date ? new Date(date) : new Date(),
-                  lte: date ? new Date(date) : new Date(),
+                  gte: startOfDay(new Date(date)),
+                  lte: endOfDay(new Date(date)),
                 }
               : undefined,
             providerId: provider?.id,
