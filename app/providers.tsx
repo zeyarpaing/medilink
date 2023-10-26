@@ -6,7 +6,7 @@ import { useStore } from '@nanostores/react';
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
-import { createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 const ThemeProvider = createContext({
@@ -23,7 +23,7 @@ function updateColorScheme(colorScheme: ColorScheme) {
   }
 }
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: { children: ReactNode }) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('system');
 
   useEffect(() => {

@@ -5,8 +5,9 @@ import { Skeleton } from '@nextui-org/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { ReactNode } from 'react';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: ReactNode }) {
   const { data, status } = useSession();
   const pathname = usePathname();
 

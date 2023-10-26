@@ -3,9 +3,7 @@ import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
 
-type Props = {};
-
-export default async function Page({}: Props) {
+export default async function Page() {
   const { provider } = await getProvider();
 
   if (!provider) return <div>Not found</div>;

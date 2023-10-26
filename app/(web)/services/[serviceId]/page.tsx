@@ -1,6 +1,5 @@
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
-import { Button } from '@nextui-org/react';
 import { format } from 'date-fns';
 
 export default async function Page({ params }: { params: { serviceId: string } }) {
@@ -20,7 +19,7 @@ export default async function Page({ params }: { params: { serviceId: string } }
   }
 
   const bookings: Record<string, number> = {};
-  for (const schedule of service?.schedule) {
+  for (const schedule of service.schedule) {
     const count = await prisma.booking.count({
       where: {
         scheduleId: schedule.id,

@@ -10,7 +10,7 @@ import { sitemap } from '@/lib/constants';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 
-export default function RegisterForm() {
+export default function RegisterForm$() {
   return (
     <>
       <div className="absolute left-0 top-4 flex w-full justify-center px-6 md:justify-end">

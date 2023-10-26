@@ -4,7 +4,7 @@ import { cancelBooking } from '@/app/(dashboard)/app/booking/action';
 import Ellipsis from '@/assets/icons/Ellipsis';
 import { openModal } from '@/lib/utils';
 import { Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
-import { Booking, Schedule, Service, User } from '@prisma/client';
+import { Booking, Prisma, Schedule, Service, User } from '@prisma/client';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -19,20 +19,38 @@ const items = [
 ] as const;
 
 type Props = {
-  booking: Booking;
-  schedule: Schedule & { Service: Service; User: User };
-  title: string;
+  booking: Prisma.BookingGetPayload<{
+    include: {
+      Doctor: {
+        include: {
+          Account: true;
+        };
+      };
+      schedule: {
+        include: {
+          Service: true;
+        };
+      };
+      user: {
+        include: {
+          Account: true;
+        };
+      };
+    };
+  }>;
 };
 
-export default function BookingCard({ booking, schedule, title }: Props) {
-  const { Service, User, dateTime, duration } = schedule;
+export default function BookingCard({ booking }: Props) {
+  const { Service, dateTime, duration } = booking.schedule;
   const image = Service?.image;
-  const doctor = User?.name;
-  // @ts-ignore
-  const patient = booking.user?.name;
+
+  const doctor = booking.Doctor?.Account.name;
+  const patient = booking.user?.Account.name;
 
   const { data } = useSession();
   const user = data?.user;
+
+  const title = Service.name;
 
   return (
     <div className="relative flex justify-between gap-2 rounded-xl border border-zinc-500/50 p-4">

@@ -18,13 +18,13 @@ export default async function Page({ params }: Props) {
       },
     });
     if (!schedule) {
-      return <div>Not found</div>;
+      return <p>Schedule not found</p>;
     }
     initialValues = schedule;
   }
 
   const { account, provider: p } = await getProvider();
-  if (!p && account?.role === 'ADMIN') return <div>Not found</div>;
+  if (!p && account?.role === 'ADMIN') return <p>Something went wrong!</p>;
 
   const provider = { ...p };
   if (account?.role === 'DOCTOR') {
@@ -33,7 +33,7 @@ export default async function Page({ params }: Props) {
         accountId: account?.id,
       },
     });
-    if (!doctor) return <div>Not found</div>;
+    if (!doctor) return <p>Something went wrong!</p>;
     provider.id = doctor?.healthcareProviderId!;
   }
 

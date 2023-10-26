@@ -10,26 +10,31 @@ import React from 'react';
 
 type Props = {};
 
-export default async function Page({}: Props) {
+export default async function Page() {
   const session = await getServerSession(authOptions);
+
   const bookings = await prisma.booking.findMany({
     include: {
+      Doctor: {
+        include: { Account: true },
+      },
       schedule: {
         include: {
           Service: true,
-          User: true,
         },
       },
-      user: true,
+      user: {
+        include: { Account: true },
+      },
     },
     where:
       session?.user?.role === 'USER'
         ? {
-            userId: session?.user?.id,
+            user: { accountId: session?.user?.id },
           }
         : {
-            schedule: {
-              userId: session?.user?.id,
+            Doctor: {
+              accountId: session?.user?.id,
             },
           },
   });
@@ -43,12 +48,7 @@ export default async function Page({}: Props) {
       </div>
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         {bookings?.map((booking) => (
-          <BookingCard
-            booking={booking}
-            key={booking.id}
-            schedule={booking.schedule as any}
-            title={booking.schedule.Service.name}
-          />
+          <BookingCard booking={booking} key={booking.id} />
         ))}
       </div>
     </div>

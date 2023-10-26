@@ -6,8 +6,8 @@ import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { Kbd } from '@nextui-org/react';
-import { Doctor, Prisma, Schedule, Service, User } from '@prisma/client';
-import { format, formatISO } from 'date-fns';
+import { Prisma, Schedule, Service } from '@prisma/client';
+import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 export default function ScheduleForm({

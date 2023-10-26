@@ -2,12 +2,13 @@
 
 import { Listener } from '@/components/utils/Listener';
 import { Formik, FormikConfig, Form as FormikForm, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import { ReactNode } from 'react';
 import toast from 'react-hot-toast';
 
 type Props<T extends FormikValues> = Omit<FormikConfig<T>, 'onSubmit'> & {
   action?: (values: any) => Promise<any> | void;
   beforeSubmit?: (values: T) => T;
-  children: ((props: FormikProps<T>) => React.ReactNode) | React.ReactNode;
+  children: ((props: FormikProps<T>) => ReactNode) | ReactNode;
   className?: string;
   id?: string;
   listenKeyboardSave?: boolean;

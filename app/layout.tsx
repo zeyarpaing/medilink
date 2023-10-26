@@ -1,6 +1,7 @@
 import { Providers } from '@/app/providers';
 import { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import { ReactNode } from 'react';
 import { twJoin } from 'tailwind-merge';
 
 import './globals.css';
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: 'medilink',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={twJoin(inter.className, 'bg-background text-foreground')}>

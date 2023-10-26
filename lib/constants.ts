@@ -23,25 +23,13 @@ export const sitemap = {
         label: 'Bookings',
         role: ['USER', 'DOCTOR'],
       },
+
+      // doctorJoin: {
+      //   href: '/app/join',
+      //   label: 'Doctor Join',
+      //   role: ['DOCTOR'],
+      // },
       // eslint-disable-next-line
-      doctor: {
-        href: '/app/doctor',
-        icon: FirstAidIcon,
-        label: 'Doctors',
-        role: ['ADMIN'],
-      },
-      doctorJoin: {
-        href: '/app/join',
-        label: 'Doctor Join',
-        role: ['DOCTOR'],
-      },
-      // eslint-disable-next-line
-      profile: {
-        href: '/app/profile',
-        icon: ProfileIcon,
-        label: 'Profile',
-        role: ['USER', 'DOCTOR', 'ADMIN'],
-      },
       provider: {
         href: '/app/provider',
         icon: HospitalIcon,
@@ -49,10 +37,17 @@ export const sitemap = {
         role: ['ADMIN'],
       },
       // eslint-disable-next-line
-      report: {
-        href: '/app/report',
-        icon: PieChartIcon,
-        label: 'Report',
+       doctor: {
+        href: '/app/doctor',
+        icon: FirstAidIcon,
+        label: 'Doctors',
+        role: ['ADMIN'],
+      },
+      // eslint-disable-next-line
+       service: {
+        href: '/app/service',
+        icon: ServiceIcon,
+        label: 'Services',
         role: ['ADMIN'],
       },
       // eslint-disable-next-line
@@ -62,11 +57,19 @@ export const sitemap = {
         label: 'Schedules',
         role: ['DOCTOR', 'ADMIN'],
       },
-      service: {
-        href: '/app/service',
-        icon: ServiceIcon,
-        label: 'Services',
+      // eslint-disable-next-line
+       report: {
+        href: '/app/report',
+        icon: PieChartIcon,
+        label: 'Report',
         role: ['ADMIN'],
+      },
+      // eslint-disable-next-line
+       profile: {
+        href: '/app/profile',
+        icon: ProfileIcon,
+        label: 'Profile',
+        role: ['USER', 'DOCTOR', 'ADMIN'],
       },
       // settings: {
       //   href: '/app/setting',
