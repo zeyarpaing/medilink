@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from '@/app/providers';
 import ChevronDownIcon from '@/assets/icons/ChevronDownIcon';
 import Button from '@/components/Button';
 import { sitemap } from '@/lib/constants';
@@ -14,7 +15,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from '@nextui-org/navbar';
-import { Avatar, Spinner } from '@nextui-org/react';
+import { Avatar, Checkbox, Spinner } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -24,6 +25,7 @@ import { useEffect, useState } from 'react';
 function AccountDropdown() {
   const { data: session } = useSession();
   const router = useRouter();
+  const { colorScheme, setColorScheme } = useTheme();
 
   return (
     <>
@@ -32,7 +34,7 @@ function AccountDropdown() {
           <NavbarItem>
             <DropdownTrigger>
               <button
-                className="flex w-full items-center justify-center  gap-2 rounded-full border py-2 pl-3 pr-4 text-left"
+                className="flex w-full items-center justify-center  gap-2 rounded-full border border-foreground/30 py-2 pl-3 pr-4 text-left"
                 type="button"
               >
                 <div className="h-8 w-8 rounded-full">
@@ -70,6 +72,40 @@ function AccountDropdown() {
           </DropdownMenu>
         </Dropdown>
       )}
+      <Dropdown className="w-full" placement="bottom-end" size="lg">
+        <NavbarItem>
+          <DropdownTrigger>
+            <button
+              className="flex w-full items-center justify-center gap-2 rounded-full border border-foreground/30 p-2 text-foreground/80"
+              type="button"
+            >
+              <svg height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="m15.844 3.344l-1.428.781l1.428.781l.781 1.428l.781-1.428l1.428-.781l-1.428-.781l-.781-1.428l-.781 1.428Zm-5.432.814A8 8 0 1 0 18.93 16A9 9 0 0 1 10 7c0-.98.131-1.937.412-2.842ZM2 12C2 6.477 6.477 2 12 2h1.734l-.868 1.5C12.287 4.5 12 5.69 12 7a7 7 0 0 0 8.348 6.87l1.682-.327l-.543 1.626C20.162 19.137 16.417 22 12 22C6.477 22 2 17.523 2 12Zm18.5-5.584l.914 1.67l1.67.914l-1.67.914l-.914 1.67l-.914-1.67L17.916 9l1.67-.914l.914-1.67Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </DropdownTrigger>
+        </NavbarItem>
+        <DropdownMenu
+          aria-label=""
+          className="block w-[calc(100vw-10rem)] sm:w-[300px]"
+          itemClasses={{
+            base: 'gap-4 w-full',
+            title: 'text-lg sm:text-base',
+          }}
+        >
+          {(['light', 'dark', 'system'] as const).map((theme) => (
+            <DropdownItem key={theme} onClick={() => setColorScheme(theme)}>
+              <div className="flex items-center justify-between capitalize">
+                {theme}
+                {theme === colorScheme && <Checkbox color="default" isSelected />}
+              </div>
+            </DropdownItem>
+          ))}
+        </DropdownMenu>
+      </Dropdown>
     </>
   );
 }

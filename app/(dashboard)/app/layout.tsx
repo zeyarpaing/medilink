@@ -54,7 +54,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           </ul>
         </aside>
         <section className="h-[calc(100vh-4.05rem)] w-full overflow-y-auto">
-          <div className="mcontainer w-full">
+          <div className="mcontainer w-full !max-w-screen-xl">
             <div className="px-1 py-3 md:px-4 md:py-5">{children}</div>
           </div>
         </section>

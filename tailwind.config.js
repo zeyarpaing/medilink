@@ -26,18 +26,18 @@ module.exports = {
         dark: {
           colors: {
             background: '#101010',
-            focus: '#F13456',
+            focus: '#ef3254',
             foreground: '#f3f3f3',
-            // primary: { DEFAULT: 'rgba(241, 52, 86, <alpha-value>)', foreground: '#fff' },
-            // secondary: 'rgba(25, 140, 210, <alpha-value>)',
+            primary: { DEFAULT: 'rgba(241, 52, 86, 1)', foreground: '#fff' },
+            secondary: 'rgba(25, 140, 210, 1)',
           },
           extend: 'light',
         },
         light: {
           colors: {
-            focus: '#EF3254',
-            // primary: { DEFAULT: 'rgba(241, 52, 86, <alpha-value>)', foreground: '#fff' },
-            // secondary: 'rgba(25, 140, 210, <alpha-value>)',
+            focus: '#ef3254',
+            primary: { DEFAULT: 'rgba(241, 52, 86, 1)', foreground: '#fff' },
+            secondary: 'rgba(25, 140, 210, 1)',
           },
           foreground: '#101010',
         },

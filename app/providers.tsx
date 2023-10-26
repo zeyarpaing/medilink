@@ -20,7 +20,7 @@ export function useTheme() {
   return {
     colorScheme,
     setColorScheme,
-  }
+  };
 }
 
 type ColorScheme = 'dark' | 'light' | 'system';
@@ -28,6 +28,10 @@ type ColorScheme = 'dark' | 'light' | 'system';
 function updateColorScheme(colorScheme: ColorScheme) {
   const html = document.querySelector('html');
   if (html) {
+    if (colorScheme === 'system') {
+      const systemColorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return html.setAttribute('class', systemColorScheme);
+    }
     html.setAttribute('class', colorScheme);
   }
 }
@@ -38,16 +42,17 @@ export function Providers({ children }: { children: ReactNode }) {
   useEffect(() => {
     const localColorScheme = localStorage.getItem('colorScheme');
 
-    const systemColorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const mode = (localColorScheme || 'system') as ColorScheme;
     setColorScheme(mode);
-    updateColorScheme(mode === 'system' ? systemColorScheme : mode);
+    updateColorScheme(mode);
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      const systemColorScheme = e.matches ? 'dark' : 'light';
+      const localColorScheme = localStorage.getItem('colorScheme');
       const mode = (localColorScheme || 'system') as ColorScheme;
+      if (mode !== 'system') return;
+      console.log('sysl', mode);
       setColorScheme(mode);
-      updateColorScheme(mode === 'system' ? systemColorScheme : mode);
+      updateColorScheme(e.matches ? 'dark' : 'light');
     });
   }, []);
 
