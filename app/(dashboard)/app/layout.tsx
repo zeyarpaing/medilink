@@ -23,14 +23,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <>
       <Navbar isApp />
       <main className="flex">
-        <aside className="h-[calc(100vh-4.05rem)] w-full max-w-xs border-r border-r-foreground/20 bg-background shadow-md">
-          <ul className="flex flex-col p-4">
+        <aside className="h-[calc(100vh-4.05rem)] w-fit border-r border-r-foreground/20 bg-background shadow-md md:w-full md:max-w-xs">
+          <ul className="flex flex-col p-2 md:p-4">
             {status === 'loading' ? (
               <>
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <li className="flex w-full items-center gap-3 rounded-lg px-4 py-4 text-gray-600" key={i}>
-                    <Skeleton className="h-7 w-7 rounded-full" />
-                    <Skeleton className="h-6 w-36 rounded-lg" />
+                  <li className="flex w-full items-center gap-3 rounded-lg p-2 text-gray-600 md:p-4" key={i}>
+                    <Skeleton className="h-6 w-6 rounded-full md:h-7 md:w-7" />
+                    <Skeleton className="hidden h-6 w-36 rounded-lg md:block" />
                   </li>
                 ))}
               </>
@@ -38,13 +38,15 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               routes.map((route) => (
                 <li className="" key={route.href}>
                   <Link
+                    aria-label={route.label}
                     className={`flex w-full items-center gap-3 rounded-lg ${
                       pathname.includes(route.href) ? ' bg-primary text-white' : 'text-foreground/70'
-                    } px-4 py-3 `}
+                    } px-3 py-2.5 md:px-4 md:py-3 `}
                     href={route.href}
+                    title={route.label}
                   >
-                    {'icon' in route && <route.icon className="h-7 w-7" />}
-                    <span className="text-sm font-bold">{route.label}</span>
+                    {'icon' in route && <route.icon className="h-6 w-6 md:h-7 md:w-7" />}
+                    <span className="hidden text-sm font-bold md:inline">{route.label}</span>
                   </Link>
                 </li>
               ))
@@ -53,7 +55,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         </aside>
         <section className="h-[calc(100vh-4.05rem)] w-full overflow-y-auto">
           <div className="mcontainer w-full">
-            <div className="px-4 py-5">{children}</div>
+            <div className="px-1 py-3 md:px-4 md:py-5">{children}</div>
           </div>
         </section>
       </main>

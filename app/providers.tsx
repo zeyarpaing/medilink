@@ -6,13 +6,22 @@ import { useStore } from '@nanostores/react';
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 const ThemeProvider = createContext({
-  colorScheme: 'system',
+  colorScheme: 'system' as ColorScheme,
   setColorScheme: (colorScheme: ColorScheme) => {},
 });
+
+export function useTheme() {
+  const { colorScheme, setColorScheme } = useContext(ThemeProvider);
+
+  return {
+    colorScheme,
+    setColorScheme,
+  }
+}
 
 type ColorScheme = 'dark' | 'light' | 'system';
 

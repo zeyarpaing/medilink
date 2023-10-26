@@ -51,7 +51,7 @@ export default function ProviderForm({ initialValues }: Props) {
 
             <section className="relative z-0 mb-6 flex flex-col gap-4">
               <ImageInput label="Image" name="image" />
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 md:flex-row">
                 <Input label="Name" name="name" />
                 <Effect
                   callback={() => {
@@ -81,7 +81,7 @@ export default function ProviderForm({ initialValues }: Props) {
               </div>
               <Input label="A short introduction" name="description" type="textarea" />
               <Input label="Address" name="address" />
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 md:flex-row">
                 <Input label="Phone" name="phone" />
                 <Input label="Email" name="email" />
               </div>

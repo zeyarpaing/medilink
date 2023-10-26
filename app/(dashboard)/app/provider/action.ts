@@ -20,7 +20,7 @@ export async function mutateHealthcareProvider(formData: FormData) {
       }
 
       if (isEdit) {
-        const editData = data as HealthcareProvider;
+        const editData = { ...(data as HealthcareProvider), adminId: undefined };
         if (typeof editData.image === 'string' && editData.image.startsWith('http')) {
           // image not changed
           return prisma.healthcareProvider
