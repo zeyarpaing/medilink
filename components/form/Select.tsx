@@ -1,6 +1,6 @@
 'use client';
 import { Select as $Select, SelectItem, SelectProps } from '@nextui-org/react';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import { ReactNode } from 'react';
 
 type Props = {
@@ -13,6 +13,8 @@ type Props = {
 
 export default function Select({ name, options, ...props }: Omit<Props & SelectProps, 'children'>) {
   const [field, { error, touched }] = useField(name);
+  const { setFieldTouched } = useFormikContext();
+
   return (
     <$Select
       classNames={{
@@ -24,10 +26,14 @@ export default function Select({ name, options, ...props }: Omit<Props & SelectP
       label=" "
       labelPlacement="outside"
       placeholder=" "
-      selectedKeys={[''+field.value]}
+      selectedKeys={field.value ? ['' + field.value] : []}
       variant="bordered"
       {...field}
       {...props}
+      onBlur={(e) => {
+        field.onBlur(e);
+        setFieldTouched(name, true);
+      }}
     >
       {options.map((item) => (
         <SelectItem key={item.value} value={item.value}>
