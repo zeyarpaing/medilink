@@ -1,4 +1,4 @@
-import { createBooking } from '@/app/(web)/services/[serviceId]/book/[scheduleId]/action';
+import { createBooking } from '../action';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Button from '@/components/Button';
 import CheckBox from '@/components/form/CheckBox';

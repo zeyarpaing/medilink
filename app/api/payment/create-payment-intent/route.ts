@@ -1,6 +1,6 @@
 // This is your test secret API key.
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
+//next 12
 async function handler(req: Request) {
   // const { items } = await req.json();
   // console.log('item : ', items);

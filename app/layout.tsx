@@ -1,6 +1,7 @@
 import { Providers } from '@/app/providers';
 import { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import Head from 'next/head';
 import { ReactNode } from 'react';
 import { twJoin } from 'tailwind-merge';
 

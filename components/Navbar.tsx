@@ -52,13 +52,13 @@ function AccountDropdown() {
               title: 'text-lg sm:text-base',
             }}
           >
-            <DropdownItem onClick={() => setTimeout(() => router.push(sitemap.profile.href), 500)}>
+            <DropdownItem onPress={() => setTimeout(() => router.push(sitemap.profile.href), 500)}>
               {sitemap.profile.label}
             </DropdownItem>
             <DropdownItem
               className="text-danger"
               color="danger"
-              onClick={() => {
+              onPress={() => {
                 openModal({
                   content: 'Are you sure you want to log out?',
                   onProceed: () => signOut(),
