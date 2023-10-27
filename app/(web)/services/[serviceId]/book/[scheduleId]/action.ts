@@ -8,7 +8,28 @@ export async function createSchedule(...args: any[]) {
   return null;
 }
 
-export async function createBooking({ scheduleId, userId }: { scheduleId: string; userId: string }) {
+export async function createBooking({
+  scheduleId,
+  userId,
+  intentId,
+}: {
+  scheduleId: string;
+  userId: string;
+  intentId: string;
+}) {
+  const booking = await prisma.booking.findFirst({
+    where: {
+      scheduleId,
+      status: 'CONFIRMED',
+      user: {
+        accountId: userId,
+      },
+    },
+  });
+
+  if (booking) {
+    throw new Error('You have already booked this schedule.');
+  }
   return prisma.booking
     .create({
       data: {
@@ -17,9 +38,15 @@ export async function createBooking({ scheduleId, userId }: { scheduleId: string
             id: scheduleId,
           },
         },
+        Transaction: {
+          create: {
+            paymentMethod: 'stripe',
+            id: intentId,
+          },
+        },
         user: {
           connect: {
-            id: userId,
+            accountId: userId,
           },
         },
       },
@@ -32,6 +59,7 @@ export async function createBooking({ scheduleId, userId }: { scheduleId: string
       };
     })
     .catch((error) => {
+      console.error(error);
       throw new Error('Booking failed.');
     });
 }

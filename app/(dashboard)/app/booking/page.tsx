@@ -15,12 +15,14 @@ export default async function Page() {
 
   const bookings = await prisma.booking.findMany({
     include: {
-      Doctor: {
-        include: { Account: true },
-      },
       schedule: {
         include: {
           Service: true,
+          Doctor: {
+            include: {
+              Account: true,
+            },
+          },
         },
       },
       user: {
@@ -46,7 +48,7 @@ export default async function Page() {
         </div>
         <div></div>
       </div>
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+      <div className="flex flex-col gap-3">
         {bookings?.map((booking) => (
           <BookingCard booking={booking} key={booking.id} />
         ))}

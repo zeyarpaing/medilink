@@ -20,6 +20,8 @@ export function useTheme() {
   return {
     colorScheme,
     setColorScheme,
+    getColorClass: () =>
+      (typeof window !== 'undefined' && document.querySelector('html')?.getAttribute('class')) ?? 'light',
   };
 }
 

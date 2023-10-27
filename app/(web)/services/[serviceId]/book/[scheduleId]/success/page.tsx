@@ -9,13 +9,18 @@ type Props = {
   params: {
     scheduleId: string;
   };
+  searchParams: {
+    payment_intent: string;
+    payment_intent_client_secret: string;
+    redirect_status: 'succeeded' | 'failed';
+  };
 };
 
-export default async function page({ params }: Props) {
+export default async function page({ params, searchParams }: Props) {
   const scheduleId = params.scheduleId;
   const session = await getServerSession(authOptions);
 
-  // await createBooking({ scheduleId, userId: session?.user.id! });
+  await createBooking({ scheduleId, userId: session?.user.id!, intentId: searchParams.payment_intent });
 
   return (
     <div className="grid min-h-[60vh] place-items-center  py-12">

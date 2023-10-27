@@ -1,22 +1,21 @@
 'use client';
 
+import { useTheme } from '@/app/providers';
 import CheckoutForm from '@/components/form/CheckoutForm.jsx';
+import { Schedule } from '@prisma/client';
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-export default function Payment() {
+export default function Payment({ schedule }: { schedule: Schedule }) {
   const [clientSecret, setClientSecret] = React.useState('');
+  const { getColorClass } = useTheme();
 
   React.useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     fetch('/api/payment/create-payment-intent', {
-      body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
+      body: JSON.stringify({ scheduleId: schedule.id, bookingPrice: schedule.bookingPrice }),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     })
@@ -25,19 +24,19 @@ export default function Payment() {
       .catch((err) => console.log('err', err));
   }, []);
 
-  const appearance = {
-    theme: 'stripe',
-  };
-  const options = {
-    appearance,
+  const options: StripeElementsOptions = {
+    appearance: {
+      theme: getColorClass() === 'dark' ? 'night' : 'stripe',
+    },
     clientSecret,
   };
 
   return (
     <div className="App">
       {clientSecret && (
+        // @ts-expect-error stripePromise is not null
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm price={schedule.bookingPrice} />
         </Elements>
       )}
     </div>

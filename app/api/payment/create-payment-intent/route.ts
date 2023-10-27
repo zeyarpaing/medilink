@@ -1,14 +1,10 @@
-// This is your test secret API key.
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-//next 12
-async function handler(req: Request) {
-  // const { items } = await req.json();
-  // console.log('item : ', items);
 
-  // Create a PaymentIntent with the order amount and currency
+export async function POST(req: Request) {
+  const data = await req.json();
+
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 500, // calculateOrderAmount(),
-    // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+    amount: data?.bookingPrice * 100,
     automatic_payment_methods: {
       enabled: true,
     },
@@ -20,5 +16,3 @@ async function handler(req: Request) {
     clientSecret: cs,
   });
 }
-
-export { handler as POST };

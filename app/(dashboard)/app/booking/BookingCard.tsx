@@ -21,13 +21,13 @@ const items = [
 type Props = {
   booking: Prisma.BookingGetPayload<{
     include: {
-      Doctor: {
-        include: {
-          Account: true;
-        };
-      };
       schedule: {
         include: {
+          Doctor: {
+            include: {
+              Account: true;
+            };
+          };
           Service: true;
         };
       };
@@ -44,7 +44,7 @@ export default function BookingCard({ booking }: Props) {
   const { Service, dateTime, duration } = booking.schedule;
   const image = Service?.image;
 
-  const doctor = booking.Doctor?.Account.name;
+  const doctor = booking.schedule?.Doctor?.Account.name;
   const patient = booking.user?.Account.name;
 
   const { data } = useSession();
@@ -63,7 +63,7 @@ export default function BookingCard({ booking }: Props) {
           width={400}
         />
         <div className="flex-auto">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:items-center">
             <h3 className="pr-10 text-lg font-semibold  xl:pr-0">{title}</h3>
             <Chip
               className="capitalize"
@@ -76,7 +76,10 @@ export default function BookingCard({ booking }: Props) {
           </div>
           <div className="flex items-start space-x-3">
             {user?.role === 'USER' ? (
-              <p className="mt-1"> Doctor: {doctor}</p>
+              <p className="mt-1">
+                {' '}
+                Doctor: {doctor} ({booking.schedule?.Doctor?.speciality})
+              </p>
             ) : (
               <p className="mt-1"> Patient: {patient}</p>
             )}

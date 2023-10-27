@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import { LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React from 'react';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ price }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -43,8 +43,6 @@ export default function CheckoutForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -53,17 +51,11 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       confirmParams: {
         receipt_email: email,
-        // Make sure to change this to your payment completion page
         return_url: `${window.location.href}/success`,
       },
       elements,
     });
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
     if (error.type === 'card_error' || error.type === 'validation_error') {
       setMessage(error.message);
     } else {
@@ -82,9 +74,8 @@ export default function CheckoutForm() {
       <LinkAuthenticationElement id="link-authentication-element" onChange={(e) => setEmail(e.target.value)} />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <Button className="mt-4" disabled={isLoading || !stripe || !elements} id="submit" type="submit">
-        <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}</span>
+        <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : `Pay $${price}`}</span>
       </Button>
-      {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
   );

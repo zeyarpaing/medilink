@@ -1,6 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
+import { Chip } from '@nextui-org/chip';
 import { format } from 'date-fns';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
@@ -36,7 +37,7 @@ export default async function Page({ params }: { params: { serviceId: string } }
 
   const labelClass = `text-xs font-semibold uppercase text-foreground/50`;
   return (
-    <div className="mcontainer flex min-h-screen gap-10 py-12">
+    <div className="mcontainer flex min-h-screen flex-col gap-10 py-12 md:flex-row">
       <div className="flex-1">
         <div className="h-[32rem] w-full">
           <Image
@@ -61,10 +62,24 @@ export default async function Page({ params }: { params: { serviceId: string } }
             <li key={schedule.id}>
               <div className=" rounded-xl border-2 border-zinc-400/20 px-5 py-4">
                 <div className="w-full">
-                  <h3 className="inline-block text-xl font-semibold">{format(schedule.dateTime, 'dd MMM yyyy')} </h3>
-                  <p className="inline-block pl-3 text-lg text-foreground/70">
-                    {format(schedule.dateTime, 'hh:mm a')} (Local time)
-                  </p>
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="inline-block text-xl font-semibold">
+                        {format(schedule.dateTime, 'dd MMM yyyy')}{' '}
+                      </h3>
+                      <p className="inline-block pl-3 text-lg text-foreground/70">
+                        {format(schedule.dateTime, 'hh:mm a')} (Local time)
+                      </p>
+                    </div>
+                    <Chip
+                      className="capitalize"
+                      color={schedule.Booking?.length < schedule.maxBooking ? 'success' : 'warning'}
+                      size="sm"
+                      variant="flat"
+                    >
+                      {schedule.Booking?.length < schedule.maxBooking ? 'Available' : 'Fully booked'}
+                    </Chip>
+                  </div>
                   <div className="mt-2 flex justify-between">
                     <div className="my-2 ">
                       <p className={labelClass}>Duration</p> <p className="text-lg">{schedule.duration} minutes </p>

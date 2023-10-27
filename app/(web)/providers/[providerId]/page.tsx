@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { providerId: string } 
   }
 
   return (
-    <div className="mcontainer flex min-h-screen gap-10 py-12">
+    <div className="mcontainer flex min-h-screen flex-col gap-10 py-12 md:flex-row">
       <div className="flex-1">
         <div className="h-[32rem] w-full">
           <Image

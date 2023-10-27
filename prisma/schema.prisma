@@ -89,7 +89,6 @@ model Doctor {
   id                   String              @id @default(cuid())
   Account              Account             @relation(fields: [accountId], references: [id])
   accountId            String              @unique
-  Booking              Booking[]
   Schedule             Schedule[]
   speciality           String
   certification        String
@@ -106,11 +105,12 @@ model Admin {
 }
 
 model Transaction {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(cuid())
   paymentMethod String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  Booking       Booking?
+  Booking       Booking  @relation(fields: [bookingId], references: [id])
+  bookingId     String   @unique
 }
 
 enum BookingStatus {
@@ -120,18 +120,15 @@ enum BookingStatus {
 }
 
 model Booking {
-  id            String        @id @default(cuid())
-  schedule      Schedule      @relation(fields: [scheduleId], references: [id])
-  scheduleId    String
-  user          User          @relation(fields: [userId], references: [id])
-  userId        String
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  status        BookingStatus @default(CONFIRMED)
-  transaction   Transaction?  @relation(fields: [transactionId], references: [id])
-  transactionId Int?          @unique
-  Doctor        Doctor?       @relation(fields: [doctorId], references: [id])
-  doctorId      String?
+  id          String        @id @default(cuid())
+  schedule    Schedule      @relation(fields: [scheduleId], references: [id])
+  scheduleId  String
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  status      BookingStatus @default(CONFIRMED)
+  Transaction Transaction?
 }
 
 model Schedule {
