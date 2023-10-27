@@ -16,7 +16,7 @@ export default async function Page() {
         </div>
       </div>
       <div className="flex-1">
-        <h2 className="mb-4 mt-6 text-2xl font-bold">Services Offered</h2>
+        <h2 className="mb-4 text-2xl font-bold">Services Offered</h2>
         <ul className="flex flex-col gap-4">
           <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
           <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>

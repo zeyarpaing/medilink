@@ -1,13 +1,28 @@
-export default function Loading() {
-  return (
-    <div className="mcontainer min-h-screen py-12">
-      <div className="mb-4">
-        <h1 className="h-8 w-20 rounded-md bg-gray-400 text-3xl font-semibold"> </h1>
-        <p className="text-gray-600"> </p>
-      </div>
+import { Skeleton } from '@nextui-org/skeleton';
 
-      <h2 className="mt-4 text-2xl font-semibold">Schedules</h2>
-      <ul className="mt-2 h-12 w-20 rounded-md bg-gray-400"> </ul>
+export default async function Page() {
+  return (
+    <div className="mcontainer flex min-h-screen gap-10 py-12">
+      <div className="flex-1">
+        <Skeleton className="h-[32rem] w-full rounded-xl">
+          <div className="h-full w-full rounded-xl bg-gray-500 object-cover" />
+        </Skeleton>
+        <div className="my-8">
+          <Skeleton className="mb-2 h-12 w-48 rounded-lg"> </Skeleton>
+          <Skeleton className="mb-2 mt-3 h-5 w-32 rounded-lg "> </Skeleton>
+          <Skeleton className="mb-2 mt-3 h-5 w-32 rounded-lg "> </Skeleton>
+          <Skeleton className="mb-2 mt-3 h-5 w-32 rounded-lg "> </Skeleton>
+          <Skeleton className="mb-2 mt-3 h-5 w-32 rounded-lg "> </Skeleton>
+        </div>
+      </div>
+      <div className="flex-1">
+        <h2 className="mb-4 text-2xl font-bold">Schedules</h2>
+        <ul className="flex flex-col gap-4">
+          <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
+          <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
+          <Skeleton className="h-24 w-full rounded-lg  text-sm"> </Skeleton>
+        </ul>
+      </div>
     </div>
   );
 }

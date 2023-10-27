@@ -1,8 +1,9 @@
-import { createBooking } from '../action';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Button from '@/components/Button';
 import CheckBox from '@/components/form/CheckBox';
 import { getServerSession } from 'next-auth';
+
+import { createBooking } from '../action';
 
 type Props = {
   params: {

@@ -1,10 +1,10 @@
 import { v2 as cloudinary } from 'cloudinary';
 
-cloudinary.config({
-  secure: true,
-});
-
 export function uploadImage(image: File, tag?: string): Promise<{ public_id: string; url: string }> {
+  cloudinary.config({
+    secure: true,
+  });
+
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream({ folder: 'medilink', tags: tag }, function (err, image) {
       if (err) {
