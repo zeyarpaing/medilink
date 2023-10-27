@@ -35,8 +35,10 @@ export default async function Page() {
             user: { accountId: session?.user?.id },
           }
         : {
-            Doctor: {
-              accountId: session?.user?.id,
+            schedule: {
+              Doctor: {
+                accountId: session?.user?.id,
+              },
             },
           },
   });

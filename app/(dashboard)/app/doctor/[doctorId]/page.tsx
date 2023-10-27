@@ -49,8 +49,11 @@ export default async function NormalRoute({ params }: Props) {
   const doctor = await prisma.doctor.findUnique({
     include: {
       Account: true,
-      Booking: true,
-      Schedule: true,
+      Schedule: {
+        include: {
+          Booking: true,
+        },
+      },
     },
     where: {
       id: doctorId,
@@ -79,7 +82,9 @@ export default async function NormalRoute({ params }: Props) {
       <p className="my-2 text-foreground/80">Phone: {doctor?.Account.phone}</p>
       <p className="my-2 text-foreground/80">Email: {doctor?.Account.email}</p>
       <p className="my-2 text-foreground/80">Schedules assigned: {doctor?.Schedule.length}</p>
-      <p className="my-2 text-foreground/80">Total bookings: {doctor?.Booking.length}</p>
+      <p className="my-2 text-foreground/80">
+        Total bookings: {doctor?.Schedule.reduce((acc, schedule) => acc + schedule.Booking.length, 0)}
+      </p>
 
       <h2 className="mb-1 mt-3 text-lg font-bold">Certification</h2>
       {doctor?.certification ? (
