@@ -10,6 +10,8 @@ import React from 'react';
 
 type Props = {};
 
+export const dynamic = 'force-static';
+
 export default async function Page() {
   const session = await getServerSession(authOptions);
 

@@ -14,6 +14,8 @@ type Props = {
   };
 };
 
+// export const dynamic = 'force-static';
+
 export default async function NormalRoute({ params }: Props) {
   const headersInstance = headers();
   const host = headersInstance.get('host');

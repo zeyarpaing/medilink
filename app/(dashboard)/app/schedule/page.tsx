@@ -12,6 +12,8 @@ type Props = {
   };
 };
 
+// export const dynamic = 'force-static';
+
 export default async function Page({ params, searchParams }: Props) {
   const date = searchParams?.date;
   const { account, provider } = await getProvider();

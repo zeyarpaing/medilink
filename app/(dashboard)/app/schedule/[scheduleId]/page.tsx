@@ -5,6 +5,8 @@ import { Schedule } from '@prisma/client';
 
 type Props = { params: { scheduleId: string } };
 
+export const dynamic = 'force-static';
+
 export default async function Page({ params }: Props) {
   const scheduleId = params.scheduleId;
   let initialValues: Partial<Schedule> = {};

@@ -17,7 +17,7 @@ export default withAuth(
     if (path.startsWith('/app')) {
       const route = Object.values(sitemap.app.children).find((route) => route.href === path);
       if (!!route && !(route?.role as unknown as Role[])?.includes(token?.user?.role as Role)) {
-        return NextResponse.rewrite(new URL('/403', req.nextUrl.origin));
+        return NextResponse.rewrite(new URL('/app', req.nextUrl.origin));
       }
     }
   },

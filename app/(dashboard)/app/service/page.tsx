@@ -3,6 +3,8 @@ import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
 
+// export const dynamic = 'force-static';
+
 export default async function Page() {
   const { provider } = await getProvider();
 

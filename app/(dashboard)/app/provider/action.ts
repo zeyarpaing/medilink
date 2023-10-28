@@ -5,7 +5,7 @@ import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
 import { uploadImage } from '@/lib/upload';
 import { HealthcareProvider } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function mutateHealthcareProvider(formData: FormData) {
   const data = Object.fromEntries(formData.entries()) as unknown;
@@ -90,7 +90,7 @@ export async function mutateHealthcareProvider(formData: FormData) {
         });
     })
     .then((res) => {
-      revalidatePath(sitemap.app.children.provider.href);
+      revalidateTag('provider');
       return res;
     });
 }

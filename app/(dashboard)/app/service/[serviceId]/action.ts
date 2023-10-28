@@ -104,6 +104,7 @@ export async function mutateService(formData: FormData) {
     })
     .then((res) => {
       revalidatePath(sitemap.app.children.service.href);
+      revalidatePath(sitemap.app.children.service.href + '/' + res.data?.id);
       return res;
     });
 }

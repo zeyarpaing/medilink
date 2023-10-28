@@ -1,21 +1,9 @@
 import ProviderForm from '@/app/(dashboard)/app/provider/ProviderForm';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import prisma from '@/lib/prisma';
-import { id } from 'date-fns/locale';
-import { getServerSession } from 'next-auth';
+import { getProvider } from '@/lib/services';
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const { account, provider } = await getProvider();
+  if (!account?.id) return <p>not found</p>;
 
-  if (!session?.user.id) return <p>not found</p>;
-
-  const provider = await prisma.healthcareProvider.findFirst({
-    where: {
-      Admin: {
-        accountId: session?.user.id,
-      },
-    },
-  });
-
-  return <ProviderForm initialValues={{ adminId: session?.user?.id, ...provider }} />;
+  return <ProviderForm initialValues={{ adminId: account?.id, ...provider }} />;
 }

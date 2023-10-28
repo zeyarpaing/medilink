@@ -7,6 +7,8 @@ import React from 'react';
 
 type Props = {};
 
+export const dynamic = 'force-static';
+
 export default async function page({}: Props) {
   const { provider } = await getProvider();
   const doctors = await prisma.doctor.findMany({
