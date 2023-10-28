@@ -98,8 +98,8 @@ export default function BookingCard({ booking }: Props) {
                 </svg>
               </dt>
               <dd>
-                <time dateTime={dateTime.toISOString()}>
-                  {format(dateTime, 'dd MMM yyyy')} at {format(dateTime, 'hh:mm a')}
+                <time dateTime={new Date(dateTime).toISOString()}>
+                  {format(new Date(dateTime), 'dd MMM yyyy')} at {format(new Date(dateTime), 'hh:mm a')}
                 </time>
               </dd>
             </div>
