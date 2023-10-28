@@ -69,7 +69,7 @@ export function Providers({ children }: { children: ReactNode }) {
         },
       }}
     >
-      <SessionProvider>
+      <SessionProvider basePath="/api/auth">
         <NextUIProvider>
           {children}
           <Toaster

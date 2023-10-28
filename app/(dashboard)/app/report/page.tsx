@@ -1,7 +1,13 @@
+import StatsReports from '@/app/(dashboard)/app/report/@stats/StatsReport';
 import React from 'react';
 
 type Props = {};
 
 export default function ReportPage() {
-  return <></>;
+  return (
+    <>
+      <h1 className="mb-5 text-2xl font-bold">Statstics</h1>
+      <StatsReports />
+    </>
+  );
 }

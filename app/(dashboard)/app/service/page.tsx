@@ -3,18 +3,19 @@ import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 
+const getServices = $cache((providerId: number) =>
+  prisma.service.findMany({
+    where: {
+      healthcareProviderId: providerId,
+    },
+  }),
+);
 export default async function Page() {
   const { provider } = await getProvider();
 
   if (!provider) return <div>Not found</div>;
 
-  const services = await $cache(() =>
-    prisma.service.findMany({
-      where: {
-        healthcareProviderId: provider?.id,
-      },
-    }),
-  )();
+  const services = await getServices(provider.id!);
 
   return (
     <div>

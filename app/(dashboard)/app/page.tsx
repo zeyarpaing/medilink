@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 
 export default async function Dashboard() {
   const account = await getAccount();
-  const route = Object.values(sitemap.app.children).find((route) => (route.role as unknown as Role[]).includes(account?.role!));
+  const route = Object.values(sitemap.app.children).find((route) =>
+    (route.role as unknown as Role[]).includes(account?.role!),
+  );
   redirect(route?.href!);
 }

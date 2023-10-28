@@ -14,7 +14,7 @@ type Props = {
 };
 
 const getSchedules = $cache(
-  (role: Role, accountId: string, providerId: number, date?: Date) =>
+  async (role: Role, accountId: string, providerId: number, date?: Date) =>
     prisma.schedule.findMany({
       include: {
         Doctor: {

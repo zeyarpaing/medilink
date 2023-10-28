@@ -1,7 +1,6 @@
 import { RevenueChart } from '@/app/(dashboard)/app/report/@revenue/RevenueChart';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
-import { sqltag } from '@prisma/client/runtime/library';
 
 const getRevenueReport = $cache(async (providerId: number, year: number) => {
   const report: Array<{ bookingPrice: number; bookings: number; month: number }> = await prisma.$queryRaw`
