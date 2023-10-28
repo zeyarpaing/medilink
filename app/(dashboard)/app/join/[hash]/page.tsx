@@ -3,6 +3,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import prisma from '@/lib/prisma';
 import { base64Hash } from '@/lib/utils';
 import { getServerSession } from 'next-auth';
+import { revalidateTag } from 'next/cache';
 
 async function joinProvider({ doctorId, providerId }: { doctorId: string; providerId: number }) {
   'use server';
@@ -20,6 +21,7 @@ async function joinProvider({ doctorId, providerId }: { doctorId: string; provid
       },
     })
     .then(() => {
+      revalidateTag('doctors');
       return {
         message: 'Joined successfully',
       };

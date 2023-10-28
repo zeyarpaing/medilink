@@ -7,43 +7,47 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import React from 'react';
+import { $cache } from '@/lib/services';
+import { Role } from '@prisma/client';
 
-type Props = {};
-
-export const dynamic = 'force-static';
-
-export default async function Page() {
-  const session = await getServerSession(authOptions);
-
-  const bookings = await prisma.booking.findMany({
-    include: {
-      schedule: {
-        include: {
-          Service: true,
-          Doctor: {
-            include: {
-              Account: true,
-            },
-          },
-        },
-      },
-      user: {
-        include: { Account: true },
-      },
-    },
-    where:
-      session?.user?.role === 'USER'
-        ? {
-            user: { accountId: session?.user?.id },
-          }
-        : {
-            schedule: {
-              Doctor: {
-                accountId: session?.user?.id,
+const getBookings = $cache(
+  (role: Role, accountId: string) =>
+    prisma.booking.findMany({
+      include: {
+        schedule: {
+          include: {
+            Service: true,
+            Doctor: {
+              include: {
+                Account: true,
               },
             },
           },
-  });
+        },
+        user: {
+          include: { Account: true },
+        },
+      },
+      where:
+        role === 'USER'
+          ? {
+              user: { accountId: accountId },
+            }
+          : {
+              schedule: {
+                Doctor: {
+                  accountId: accountId,
+                },
+              },
+            },
+    }),
+  ['bookings'],
+);
+
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+  const bookings = await getBookings(session?.user?.role!, session?.user?.id!);
+
   return (
     <div>
       <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background pb-4">

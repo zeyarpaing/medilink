@@ -5,13 +5,14 @@ import { Schedule } from '@prisma/client';
 
 type Props = { params: { scheduleId: string } };
 
-const getSchedule = $cache((scheduleId: string) =>
-  prisma.schedule.findUnique({
+const getSchedule = $cache(async (scheduleId: string) => {
+  const schedule = await prisma.schedule.findUnique({
     where: {
       id: scheduleId,
     },
-  }),
-);
+  });
+  return schedule;
+});
 
 const getScheduleDoctor = $cache((accountId: string) =>
   prisma.doctor.findUnique({

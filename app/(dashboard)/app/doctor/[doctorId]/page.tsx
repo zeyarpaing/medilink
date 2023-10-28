@@ -1,6 +1,6 @@
 import Copy from '@/app/(dashboard)/app/doctor/[doctorId]/Copy';
 import prisma from '@/lib/prisma';
-import { getProvider } from '@/lib/services';
+import { $cache, getProvider } from '@/lib/services';
 import { base64Hash } from '@/lib/utils';
 import { Input } from '@nextui-org/input';
 import { tr } from 'date-fns/locale';
@@ -14,7 +14,21 @@ type Props = {
   };
 };
 
-// export const dynamic = 'force-static';
+const getDoctor = $cache((doctorId: string) =>
+  prisma.doctor.findUnique({
+    include: {
+      Account: true,
+      Schedule: {
+        include: {
+          Booking: true,
+        },
+      },
+    },
+    where: {
+      id: doctorId,
+    },
+  }),
+);
 
 export default async function NormalRoute({ params }: Props) {
   const headersInstance = headers();
@@ -23,11 +37,14 @@ export default async function NormalRoute({ params }: Props) {
   const { provider } = await getProvider();
   if (!provider) return <p>You need to setup your healthcare provider first.</p>;
 
-  const hash = base64Hash(provider.slug);
-  const url = new URL('app/join/' + hash, (process.env.NODE_ENV === 'development' ? 'http' : 'https') + '://' + host!);
-
   const doctorId = params.doctorId;
   if (doctorId === 'new') {
+    const hash = base64Hash(provider.slug);
+    const url = new URL(
+      'app/join/' + hash,
+      (process.env.NODE_ENV === 'development' ? 'http' : 'https') + '://' + host!,
+    );
+
     return (
       <>
         <Link href="/app/doctor">
@@ -48,19 +65,8 @@ export default async function NormalRoute({ params }: Props) {
       </>
     );
   }
-  const doctor = await prisma.doctor.findUnique({
-    include: {
-      Account: true,
-      Schedule: {
-        include: {
-          Booking: true,
-        },
-      },
-    },
-    where: {
-      id: doctorId,
-    },
-  });
+
+  const doctor = await getDoctor(doctorId);
 
   return (
     <div>

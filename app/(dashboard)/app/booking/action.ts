@@ -1,10 +1,9 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 export async function cancelBooking(bookingId: string, cancelBy: string) {
-  console.log('cancelBooking', bookingId);
   return prisma.booking
     .update({
       data: {
@@ -15,7 +14,7 @@ export async function cancelBooking(bookingId: string, cancelBy: string) {
       },
     })
     .then((booking) => {
-      revalidatePath(`/app/booking`);
+      revalidateTag(`bookings`);
       return {
         data: booking,
         message: 'Booking cancelled successfully.',

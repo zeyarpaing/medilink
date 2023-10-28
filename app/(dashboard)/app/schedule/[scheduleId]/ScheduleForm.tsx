@@ -46,7 +46,7 @@ export default function ScheduleForm({
       initialValues={{
         ...initialValues,
         dateTime: initialValues?.dateTime
-          ? format(initialValues?.dateTime, 'yyyy-MM-dd<_>HH:mm')?.replace('<_>', 'T')
+          ? format(new Date(initialValues?.dateTime), 'yyyy-MM-dd<_>HH:mm')?.replace('<_>', 'T')
           : '',
       }}
       listenKeyboardSave
@@ -87,11 +87,11 @@ export default function ScheduleForm({
             </div>
 
             <section className="relative z-0 mb-6 flex flex-col gap-4">
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 md:flex-row">
                 <Input label="Start date and time" name="dateTime" type="datetime-local" />
                 <Input label="Fees (Upfront cost for booking in USD)" name="bookingPrice" type="number" />
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 md:flex-row">
                 <Select
                   label="Service"
                   name="serviceId"
@@ -109,7 +109,7 @@ export default function ScheduleForm({
                   }))}
                 />
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 md:flex-row">
                 <Input label="Duration (minutes)" name="duration" type="number" />
                 <Input label="Max booking" name="maxBooking" type="number" />
               </div>

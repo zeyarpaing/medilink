@@ -2,23 +2,27 @@ import CTAButton from '@/components/CTAButton';
 import Card from '@/components/Card';
 import EmptyState from '@/components/EmptyState';
 import prisma from '@/lib/prisma';
-import { getProvider } from '@/lib/services';
+import { $cache, getProvider } from '@/lib/services';
 import React from 'react';
 
 type Props = {};
 
-export const dynamic = 'force-static';
+const getDoctors = $cache(
+  (providerId: number) =>
+    prisma.doctor.findMany({
+      include: {
+        Account: true,
+      },
+      where: {
+        healthcareProviderId: providerId,
+      },
+    }),
+  ['doctors'],
+);
 
 export default async function page({}: Props) {
   const { provider } = await getProvider();
-  const doctors = await prisma.doctor.findMany({
-    include: {
-      Account: true,
-    },
-    where: {
-      healthcareProviderId: provider?.id,
-    },
-  });
+  const doctors = await getDoctors(provider?.id!);
 
   return (
     <div>

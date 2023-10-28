@@ -13,39 +13,41 @@ type Props = {
   };
 };
 
-const getSchedules = $cache((role: Role, accountId: string, providerId: number, date?: Date) =>
-  prisma.schedule.findMany({
-    include: {
-      Doctor: {
-        include: {
-          Account: true,
-        },
-      },
-      Service: true,
-    },
-    where:
-      role === 'DOCTOR'
-        ? {
-            Doctor: {
-              accountId: accountId,
-            },
-            dateTime: date
-              ? {
-                  gte: startOfDay(new Date(date)),
-                  lte: endOfDay(new Date(date)),
-                }
-              : undefined,
-          }
-        : {
-            dateTime: date
-              ? {
-                  gte: startOfDay(new Date(date)),
-                  lte: endOfDay(new Date(date)),
-                }
-              : undefined,
-            providerId: providerId,
+const getSchedules = $cache(
+  (role: Role, accountId: string, providerId: number, date?: Date) =>
+    prisma.schedule.findMany({
+      include: {
+        Doctor: {
+          include: {
+            Account: true,
           },
-  }),
+        },
+        Service: true,
+      },
+      where:
+        role === 'DOCTOR'
+          ? {
+              Doctor: {
+                accountId: accountId,
+              },
+              dateTime: date
+                ? {
+                    gte: startOfDay(new Date(date)),
+                    lte: endOfDay(new Date(date)),
+                  }
+                : undefined,
+            }
+          : {
+              dateTime: date
+                ? {
+                    gte: startOfDay(new Date(date)),
+                    lte: endOfDay(new Date(date)),
+                  }
+                : undefined,
+              providerId: providerId,
+            },
+    }),
+  ['schedules'],
 );
 
 export default async function Page({ params, searchParams }: Props) {

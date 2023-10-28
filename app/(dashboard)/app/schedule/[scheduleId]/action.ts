@@ -3,7 +3,7 @@
 import { ScheduleFormValues, scheduleSchema } from '@/app/(dashboard)/app/schedule/[scheduleId]/schema';
 import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
   const isEdit = data && typeof data === 'object' && 'id' in data && !!data.id;
@@ -82,7 +82,7 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
       };
     })
     .then((res) => {
-      revalidatePath(sitemap.app.children.schedule.href);
+      revalidateTag(`schedules`);
       revalidatePath(sitemap.app.children.schedule.href + '/' + res.data?.id);
       return res;
     })

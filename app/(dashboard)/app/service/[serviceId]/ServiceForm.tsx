@@ -62,13 +62,9 @@ export default function ServiceForm({ initialValues }: { initialValues: Partial<
 
             <section className="relative z-0 mb-6 flex flex-col gap-4">
               <ImageInput label="Image" name="image" />
-              <div className="flex gap-4">
-                <Input label="Name" name="name" />
-              </div>
-              <div className="flex gap-4">
-                <Input label="Minimum duration (minutes)" name="minDuration" type="number" />
-                <Input label="A short introduction" name="description" type="textarea" />
-              </div>
+              <Input label="Name" name="name" />
+              <Input label="Minimum duration (minutes)" name="minDuration" type="number" />
+              <Input label="A short introduction" name="description" type="textarea" />
             </section>
           </div>
         );
