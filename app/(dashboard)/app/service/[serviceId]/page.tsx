@@ -1,21 +1,18 @@
 import ServiceForm from '@/app/(dashboard)/app/service/[serviceId]/ServiceForm';
 import prisma from '@/lib/prisma';
+import { $cache } from '@/lib/services';
 import { Service } from '@prisma/client';
-import { unstable_cache } from 'next/cache';
 
 type Props = { params: { serviceId: string } };
 
-const getService = unstable_cache(
-  async (serviceId: number) => {
-    const service = await prisma.service.findUnique({
-      where: {
-        id: +serviceId,
-      },
-    });
-    return service;
-  },
-  ['service/id'],
-);
+const getService = $cache(async (serviceId: number) => {
+  const service = await prisma.service.findUnique({
+    where: {
+      id: +serviceId,
+    },
+  });
+  return service;
+});
 
 export default async function Page({ params }: Props) {
   const serviceId = params.serviceId;

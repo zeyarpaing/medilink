@@ -1,20 +1,20 @@
 import CTAButton from '@/components/CTAButton';
 import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
-import { getProvider } from '@/lib/services';
-
-// export const dynamic = 'force-static';
+import { $cache, getProvider } from '@/lib/services';
 
 export default async function Page() {
   const { provider } = await getProvider();
 
   if (!provider) return <div>Not found</div>;
 
-  const services = await prisma.service.findMany({
-    where: {
-      healthcareProviderId: provider?.id,
-    },
-  });
+  const services = await $cache(() =>
+    prisma.service.findMany({
+      where: {
+        healthcareProviderId: provider?.id,
+      },
+    }),
+  )();
 
   return (
     <div>

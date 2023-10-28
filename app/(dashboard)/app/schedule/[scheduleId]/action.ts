@@ -83,6 +83,7 @@ export async function mutateSchedule(data: Partial<ScheduleFormValues>) {
     })
     .then((res) => {
       revalidatePath(sitemap.app.children.schedule.href);
+      revalidatePath(sitemap.app.children.schedule.href + '/' + res.data?.id);
       return res;
     })
     .catch((err) => {

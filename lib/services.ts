@@ -33,3 +33,26 @@ export const getProvider = $cache(async () => {
   });
   return { account: user ?? null, provider: provider ?? null };
 }, ['provider']);
+
+export const getServicesOfProvider = $cache(
+  (providerId: number) =>
+    prisma.service.findMany({
+      where: {
+        healthcareProviderId: providerId,
+      },
+    }),
+  ['services'],
+);
+
+export const getDoctorsOfProvider = $cache(
+  (providerId: number) =>
+    prisma.doctor.findMany({
+      include: {
+        Account: true,
+      },
+      where: {
+        healthcareProviderId: providerId,
+      },
+    }),
+  ['doctors'],
+);

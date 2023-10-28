@@ -1,7 +1,8 @@
 import Schedules from '@/app/(dashboard)/app/schedule/Schedules';
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
-import { getProvider } from '@/lib/services';
+import { $cache, getProvider } from '@/lib/services';
+import { Role } from '@prisma/client';
 import { endOfDay, startOfDay } from 'date-fns';
 import React from 'react';
 
@@ -12,13 +13,8 @@ type Props = {
   };
 };
 
-// export const dynamic = 'force-static';
-
-export default async function Page({ params, searchParams }: Props) {
-  const date = searchParams?.date;
-  const { account, provider } = await getProvider();
-
-  const schedules = await prisma.schedule.findMany({
+const getSchedules = $cache((role: Role, accountId: string, providerId: number, date?: Date) =>
+  prisma.schedule.findMany({
     include: {
       Doctor: {
         include: {
@@ -28,10 +24,10 @@ export default async function Page({ params, searchParams }: Props) {
       Service: true,
     },
     where:
-      account?.role === 'DOCTOR'
+      role === 'DOCTOR'
         ? {
             Doctor: {
-              accountId: account?.id,
+              accountId: accountId,
             },
             dateTime: date
               ? {
@@ -47,9 +43,16 @@ export default async function Page({ params, searchParams }: Props) {
                   lte: endOfDay(new Date(date)),
                 }
               : undefined,
-            providerId: provider?.id,
+            providerId: providerId,
           },
-  });
+  }),
+);
+
+export default async function Page({ params, searchParams }: Props) {
+  const date = searchParams?.date;
+  const { account, provider } = await getProvider();
+
+  const schedules = await getSchedules(account?.role!, account?.id!, provider?.id!, date ? new Date(date) : undefined);
 
   return (
     <div>
