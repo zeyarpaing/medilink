@@ -38,7 +38,7 @@ function AccountDropdown() {
                 type="button"
               >
                 <div className="h-8 w-8 rounded-full">
-                  <Avatar className="h-8 w-8" name={session?.user.name} src={session?.user.image} />
+                  <Avatar className="h-8 w-8" name={session?.user.name!} src={session?.user.image!} />
                 </div>
                 <p className="text-sm">{session?.user?.name}</p>
               </button>
