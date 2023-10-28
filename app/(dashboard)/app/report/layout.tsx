@@ -12,8 +12,8 @@ export default async function Layout({
   return (
     <>
       {children}
-      {revenue}
       {stats}
+      {revenue}
     </>
   );
 }
