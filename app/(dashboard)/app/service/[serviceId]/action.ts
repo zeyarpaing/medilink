@@ -98,7 +98,6 @@ export async function mutateService(formData: FormData) {
           };
         })
         .catch((err) => {
-          console.log('err : ', err);
           throw new Error('An error occurred while uploading your image.');
         });
     })

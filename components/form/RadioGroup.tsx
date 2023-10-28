@@ -27,7 +27,6 @@ export default function RadioGroup({ className, name, options, ...props }: Radio
             key={'' + item.value}
             name={name}
             onChange={(e) => {
-              console.log('e : ', e.target.value, e.target.name);
               onChange({ ...e, target: { ...e.target, name, value: e.target.checked ? item.value : '' } });
             }}
             outline

@@ -1,22 +1,15 @@
 import { NextRequest } from 'next/server';
 import NextAuth from 'next-auth';
-
-type User = {
-  email: string;
-  id: string;
-  image: string;
-  name: string;
-  role: 'ADMIN' | 'DOCTOR' | 'USER';
-};
+import { Account } from '@prisma/client';
 
 declare module 'next-auth' {
   interface Session {
-    user: User;
+    user: Account;
   }
 }
 
 declare module 'next-auth/jwt' {
   interface DefaultJWT {
-    user?: User;
+    user?: Account;
   }
 }

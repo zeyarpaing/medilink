@@ -52,7 +52,6 @@ export function Providers({ children }: { children: ReactNode }) {
       const localColorScheme = localStorage.getItem('colorScheme');
       const mode = (localColorScheme || 'system') as ColorScheme;
       if (mode !== 'system') return;
-      console.log('sysl', mode);
       setColorScheme(mode);
       updateColorScheme(e.matches ? 'dark' : 'light');
     });

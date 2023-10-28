@@ -1,8 +1,8 @@
 import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
-import { User } from '@/lib/types';
 import { Password } from '@/lib/utils';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import { Account } from '@prisma/client';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     jwt: async ({ token, user }) => {
-      user && (token.user = user as User);
+      user && (token.user = user as Account);
       return token;
     },
     session: async ({ session, token }) => {
@@ -34,14 +34,6 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) return null;
 
         const user = await prisma.account.findUnique({
-          select: {
-            email: true,
-            id: true,
-            image: true,
-            name: true,
-            password: true,
-            role: true,
-          },
           where: {
             email: credentials?.email,
           },
@@ -61,6 +53,19 @@ export const authOptions: NextAuthOptions = {
       },
       id: 'credentials',
       name: 'Credentials',
+    }),
+    CredentialsProvider({
+      id: 'direct_jwt_auth',
+      credentials: {},
+      async authorize(credentials: any): Promise<Account> {
+        return {
+          ...credentials,
+          callbackUrl: undefined,
+          redirect: undefined,
+          csrfToken: undefined,
+          json: undefined,
+        };
+      },
     }),
   ],
   secret: process.env.SECRET,

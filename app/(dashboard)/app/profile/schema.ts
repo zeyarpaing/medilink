@@ -1,15 +1,11 @@
 import { InferType, mixed, object, string } from 'yup';
 
-export const providerSchema = object().shape({
-  address: string().required(),
-  adminId: string().required(),
-  description: string().required(),
+export const profileFormSchema = object().shape({
   email: string().email().required(),
-  image: mixed().required(),
+  id: string().required(),
+  image: mixed().nullable(),
   name: string().required(),
-  phone: string().required(),
-  slug: string().required(),
-  type: string().oneOf(['HOSPITAL', 'CLINIC', 'LABORATORY']).required(),
+  phone: string().nullable(),
 });
 
-export type ProviderFormValues = InferType<typeof providerSchema>;
+export type ProfileForm = InferType<typeof profileFormSchema>;

@@ -21,7 +21,6 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (params.get('error') === 'CredentialsSignin') {
-      console.log('Tost invoke');
       requestAnimationFrame(() => {
         toast.error('Incorrect credentials. Please enter the correct credentials.');
       });

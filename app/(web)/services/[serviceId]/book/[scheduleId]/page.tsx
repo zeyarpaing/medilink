@@ -22,7 +22,6 @@ export default async function Page({ params }: { params: { scheduleId: string; s
 
   if (!schedule) notFound();
 
-  console.log('sb', schedule.Booking, session?.user?.id);
   if (
     schedule?.Booking?.find((booking) => booking.status === 'CONFIRMED' && booking.user.accountId === session?.user?.id)
   ) {

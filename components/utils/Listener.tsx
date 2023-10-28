@@ -6,7 +6,6 @@ export function Listener({ onTrigger }: { onTrigger: () => void }) {
       if ((window.navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey) && e.key === 's') {
         e.preventDefault();
         onTrigger();
-        console.log('saved');
       }
     }
     document.addEventListener('keydown', hendle, false);

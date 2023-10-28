@@ -1,33 +1,51 @@
 'use server';
 
-import { ProviderFormValues, providerSchema } from '@/app/(dashboard)/app/provider/schema';
+import { profileFormSchema } from '@/app/(dashboard)/app/profile/schema';
 import { sitemap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
 import { uploadImage } from '@/lib/upload';
-import { HealthcareProvider } from '@prisma/client';
+import { Account, HealthcareProvider } from '@prisma/client';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-export async function mutateHealthcareProvider(formData: FormData) {
+export async function mutateProfile(formData: FormData) {
   const data = Object.fromEntries(formData.entries()) as unknown;
 
-  const isEdit = data && typeof data === 'object' && 'id' in data && !!data.id;
-
-  return providerSchema
+  return profileFormSchema
     .validate(data)
     .then((valid) => {
       if (!valid) {
         throw new Error('Invalid request');
       }
 
-      if (isEdit) {
-        const editData = { ...(data as HealthcareProvider), adminId: undefined };
-        if (typeof editData.image === 'string' && editData.image.startsWith('http')) {
-          // image not changed
-          return prisma.healthcareProvider
+      const editData = { ...(data as Account), emailVerified: undefined, role: undefined };
+      if (typeof editData.image === 'string' && editData.image.startsWith('http')) {
+        // image not changed
+        return prisma.account
+          .update({
+            data: { ...editData, id: undefined },
+            where: {
+              id: editData.id,
+            },
+          })
+          .then((provider) => {
+            return {
+              data: provider,
+              message: 'Saved.',
+            };
+          });
+      }
+
+      return uploadImage(formData.get('image') as File, 'profile-image')
+        .then(async (image) => {
+          return prisma.account
             .update({
-              data: { ...editData, id: undefined },
+              data: {
+                ...editData,
+                id: undefined,
+                image: image.url,
+              },
               where: {
-                id: +editData.id,
+                id: editData.id,
               },
             })
             .then((provider) => {
@@ -36,53 +54,6 @@ export async function mutateHealthcareProvider(formData: FormData) {
                 message: 'Saved.',
               };
             });
-        }
-        return uploadImage(formData.get('image') as File, 'healthcare-provider')
-          .then(async (image) => {
-            return prisma.healthcareProvider
-              .update({
-                data: {
-                  ...editData,
-                  id: undefined,
-                  image: image.url,
-                },
-                where: {
-                  id: +editData.id,
-                },
-              })
-              .then((provider) => {
-                return {
-                  data: provider,
-                  message: 'Saved.',
-                };
-              });
-          })
-          .catch(() => {
-            throw new Error('An error occurred while uploading your image.');
-          });
-      }
-
-      /** Create Action */
-      const createData = data as ProviderFormValues;
-      return uploadImage(formData.get('image') as File, 'healthcare-provider')
-        .then(async (image) => {
-          const provider = await prisma.healthcareProvider.create({
-            data: {
-              ...createData,
-              Admin: {
-                connect: {
-                  accountId: createData.adminId,
-                },
-              },
-              // @ts-ignore
-              adminId: undefined,
-              image: image.url,
-            },
-          });
-          return {
-            data: provider,
-            message: 'Saved.',
-          };
         })
         .catch((err) => {
           console.error(err);
@@ -90,7 +61,8 @@ export async function mutateHealthcareProvider(formData: FormData) {
         });
     })
     .then((res) => {
-      revalidateTag('provider');
+      revalidateTag('account');
+      revalidatePath('/app/profile');
       return res;
     });
 }

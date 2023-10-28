@@ -1,28 +1,28 @@
 import Button from '@/components/Button';
 import prisma from '@/lib/prisma';
+import { $cache } from '@/lib/services';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import Image from 'next/image';
 
-export default async function Page() {
-  // const query = useSearchParams();
-  const providerType = '';
-
-  console.log('fetching hospitals ');
-  const providers = await prisma.healthcareProvider.findMany({
+const getProviders = $cache((providerType) =>
+  prisma.healthcareProvider.findMany({
     where: providerType
       ? {
           type: providerType,
         }
       : {},
-  });
-  // console.log(
-  //   'fetched hospitals ',
-  //   providers.reduce((acc: Record<(typeof providers)[number]['type'], Array<(typeof providers)[number]>>, curr) => {
-  //     if (!acc[curr.type]) acc[curr.type] = [];
-  //     acc[curr.type].push(curr);
-  //     return acc;
-  //   }, {})
-  // );
+  }),
+);
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: {
+    type: string;
+  };
+}) {
+  const providerType = searchParams.type?.toUpperCase();
+
+  const providers = await getProviders(providerType);
 
   return (
     <section className="mcontainer min-h-screen py-12">

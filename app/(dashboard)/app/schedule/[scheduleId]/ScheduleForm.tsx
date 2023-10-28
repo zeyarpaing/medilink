@@ -50,11 +50,9 @@ export default function ScheduleForm({
           : '',
       }}
       listenKeyboardSave
-      // useFormData
       validationSchema={scheduleSchema}
     >
       {({ dirty, errors, isSubmitting, isValid, setFieldValue, values }) => {
-        console.log('values', errors);
         return (
           <div>
             <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background pb-4">

@@ -20,8 +20,7 @@ export default function Payment({ schedule }: { schedule: Schedule }) {
       method: 'POST',
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
-      .catch((err) => console.log('err', err));
+      .then((data) => setClientSecret(data.clientSecret));
   }, []);
 
   const options: StripeElementsOptions = {
