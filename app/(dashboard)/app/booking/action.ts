@@ -1,13 +1,14 @@
 'use server';
 
 import prisma from '@/lib/prisma';
+import { Booking } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
 
-export async function cancelBooking(bookingId: string, cancelBy: string) {
+export async function updateBookingStatus(bookingId: string, status: Booking['status']) {
   return prisma.booking
     .update({
       data: {
-        status: 'CANCELLED',
+        status: status,
       },
       where: {
         id: bookingId,
@@ -17,10 +18,10 @@ export async function cancelBooking(bookingId: string, cancelBy: string) {
       revalidateTag(`bookings`);
       return {
         data: booking,
-        message: 'Booking cancelled successfully.',
+        message: 'Booking ' + status?.toLowerCase(),
       };
     })
     .catch((error) => {
-      throw new Error('Booking cancellation failed.');
+      throw new Error('There was an error updating the booking status.');
     });
 }

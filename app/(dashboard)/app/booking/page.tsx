@@ -1,7 +1,8 @@
 import BookingCard from '@/app/(dashboard)/app/booking/BookingCard';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import EmptyState from '@/components/EmptyState';
 import prisma from '@/lib/prisma';
-import { $cache } from '@/lib/services';
+import { $cache, getAccount } from '@/lib/services';
 import { Role } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 
@@ -39,9 +40,21 @@ const getBookings = $cache(
   ['bookings'],
 );
 
+const getDoctor = $cache((accountId: string) =>
+  prisma.doctor.findUnique({
+    include: {
+      Account: true,
+    },
+    where: {
+      accountId: accountId,
+    },
+  }),
+);
+
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  const bookings = await getBookings(session?.user?.role!, session?.user?.id!);
+  const user = await getAccount();
+  const bookings = await getBookings(user?.role!, user?.id!);
+  const doctor = user?.role === 'DOCTOR' ? await getDoctor(user?.id!) : null;
 
   return (
     <div>
@@ -52,9 +65,18 @@ export default async function Page() {
         <div></div>
       </div>
       <div className="flex flex-col gap-3">
-        {bookings?.map((booking) => (
-          <BookingCard booking={booking} key={booking.id} />
-        ))}
+        {bookings?.length > 0 ? (
+          bookings?.map((booking) => <BookingCard booking={booking} key={booking.id} />)
+        ) : (
+          <EmptyState
+            title={!doctor?.healthcareProviderId ? "You haven't joined a healthcare provider yet" : 'No bookings yet'}
+            description={
+              !doctor?.healthcareProviderId
+                ? 'Please ask the provider admin to send you an invite link.'
+                : "Enjoy your day. You don't have any bookings yet."
+            }
+          />
+        )}
       </div>
     </div>
   );

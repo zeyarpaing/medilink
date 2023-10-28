@@ -60,7 +60,7 @@ export default function Schedules({ role, schedules }: Props) {
                 <li key={schedule.id}>
                   <Link
                     className="relative flex items-center space-x-6 py-6 xl:static"
-                    href={role === 'ADMIN' ? `schedule/${schedule.id}` : `#`}
+                    href={`schedule/${schedule.id}`}
                   >
                     <Image
                       alt="service"

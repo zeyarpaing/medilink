@@ -6,6 +6,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
+import { revalidateTag } from 'next/cache';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -50,6 +51,8 @@ export const authOptions: NextAuthOptions = {
         const comp = password.compare(user?.password);
 
         if (!comp) return null;
+        revalidateTag('account');
+        revalidateTag('provider');
         return { ...user, password: undefined };
       },
       credentials: {

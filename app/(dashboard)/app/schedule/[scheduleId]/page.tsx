@@ -19,13 +19,15 @@ const getScheduleDoctor = $cache((accountId: string) =>
     where: {
       accountId: accountId,
     },
+    include: {
+      Account: true,
+    },
   }),
 );
 
 export default async function Page({ params }: Props) {
   const scheduleId = params.scheduleId;
   let initialValues: Partial<Schedule> = {};
-
   if (scheduleId === 'new') {
     initialValues = {};
   } else {
@@ -40,15 +42,16 @@ export default async function Page({ params }: Props) {
   if (!p && account?.role === 'ADMIN') return <p>Something went wrong!</p>;
 
   const provider = { ...p };
+  let doctor = null;
   if (account?.role === 'DOCTOR') {
-    const doctor = await getScheduleDoctor(account?.id!);
+    doctor = await getScheduleDoctor(account?.id!);
     if (!doctor) return <p>Something went wrong!</p>;
     provider.id = doctor?.healthcareProviderId!;
   }
 
   initialValues.providerId = provider.id;
 
-  const doctors = await getDoctorsOfProvider(provider.id!);
+  const doctors = account?.role === 'DOCTOR' ? [doctor!] : await getDoctorsOfProvider(provider.id!);
   const services = await getServicesOfProvider(provider.id!);
 
   return <ScheduleForm doctors={doctors} initialValues={initialValues} services={services} />;

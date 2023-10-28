@@ -1,6 +1,6 @@
 'use client';
 
-import { cancelBooking } from '@/app/(dashboard)/app/booking/action';
+import { updateBookingStatus } from '@/app/(dashboard)/app/booking/action';
 import CalendarIcon from '@/assets/icons/CalendarIcon';
 import Ellipsis from '@/assets/icons/Ellipsis';
 import TimerIcon from '@/assets/icons/TimerIcon';
@@ -68,7 +68,9 @@ export default function BookingCard({ booking }: Props) {
             <h3 className="pr-10 text-lg font-semibold  xl:pr-0">{title}</h3>
             <Chip
               className="capitalize"
-              color={booking.status === 'CANCELLED' ? 'danger' : 'success'}
+              color={
+                booking.status === 'CANCELLED' ? 'danger' : booking.status === 'CONFIRMED' ? 'success' : 'secondary'
+              }
               size="sm"
               variant="flat"
             >
@@ -107,7 +109,7 @@ export default function BookingCard({ booking }: Props) {
           </dl>
         </div>
       </div>
-      {booking.status !== 'CANCELLED' && (
+      {booking.status === 'CONFIRMED' && (
         <div className="">
           <Dropdown placement="bottom-start" size="lg">
             <DropdownTrigger>
@@ -116,34 +118,55 @@ export default function BookingCard({ booking }: Props) {
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Dynamic Actions">
-              {items.map((item) => (
+              {
+                items.map((item) => (
+                  <DropdownItem
+                    className={item.key === 'cancel' ? 'text-danger' : ''}
+                    color={item.key === 'cancel' ? 'danger' : 'default'}
+                    key={item.key}
+                    onPress={() => {
+                      if (item.key === 'cancel') {
+                        openModal({
+                          content:
+                            user?.role === 'DOCTOR'
+                              ? `Are you sure you want to cancel this booking with ${patient}? Booking fees will be refunded to patient.`
+                              : `Are you sure you want to cancel this booking with ${doctor}? Your booking fees will NOT be refunded.`,
+                          onProceed: async () =>
+                            updateBookingStatus(booking.id, 'CANCELLED')
+                              ?.then((res) => {
+                                toast.success(res.message);
+                              })
+                              .catch((err) => {
+                                toast.error(err);
+                              }),
+                          title: `Cancel this booking (${Service.name?.trim()})?`,
+                        });
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </DropdownItem>
+                )) as any
+              }
+              {user?.role === 'DOCTOR' ? (
                 <DropdownItem
-                  className={item.key === 'cancel' ? 'text-danger' : ''}
-                  color={item.key === 'cancel' ? 'danger' : 'default'}
-                  key={item.key}
+                  color="default"
+                  key="view"
                   onPress={() => {
-                    if (item.key === 'cancel') {
-                      openModal({
-                        content:
-                          user?.role === 'DOCTOR'
-                            ? `Are you sure you want to cancel this booking with ${patient}? Booking fees will be refunded to patient.`
-                            : `Are you sure you want to cancel this booking with ${doctor}? Your booking fees will NOT be refunded.`,
-                        onProceed: async () =>
-                          cancelBooking(booking.id, user?.id!)
-                            ?.then((res) => {
-                              toast.success(res.message);
-                            })
-                            .catch((err) => {
-                              toast.error(err);
-                            }),
-                        title: `Cancel this booking (${Service.name?.trim()})?`,
+                    updateBookingStatus(booking.id, 'COMPLETED')
+                      ?.then((res) => {
+                        toast.success(res.message);
+                      })
+                      .catch((err) => {
+                        toast.error(err);
                       });
-                    }
                   }}
                 >
-                  {item.label}
+                  Mark as completed
                 </DropdownItem>
-              ))}
+              ) : (
+                <></>
+              )}
             </DropdownMenu>
           </Dropdown>
         </div>
