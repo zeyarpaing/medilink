@@ -1,14 +1,9 @@
 import BookingCard from '@/app/(dashboard)/app/booking/BookingCard';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import prisma from '@/lib/prisma';
-import { Menu } from '@nextui-org/react';
-import { format } from 'date-fns';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getServerSession } from 'next-auth';
-import React from 'react';
 import { $cache } from '@/lib/services';
 import { Role } from '@prisma/client';
+import { getServerSession } from 'next-auth';
 
 const getBookings = $cache(
   (role: Role, accountId: string) =>

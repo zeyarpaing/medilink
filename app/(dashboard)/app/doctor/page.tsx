@@ -6,6 +6,7 @@ import { $cache, getProvider } from '@/lib/services';
 import React from 'react';
 
 type Props = {};
+export const dynamic = 'force-dynamic';
 
 const getDoctors = $cache(
   (providerId: number) =>

@@ -1,14 +1,15 @@
 'use client';
 
 import { cancelBooking } from '@/app/(dashboard)/app/booking/action';
+import CalendarIcon from '@/assets/icons/CalendarIcon';
 import Ellipsis from '@/assets/icons/Ellipsis';
+import TimerIcon from '@/assets/icons/TimerIcon';
 import { openModal } from '@/lib/utils';
 import { Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
-import { Booking, Prisma, Schedule, Service, User } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import React from 'react';
+import Image from 'next/image';
 import toast from 'react-hot-toast';
 
 const items = [
@@ -84,18 +85,11 @@ export default function BookingCard({ booking }: Props) {
               <p className="mt-1"> Patient: {patient}</p>
             )}
           </div>
-          <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">
+          <dl className="mt-2 flex flex-col text-foreground/50 xl:flex-row">
             <div className="flex items-start space-x-3">
               <dt className="mt-0.5">
                 <span className="sr-only">Date</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
-                  <path
-                    clipRule="evenodd"
-                    d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z"
-                    fillRule="evenodd"
-                  />
-                </svg>
+                <CalendarIcon />
               </dt>
               <dd>
                 <time dateTime={new Date(dateTime).toISOString()}>
@@ -106,13 +100,7 @@ export default function BookingCard({ booking }: Props) {
             <div className="mt-2 flex items-start space-x-3 xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
               <dt className="mt-0.5">
                 <span className="sr-only">Duration</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    clipRule="evenodd"
-                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
-                    fillRule="evenodd"
-                  />
-                </svg>
+                <TimerIcon />
               </dt>
               <dd>{duration} minutes</dd>
             </div>
@@ -148,7 +136,7 @@ export default function BookingCard({ booking }: Props) {
                             .catch((err) => {
                               toast.error(err);
                             }),
-                        title: `Cancel this booking (${Service.name})?`,
+                        title: `Cancel this booking (${Service.name?.trim()})?`,
                       });
                     }
                   }}

@@ -1,8 +1,7 @@
 import Join from '@/app/(dashboard)/app/join/[hash]/Join';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import prisma from '@/lib/prisma';
+import { getAccount } from '@/lib/services';
 import { base64Hash } from '@/lib/utils';
-import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
 async function joinProvider({ doctorId, providerId }: { doctorId: string; providerId: number }) {
@@ -33,9 +32,9 @@ async function joinProvider({ doctorId, providerId }: { doctorId: string; provid
 
 export default async function JoinPage({ params }: { params: { hash: string }; searchParams: {} }) {
   const hash = params.hash;
-  const session = await getServerSession(authOptions);
+  const user = await getAccount();
 
-  if (session?.user?.role !== 'DOCTOR') return <p>You need to be a doctor to join a healthcare provider.</p>;
+  if (user?.role !== 'DOCTOR') return <p>You need to be a doctor to join a healthcare provider.</p>;
 
   const providers = await prisma.healthcareProvider.findMany();
   const provider = providers.find((provider) => base64Hash(provider.slug) === hash);
@@ -58,7 +57,7 @@ export default async function JoinPage({ params }: { params: { hash: string }; s
       <p className="my-2">
         Congratulations 🎉 You have been invited to join <b>{provider.name}</b> as a doctor.
       </p>
-      <Join joinProvider={joinProvider.bind(null, { doctorId: session.user.id!, providerId: provider.id })} />
+      <Join joinProvider={joinProvider.bind(null, { doctorId: user.id!, providerId: provider.id })} />
     </div>
   );
 }

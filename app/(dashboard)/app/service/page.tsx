@@ -3,12 +3,16 @@ import Card from '@/components/Card';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 
-const getServices = $cache((providerId: number) =>
-  prisma.service.findMany({
-    where: {
-      healthcareProviderId: providerId,
-    },
-  }),
+export const dynamic = 'force-dynamic';
+
+const getServices = $cache(
+  (providerId: number) =>
+    prisma.service.findMany({
+      where: {
+        healthcareProviderId: providerId,
+      },
+    }),
+  ['services'],
 );
 export default async function Page() {
   const { provider } = await getProvider();

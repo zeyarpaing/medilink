@@ -5,14 +5,17 @@ import { Service } from '@prisma/client';
 
 type Props = { params: { serviceId: string } };
 
-const getService = $cache(async (serviceId: number) => {
-  const service = await prisma.service.findUnique({
-    where: {
-      id: +serviceId,
-    },
-  });
-  return service;
-});
+const getService = $cache(
+  async (serviceId: number) => {
+    const service = await prisma.service.findUnique({
+      where: {
+        id: +serviceId,
+      },
+    });
+    return service;
+  },
+  ['service'],
+);
 
 export default async function Page({ params }: Props) {
   const serviceId = params.serviceId;

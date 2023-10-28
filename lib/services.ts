@@ -9,7 +9,6 @@ export function $cache<T extends (...args: any[]) => Promise<any>>(fn: T, tags?:
 
 export const getAccount = $cache(
   async function getSession() {
-    'use server';
     const session = await getServerSession(authOptions);
     return session?.user ?? null;
   },
@@ -17,7 +16,6 @@ export const getAccount = $cache(
 );
 
 export const getProvider = $cache(async () => {
-  'use server';
   const user = await getAccount();
   if (!user?.id || user?.role !== 'ADMIN')
     return {
