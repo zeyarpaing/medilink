@@ -105,8 +105,12 @@ export default async function Page({ params }: { params: { serviceId: string } }
                       <p className="text-lg">Dr. {schedule.Doctor?.Account.name}</p>
                     </div>
                     {session?.user?.role === 'USER' ? (
-                      <CTAButton href={`${service.id}/book/${schedule.id}`} isLink>
-                        Book
+                      <CTAButton
+                        disabled={schedule.Booking?.length === schedule.maxBooking}
+                        href={`${service.id}/book/${schedule.id}`}
+                        isLink
+                      >
+                        {schedule.Booking?.length < schedule.maxBooking ? 'Book' : 'Fully booked'}
                       </CTAButton>
                     ) : null}
                   </div>

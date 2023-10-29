@@ -165,7 +165,7 @@ export default function BookingCard({ booking }: Props) {
                   Mark as completed
                 </DropdownItem>
               ) : (
-                <></>
+                <DropdownItem className="hidden" hidden></DropdownItem>
               )}
             </DropdownMenu>
           </Dropdown>

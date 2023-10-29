@@ -1,10 +1,10 @@
 import BookingCard from '@/app/(dashboard)/app/booking/BookingCard';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import EmptyState from '@/components/EmptyState';
 import prisma from '@/lib/prisma';
 import { $cache, getAccount } from '@/lib/services';
 import { Role } from '@prisma/client';
-import { getServerSession } from 'next-auth';
+
+export const dynamic = 'force-dynamic';
 
 const getBookings = $cache(
   (role: Role, accountId: string) =>
