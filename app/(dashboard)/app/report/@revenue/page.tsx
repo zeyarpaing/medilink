@@ -37,16 +37,16 @@ export default async function Page({
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const groupedReport = report.reduce((acc, curr) => {
-    if (!acc[curr.month]) acc[curr.month] = { Booking: curr.bookings, Revenue: curr.bookingPrice * curr.bookings };
+    if (!acc[curr.month]) acc[curr.month] = { Booking: curr.bookings, 'Revenue($)': curr.bookingPrice * curr.bookings };
     else {
       acc[curr.month].Booking += curr.bookings;
-      acc[curr.month].Revenue += curr.bookingPrice * curr.bookings;
+      acc[curr.month]['Revenue($)'] += curr.bookingPrice * curr.bookings;
     }
     return acc;
   }, {} as any);
   const chartData = months.map((month, i) => ({
     date: month,
-    ...{ Booking: 0, Revenue: 0, ...groupedReport[i + 1] },
+    ...{ Booking: 0, 'Revenue($)': 0, ...groupedReport[i + 1] },
   }));
 
   return (

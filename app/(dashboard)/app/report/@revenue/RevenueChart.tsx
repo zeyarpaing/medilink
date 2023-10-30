@@ -6,11 +6,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const categories = ['Booking', 'Revenue'];
+const categories = ['Booking', 'Revenue($)'];
 const chartData = Array.from({ length: 12 }, (_, i) => ({
   date: months[i],
   Booking: Math.floor(Math.random() * 100),
-  Revenue: Math.floor(Math.random() * 100),
+  'Revenue($)': Math.floor(Math.random() * 100),
 }));
 
 export const RevenueChart = ({
@@ -19,7 +19,7 @@ export const RevenueChart = ({
   data: {
     date: string;
     Booking: number;
-    Revenue: number;
+    'Revenue($)': number;
   }[];
 }) => {
   const [year, setYear] = useState<Selection>(new Set(['' + new Date().getFullYear()]));

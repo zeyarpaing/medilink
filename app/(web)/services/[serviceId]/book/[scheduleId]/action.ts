@@ -1,7 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function createSchedule(...args: any[]) {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -53,6 +53,7 @@ export async function createBooking({
     })
     .then((booking) => {
       revalidatePath(`/app/booking`);
+      revalidateTag(`bookings`);
       return {
         data: booking,
         message: 'Booked successfully.',
