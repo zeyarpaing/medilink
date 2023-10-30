@@ -30,13 +30,14 @@ export default function RegisterForm$() {
                 email: values.email,
                 password: values.password,
               },
-              callbackUrl: sitemap.healthProviders.href,
+              callbackUrl: sitemap.dashboard.href,
             });
             return res;
           })
         }
         className="flex w-full flex-col gap-4"
         enableReinitialize
+        validateOnMount
         initialValues={{
           certification: '',
           confirmPassword: '',

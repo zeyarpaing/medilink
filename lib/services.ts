@@ -8,13 +8,11 @@ export function $cache<T extends (...args: any[]) => Promise<any>>(fn: T, tags?:
   return unstable_cache(fn, tags && [...tags], { tags });
 }
 
-export const getAccount = $cache(
-  async function getSession() {
-    const session = await getServerSession(authOptions);
-    return session?.user ?? null;
-  },
-  ['account'],
-);
+export const getAccount = async function () {
+  const session = await getServerSession(authOptions);
+  return session?.user ?? null;
+};
+// ['account']
 
 export const getProvider = $cache(async () => {
   const user = await getAccount();

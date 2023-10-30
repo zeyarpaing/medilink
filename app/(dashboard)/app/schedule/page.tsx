@@ -1,5 +1,7 @@
 import Schedules from '@/app/(dashboard)/app/schedule/Schedules';
 import CTAButton from '@/components/CTAButton';
+import EmptyState from '@/components/EmptyState';
+import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 import { Role } from '@prisma/client';
@@ -44,7 +46,7 @@ const getSchedules = $cache(
                     lte: endOfDay(new Date(date)),
                   }
                 : undefined,
-              providerId: providerId,
+              providerId: providerId || 0,
             },
     }),
   ['schedules'],
@@ -53,6 +55,8 @@ const getSchedules = $cache(
 export default async function Page({ params, searchParams }: Props) {
   const date = searchParams?.date;
   const { account, provider } = await getProvider();
+
+  if (account?.role === 'ADMIN' && !provider) return <SetupProvider />;
 
   const schedules = await getSchedules(account?.role!, account?.id!, provider?.id!, date ? new Date(date) : undefined);
 
@@ -71,8 +75,14 @@ export default async function Page({ params, searchParams }: Props) {
           </CTAButton>
         </div>
       </div>
-      {/* @ts-ignore */}
-      <Schedules role={account?.role} schedules={schedules} />
+      {schedules?.length === 0 ? (
+        <EmptyState title="No schedules yet" description="Create a new schedule" />
+      ) : (
+        <>
+          {/* @ts-ignore */}
+          <Schedules role={account?.role} schedules={schedules} />
+        </>
+      )}
     </div>
   );
 }

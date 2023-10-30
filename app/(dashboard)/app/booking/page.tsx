@@ -69,11 +69,19 @@ export default async function Page() {
           bookings?.map((booking) => <BookingCard booking={booking} key={booking.id} />)
         ) : (
           <EmptyState
-            title={!doctor?.healthcareProviderId ? "You haven't joined a healthcare provider yet" : 'No bookings yet'}
+            title={
+              user?.role === 'DOCTOR'
+                ? !doctor?.healthcareProviderId
+                  ? "You haven't joined a healthcare provider yet"
+                  : 'No bookings yet'
+                : 'No bookings yet'
+            }
             description={
-              !doctor?.healthcareProviderId
-                ? 'Please ask the provider admin to send you an invite link.'
-                : "Enjoy your day. You don't have any bookings yet."
+              user?.role === 'DOCTOR'
+                ? !doctor?.healthcareProviderId
+                  ? 'Please ask the provider admin to send you an invite link.'
+                  : "Enjoy your day. You don't have any bookings yet."
+                : 'Please find healthcare providers and book an appointment.'
             }
           />
         )}

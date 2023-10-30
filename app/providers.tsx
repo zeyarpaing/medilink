@@ -73,6 +73,7 @@ export function Providers({ children }: { children: ReactNode }) {
           {children}
           <Toaster
             toastOptions={{
+              duration: 10000,
               error: {
                 className: '!border-2 !border-red-500',
               },

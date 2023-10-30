@@ -1,6 +1,7 @@
 import CTAButton from '@/components/CTAButton';
 import Card from '@/components/Card';
 import EmptyState from '@/components/EmptyState';
+import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 import React from 'react';
@@ -9,13 +10,13 @@ type Props = {};
 export const dynamic = 'force-dynamic';
 
 const getDoctors = $cache(
-  (providerId: number) =>
+  (providerId?: number) =>
     prisma.doctor.findMany({
       include: {
         Account: true,
       },
       where: {
-        healthcareProviderId: providerId,
+        healthcareProviderId: providerId || 0,
       },
     }),
   ['doctors'],
@@ -23,7 +24,10 @@ const getDoctors = $cache(
 
 export default async function page({}: Props) {
   const { provider } = await getProvider();
-  const doctors = await getDoctors(provider?.id!);
+
+  if (!provider) return <SetupProvider />;
+
+  const doctors = await getDoctors(provider?.id);
 
   return (
     <div>

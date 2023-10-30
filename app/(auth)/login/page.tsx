@@ -47,6 +47,7 @@ export default function RegisterForm() {
         }}
         className="flex w-full flex-col gap-4"
         enableReinitialize
+        validateOnMount
         initialValues={{
           email: '',
           password: '',

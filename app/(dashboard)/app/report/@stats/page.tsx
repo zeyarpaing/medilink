@@ -8,7 +8,7 @@ type Props = {};
 const getStatsReport = $cache(async (providerId: number) => {
   const doctorCount = await prisma.doctor.count({
     where: {
-      healthcareProviderId: providerId,
+      healthcareProviderId: providerId || 0,
     },
   });
   const patientCount = await prisma.user.count({
@@ -17,14 +17,14 @@ const getStatsReport = $cache(async (providerId: number) => {
         some: {
           schedule: {
             Service: {
-              healthcareProviderId: providerId,
+              healthcareProviderId: providerId || 0,
             },
           },
         },
       },
     },
   });
-  return { doctorCount, patientCount };
+  return { doctorCount: doctorCount || 0, patientCount: patientCount || 0 };
 });
 
 export default async function ReportPage() {

@@ -1,4 +1,5 @@
 import Copy from '@/app/(dashboard)/app/doctor/[doctorId]/Copy';
+import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 import { base64Hash } from '@/lib/utils';
@@ -35,7 +36,7 @@ export default async function NormalRoute({ params }: Props) {
   const host = headersInstance.get('host');
 
   const { provider } = await getProvider();
-  if (!provider) return <p>You need to setup your healthcare provider first.</p>;
+  if (!provider) return <SetupProvider />;
 
   const doctorId = params.doctorId;
   if (doctorId === 'new') {

@@ -1,5 +1,6 @@
 import CTAButton from '@/components/CTAButton';
 import Card from '@/components/Card';
+import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 
@@ -17,7 +18,7 @@ const getServices = $cache(
 export default async function Page() {
   const { provider } = await getProvider();
 
-  if (!provider) return <div>Not found</div>;
+  if (!provider) return <SetupProvider />;
 
   const services = await getServices(provider.id!);
 

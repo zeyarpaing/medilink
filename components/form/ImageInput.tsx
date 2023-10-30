@@ -1,7 +1,7 @@
 'use client';
 import { useField } from 'formik';
 import Image from 'next/image';
-import React from 'react';
+import React, { memo } from 'react';
 
 type Props = {
   label?: string;
@@ -27,13 +27,7 @@ export default function ImageInput({ label, name }: Props) {
         />
         {field.value ? (
           <div className="relative z-10 h-full w-full">
-            <Image
-              alt="image"
-              className="h-[23rem] w-full object-cover"
-              height={800}
-              src={typeof field.value === 'string' ? field.value : URL.createObjectURL(field.value)}
-              width={1200}
-            />
+            <Img src={field.value} />
             <button
               aria-label="change image"
               className="absolute inset-0 flex translate-y-12 flex-col justify-end bg-gradient-to-t from-black/60 to-transparent p-6 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
@@ -63,3 +57,15 @@ export default function ImageInput({ label, name }: Props) {
     </div>
   );
 }
+
+const Img = memo(function Img({ src }: { src: string | File }) {
+  return (
+    <Image
+      alt="image"
+      className="h-[23rem] w-full object-cover"
+      height={800}
+      src={typeof src === 'string' ? src : URL.createObjectURL(src)}
+      width={1200}
+    />
+  );
+});

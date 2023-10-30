@@ -1,4 +1,5 @@
 import ScheduleForm from '@/app/(dashboard)/app/schedule/[scheduleId]/ScheduleForm';
+import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getDoctorsOfProvider, getProvider, getServicesOfProvider } from '@/lib/services';
 import { Schedule } from '@prisma/client';
@@ -39,7 +40,7 @@ export default async function Page({ params }: Props) {
   }
   const { account, provider: p } = await getProvider();
 
-  if (!p && account?.role === 'ADMIN') return <p>Something went wrong!</p>;
+  if (!p && account?.role === 'ADMIN') return <SetupProvider />;
 
   const provider = { ...p };
   let doctor = null;
