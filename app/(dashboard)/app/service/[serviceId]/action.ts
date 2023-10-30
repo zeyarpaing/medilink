@@ -6,7 +6,7 @@ import prisma from '@/lib/prisma';
 import { getProvider } from '@/lib/services';
 import { uploadImage } from '@/lib/upload';
 import { Service } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function mutateService(formData: FormData) {
   const data = Object.fromEntries(
@@ -104,6 +104,7 @@ export async function mutateService(formData: FormData) {
     .then((res) => {
       revalidatePath(sitemap.app.children.service.href);
       revalidatePath(sitemap.app.children.service.href + '/' + res.data?.id);
+      revalidateTag(`services`);
       return res;
     });
 }

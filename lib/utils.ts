@@ -57,3 +57,8 @@ export function openModal({ closeOnProceed, content, title, ...props }: Omit<Mod
     ...props,
   } as never);
 }
+
+export function truncate(str: string, length: number) {
+  if (str.length <= length) return str;
+  return str.slice(0, length) + '...';
+}

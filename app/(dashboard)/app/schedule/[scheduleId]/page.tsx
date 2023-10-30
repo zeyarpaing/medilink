@@ -30,7 +30,9 @@ export default async function Page({ params }: Props) {
   const scheduleId = params.scheduleId;
   let initialValues: Partial<Schedule> = {};
   if (scheduleId === 'new') {
-    initialValues = {};
+    initialValues = {
+      maxBooking: 1,
+    };
   } else {
     const schedule = await getSchedule(scheduleId);
     if (!schedule) {

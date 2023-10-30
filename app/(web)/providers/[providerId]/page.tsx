@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { truncate } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -61,7 +62,7 @@ export default async function Page({ params }: { params: { providerId: string } 
                 />
                 <div>
                   <h3 className="text-lg font-bold">{service.name}</h3>
-                  <p className="mt-1 opacity-80">{service.description}</p>
+                  <p className="mt-1 opacity-80">{truncate(service.description, 200)}</p>
                   {/* <div className="my-2 ">
                     <p className="text-xs font-semibold uppercase text-foreground/50">Booking fees</p>{' '}
                     <p className="text-lg">{service.bookingPrice} MMK </p>

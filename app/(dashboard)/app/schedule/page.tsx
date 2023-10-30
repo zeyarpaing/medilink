@@ -66,7 +66,7 @@ export default async function Page({ params, searchParams }: Props) {
         <div>
           <h1 className="text-2xl font-bold ">Schedules</h1>
           <p className="text-sm text-gray-500">
-            {account?.role === 'ADMIN' ? 'Manage your provided services' : 'Track the schedules assigned to you'}
+            {account?.role === 'ADMIN' ? 'Manage your provided schedules' : 'Track the schedules assigned to you'}
           </p>
         </div>
         <div>
@@ -75,14 +75,9 @@ export default async function Page({ params, searchParams }: Props) {
           </CTAButton>
         </div>
       </div>
-      {schedules?.length === 0 ? (
-        <EmptyState title="No schedules yet" description="Create a new schedule" />
-      ) : (
-        <>
-          {/* @ts-ignore */}
-          <Schedules role={account?.role} schedules={schedules} />
-        </>
-      )}
+
+      {/* @ts-ignore */}
+      <Schedules role={account?.role} schedules={schedules} />
     </div>
   );
 }

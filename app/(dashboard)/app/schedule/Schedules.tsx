@@ -51,7 +51,10 @@ export default function Schedules({ role, schedules }: Props) {
         </div>
         {schedules.length === 0 ? (
           <div>
-            <EmptyState description={'There is no schedules yet for selected date'} title={'Empy schedule'} />
+            <EmptyState
+              description={'There is no schedules yet ' + (searchParams.get('date') ? 'for selected date' : '')}
+              title={'Empy schedule'}
+            />
           </div>
         ) : (
           <ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">

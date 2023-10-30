@@ -1,5 +1,6 @@
 import CTAButton from '@/components/CTAButton';
 import Card from '@/components/Card';
+import EmptyState from '@/components/EmptyState';
 import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
@@ -36,13 +37,20 @@ export default async function Page() {
         </div>
       </div>
       <section className="relative z-0 mb-6 flex flex-col gap-4">
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <li key={service.id}>
-              <Card {...service} link={`service/${service.id}`} title={service.name} />
-            </li>
-          ))}
-        </ul>
+        {services?.length === 0 ? (
+          <EmptyState
+            title="No services yet"
+            description="Start creating services that your healthcare provider offers"
+          />
+        ) : (
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <li key={service.id}>
+                <Card {...service} link={`service/${service.id}`} title={service.name} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );

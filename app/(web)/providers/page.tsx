@@ -1,18 +1,22 @@
 import Button from '@/components/Button';
 import prisma from '@/lib/prisma';
 import { $cache } from '@/lib/services';
+import { truncate } from '@/lib/utils';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import { HealthcareProvider } from '@prisma/client';
 import Image from 'next/image';
 
-const getProviders = $cache((providerType) =>
+export const dynamic = 'force-dynamic';
+
+const getProviders = (providerType: HealthcareProvider['type']) =>
   prisma.healthcareProvider.findMany({
     where: providerType
       ? {
           type: providerType,
         }
       : {},
-  }),
-);
+  });
+
 export default async function Page({
   searchParams,
 }: {
@@ -22,14 +26,11 @@ export default async function Page({
 }) {
   const providerType = searchParams.type?.toUpperCase();
 
-  const providers = await getProviders(providerType);
+  const providers = await getProviders(providerType as HealthcareProvider['type']);
 
   return (
     <section className="mcontainer min-h-screen py-12">
-      <h1 className="header mb-4 mt-12 capitalize">Hospitals and clinics</h1>
-      <p className="mb-12 text-lg font-medium">
-        Medilink is used by the best healthcare providers in Myanmar. Find the best {providerType} in your area and book
-      </p>
+      <h1 className="header mb-4 mt-12">Hospitals and clinics</h1>
       <ul className=" grid grid-cols-1 gap-6 pb-12 md:grid-cols-2 lg:grid-cols-3">
         {providers.map((provider) => (
           <Card
@@ -59,7 +60,7 @@ export default async function Page({
             </CardBody>
             <CardFooter className="justify-between border border-zinc-200 bg-white/60 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
               <div className="w-full px-2 pb-2">
-                <p className="mb-4 text-sm ">{provider.description}</p>
+                <p className="mb-4 text-sm ">{truncate(provider.description, 200)}</p>
                 <div className="text-right">
                   <Button href={`/providers/${provider.id}`} isLink radius="full">
                     Visit
