@@ -4,8 +4,7 @@ import { Skeleton } from '@nextui-org/skeleton';
 export default async function Loading() {
   return (
     <section className="mcontainer min-h-screen py-12">
-      <h1 className="header mb-4 mt-12 capitalize">Hospitals and clinics</h1>
-      <p className="mb-12 text-lg font-medium">Medilink is used by the best healthcare providers in Myanmar.</p>
+      <h1 className="header mb-4 mt-12">Hospitals and clinics</h1>
       <ul className=" grid grid-cols-1 gap-6 pb-12 md:grid-cols-2 lg:grid-cols-3">
         {Array(6)
           .fill(0)

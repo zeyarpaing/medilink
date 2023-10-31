@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  description: 'Authentication forms built using the components.',
-  title: 'Authentication',
+  description: 'Authentication for medilink',
+  title: 'Medilink | Authentication',
 };
 
 export default function AuthenticationPage({ children }: { children: ReactNode }) {

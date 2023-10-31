@@ -4,7 +4,6 @@ import CTAButton from '@/components/CTAButton';
 import Form from '@/components/form/Form';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
-import { Formik } from 'formik';
 import { useSession } from 'next-auth/react';
 
 export default function ContactForm() {

@@ -122,32 +122,4 @@ export default async function Page({ params }: { params: { serviceId: string } }
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="mcontainer min-h-screen py-12">
-  //     <div className="mb-4">
-  //       <h1 className="text-3xl font-semibold">{service.name}</h1>
-  //       <p className="text-foreground/70">{service.description}</p>
-  //     </div>
-
-  //     <h2 className="mt-4 text-2xl font-semibold">Schedules</h2>
-  //     <ul className="mt-2">
-  //       {service.schedule.map((schedule) => (
-  //         <li className="mt-2 rounded-md border border-gray-200 p-3 shadow-md" key={schedule.id}>
-  //           <h3 className="text-lg font-semibold">Date: {format(schedule.dateTime, 'dd MMM yyyy')} </h3>
-  //           <p className="mt-2 text-foreground/70">
-  //             Time: {format(schedule.dateTime, 'hh:mm a')} | Duration: {schedule.duration} minutes
-  //           </p>
-  //           <p className="text-bold">Booked : {bookings[schedule.id]}</p>
-  //           <p> Max booking : {schedule.maxBooking}</p>
-  //           {session?.user?.role === 'USER' ? (
-  //             <CTAButton href={`${service.id}/book/${schedule.id}`} isLink>
-  //               Book this schedule
-  //             </CTAButton>
-  //           ) : null}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   </div>
-  // );
 }

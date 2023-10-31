@@ -71,10 +71,6 @@ export default function ProviderForm({ initialValues }: Props) {
                       label: 'Clinic',
                       value: 'CLINIC',
                     },
-                    {
-                      label: 'Laboratory',
-                      value: 'LABORATORY',
-                    },
                   ]}
                 />
                 <Input label="Slug" name="slug" />

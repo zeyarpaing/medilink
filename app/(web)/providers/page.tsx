@@ -5,8 +5,6 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { HealthcareProvider } from '@prisma/client';
 import Image from 'next/image';
 
-export const dynamic = 'force-dynamic';
-
 const getProviders = (providerType: HealthcareProvider['type']) =>
   prisma.healthcareProvider.findMany({
     where: providerType
