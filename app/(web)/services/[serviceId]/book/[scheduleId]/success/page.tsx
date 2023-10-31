@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import Button from '@/components/Button';
 import CheckBox from '@/components/form/CheckBox';
 import { getServerSession } from 'next-auth';

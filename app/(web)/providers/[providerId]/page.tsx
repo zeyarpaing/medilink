@@ -1,22 +1,43 @@
 import prisma from '@/lib/prisma';
 import { truncate } from '@/lib/utils';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { cache } from 'react';
 
-type Props = {};
+type Props = { params: { providerId: string } };
 
-export default async function Page({ params }: { params: { providerId: string } }) {
+const getProvider = cache(
+  async (id: string | number) =>
+    await prisma.healthcareProvider.findUnique({
+      include: {
+        services: true,
+      },
+      where: {
+        id: +id,
+      },
+    }),
+);
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const provider = await getProvider(params.providerId);
+
+  return {
+    title: provider?.name,
+    description: truncate(provider?.description ?? '', 250),
+    twitter: {
+      images: provider?.image,
+    },
+    openGraph: {
+      images: provider?.image,
+    },
+  };
+}
+
+export default async function Page({ params }: Props) {
   const id = params.providerId;
   if (!+id) return <div>Not found</div>;
-  const provider = await prisma.healthcareProvider.findUnique({
-    include: {
-      services: true,
-    },
-    where: {
-      id: parseInt(id),
-    },
-  });
+  const provider = await getProvider(id);
 
   if (!provider) {
     return <div>Not found</div>;
@@ -63,10 +84,6 @@ export default async function Page({ params }: { params: { providerId: string } 
                 <div>
                   <h3 className="text-lg font-bold">{service.name}</h3>
                   <p className="mt-1 opacity-80">{truncate(service.description, 200)}</p>
-                  {/* <div className="my-2 ">
-                    <p className="text-xs font-semibold uppercase text-foreground/50">Booking fees</p>{' '}
-                    <p className="text-lg">{service.bookingPrice} MMK </p>
-                  </div> */}
                   <div className="mt-5 ">
                     <p className="text-xs font-semibold uppercase text-foreground/50">Minimum duration</p>{' '}
                     <p className="text-lg">{service.minDuration} minutes </p>

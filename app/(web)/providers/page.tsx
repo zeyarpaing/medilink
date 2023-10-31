@@ -1,6 +1,5 @@
 import Button from '@/components/Button';
 import prisma from '@/lib/prisma';
-import { $cache } from '@/lib/services';
 import { truncate } from '@/lib/utils';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { HealthcareProvider } from '@prisma/client';

@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import CTAButton from '@/components/CTAButton';
 import prisma from '@/lib/prisma';
 import { Chip } from '@nextui-org/chip';

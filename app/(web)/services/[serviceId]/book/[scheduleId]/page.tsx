@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma';
 import Payment from './Payment';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { scheduleId: string; serviceId: string } }) {
