@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { $cache, getAccount } from '@/lib/services';
 import { Role } from '@prisma/client';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 const getBookings = $cache(
   (role: Role, accountId: string) =>

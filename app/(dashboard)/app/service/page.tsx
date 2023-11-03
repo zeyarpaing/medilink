@@ -5,7 +5,7 @@ import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 const getServices = $cache(
   (providerId: number) =>
