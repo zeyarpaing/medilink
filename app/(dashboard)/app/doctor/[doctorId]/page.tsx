@@ -8,6 +8,7 @@ import { tr } from 'date-fns/locale';
 import { headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 type Props = {
   params: {
@@ -35,7 +36,8 @@ export default async function NormalRoute({ params }: Props) {
   const headersInstance = headers();
   const host = headersInstance.get('host');
 
-  const { provider } = await getProvider();
+  const { provider, account } = await getProvider();
+  if (account?.role !== 'ADMIN') redirect('/app');
   if (!provider) return <SetupProvider />;
 
   const doctorId = params.doctorId;
@@ -79,7 +81,7 @@ export default async function NormalRoute({ params }: Props) {
       {doctor?.Account.image ? (
         <Image
           alt={doctor?.Account.name!}
-          className="h-56 w-full rounded-xl object-cover"
+          className="h-56 w-full rounded-xl object-cover py-4"
           height={500}
           src={doctor?.Account.image!}
           width={1000}

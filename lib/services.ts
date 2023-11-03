@@ -1,41 +1,36 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import prisma from '@/lib/prisma';
-import { Account, Role, User } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 
 import { unstable_cache } from 'next/cache';
+
+export function $cache<T extends (...args: any[]) => Promise<any>>(fn: T, tags?: string[]) {
+  // return unstable_cache(fn, tags && [...tags], { tags });
+  return fn;
+}
 
 export const getAccount = async function () {
   const session = await getServerSession(authOptions);
   return session?.user ?? null;
 };
+// ['account']
 
-export function $cache<T extends (...args: any[]) => Promise<any>>(fn: T, tags?: string[], key?: string[]) {
-  return unstable_cache(fn, key, { tags });
-}
-
-export const getProvider = async () => {
+export const getProvider = $cache(async () => {
   const user = await getAccount();
-  const provider = await $cache(
-    async (user?: Account) => {
-      if (user?.id || user?.role !== 'ADMIN')
-        return {
-          account: user ?? null,
-          provider: null,
-        };
-      const provider = await prisma.healthcareProvider.findFirst({
-        where: {
-          Admin: {
-            accountId: user?.id,
-          },
-        },
-      });
-      return { account: user ?? null, provider: provider ?? null };
+  if (!user?.id || user?.role !== 'ADMIN')
+    return {
+      account: user ?? null,
+      provider: null,
+    };
+  const provider = await prisma.healthcareProvider.findFirst({
+    where: {
+      Admin: {
+        accountId: user?.id,
+      },
     },
-    ['provider'],
-  );
-  return provider(user as Account);
-};
+  });
+  return { account: user ?? null, provider: provider ?? null };
+}, ['provider']);
 
 export const getServicesOfProvider = $cache(
   (providerId: number) =>
