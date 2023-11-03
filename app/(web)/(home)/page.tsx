@@ -6,10 +6,10 @@ import ShieldIcon from '@/assets/icons/ShieldIcon';
 import CTAButton from '@/components/CTAButton';
 import FAQSection from '@/components/FAQSection';
 import { sitemap } from '@/lib/constants';
-import { getServerSession } from 'next-auth';
+import { getProvider } from '@/lib/services';
 
 export default async function Home() {
-  const session = await getServerSession();
+  const { account } = await getProvider();
 
   return (
     <>
@@ -25,11 +25,11 @@ export default async function Home() {
                   effortless healthcare management, seamless appointments,
                   <br /> and a healthier tomorrow.
                 </p>
-                {session?.user?.role === 'USER' ? (
+                {account?.role === 'USER' ? (
                   <CTAButton href={sitemap.healthProviders.href} isLink>
                     Start booking
                   </CTAButton>
-                ) : session?.user ? (
+                ) : account ? (
                   <CTAButton href={sitemap.app.href} isLink>
                     Start managing
                   </CTAButton>
