@@ -1,6 +1,5 @@
 import Schedules from '@/app/(dashboard)/app/schedule/Schedules';
 import CTAButton from '@/components/CTAButton';
-import EmptyState from '@/components/EmptyState';
 import SetupProvider from '@/components/SetupProvider';
 import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';

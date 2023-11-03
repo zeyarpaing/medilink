@@ -70,7 +70,7 @@ export default async function NormalRoute({ params }: Props) {
   const doctor = await getDoctor(doctorId);
 
   return (
-    <div>
+    <div className="mx-auto max-w-md">
       <Link href="/app/doctor">
         <h1 className="text-2xl font-bold ">
           {'<'} Dr. {doctor?.Account.name}

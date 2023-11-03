@@ -10,7 +10,6 @@ import Select from '@/components/form/Select';
 import Effect from '@/components/utils/Effect';
 import { slugify } from '@/lib/utils';
 import { Kbd } from '@nextui-org/react';
-import { HealthcareProvider } from '@prisma/client';
 
 type Props = {
   initialValues: Partial<ProviderFormValues>;

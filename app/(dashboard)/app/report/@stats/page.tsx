@@ -3,8 +3,6 @@ import prisma from '@/lib/prisma';
 import { $cache, getProvider } from '@/lib/services';
 import React from 'react';
 
-type Props = {};
-
 const getStatsReport = $cache(async (providerId: number) => {
   const doctorCount = await prisma.doctor.count({
     where: {

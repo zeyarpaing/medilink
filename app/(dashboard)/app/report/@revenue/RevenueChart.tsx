@@ -5,13 +5,7 @@ import { AreaChart, Card, Title } from '@tremor/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const categories = ['Booking', 'Revenue($)'];
-const chartData = Array.from({ length: 12 }, (_, i) => ({
-  date: months[i],
-  Booking: Math.floor(Math.random() * 100),
-  'Revenue($)': Math.floor(Math.random() * 100),
-}));
 
 export const RevenueChart = ({
   data,
